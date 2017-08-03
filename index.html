@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <!-- External Scripts -->
+        <!-- jQuery -->
+        <script
+            src="http://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+        <!-- moment.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+        <!-- d3.js -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <!-- pet harbor
+        <script src="http://www.PetHarbor.com/petoftheday.asp?shelterlist='ORNC'&imgwid=160&imght=120&imgname=POD&bgcolor=FFFFFF&fgcolor=0000FF&type=cat&border=0&availableonly=1&SEQ=0&SHOWSTAT=1&fontface=arial&fontsize=2&noclientinfo=0&bigtitle=1&source=results" language=javascript type=text/javascript></script>
+        -->
+
+        <!-- fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Alegreya SC' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Cherry Swash' rel='stylesheet'>
+
+
+
+
+        <!-- Internal Scripts -->
+        <!--<script src="./wiki.js"></script>-->
+        <script src="./bundle.js"></script>
+        <!--<script src="./index.js"></script>-->
+        <!-- css -->
+        <link rel="stylesheet" href="./custom.css"/>
+
+
+    </head>
+    <body>
+        <div id="bg-container">
+            <img src="./leaf.jpg">
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div id="introText" class="center-div">
+                    Katie and Steven have been dating for...
+                </div>
+            </div>
+            <div class="row">
+                <div id="odometer-container" class="center-div switcher">
+                    <span class="odometer"></span>
+                    <span id="daysLabel"> days </span>
+                </div>
+            </div>
+            
+            <div id="explanation">
+                <label>From Wikipedia:</label>
+                <hr>
+                <div id="wiki" class="switcher"></div>
+                <div id="monthversary"></div>
+            </div>
+        </div>
+    </body>
+</html>
