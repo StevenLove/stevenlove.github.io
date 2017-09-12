@@ -26,7 +26,7 @@ const Wiki = (()=>{
 
     const getTitle = number => {
         const suffix = "_(number)";
-        if(number < 10){
+        if(number <= 10){
             return number+"";
         }
         if(number < 260){
