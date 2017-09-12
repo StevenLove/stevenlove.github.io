@@ -7316,7 +7316,7 @@ const Wiki = (()=>{
 
     const getTitle = number => {
         const suffix = "_(number)";
-        if(number < 10){
+        if(number <= 10){
             return number+"";
         }
         if(number < 260){
@@ -7398,4 +7398,4 @@ const Wiki = (()=>{
 })()
 
 module.exports = Wiki;
-},{"wtf_wikipedia":15}]},{},[38,1]);
+},{"wtf_wikipedia":15}]},{},[1,38]);
