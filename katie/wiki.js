@@ -1,109 +1,245 @@
 var wtf_wikipedia = require("wtf_wikipedia")
 
 const Wiki = (()=>{
-    const getMarkupFromAPI = (title,section,cb) => {
-        console.log("using wiki API");
+    const docs = {}
+    const oneOf = arr => {
+        return arr[Math.floor(Math.random()*arr.length)];
+    }
+    const startsWith = (str,val)=> str.indexOf(val) == 0;
+    const badSections = ["See also","References",""]
 
-        
-        const parseWikiResponse = obj => {
-            const id = Object.keys(obj.query.pages)[0];
-            var markup = obj.query.pages[id].revisions[0]["*"]
-            console.log(obj,markup);
-            return markup;
-        }
 
-        const request = {
-            url: "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=revisions&rvprop=content&rvsection="+section+"&titles="+title,
-            method: "GET",
-            headers: {
-                'Api-User-Agent': 'testing v1' 
-            },
+    const getDecadeSection = (doc,number) => {
+        number = Number(number);
+        console.log("number",number);
+        let decade = Math.floor(number/10)*10 +"";
+        console.log("decade",decade);
+        let exactMatches = doc.sections().filter(s=>s._title.indexOf(decade)>-1);
+        if(exactMatches.length > 0){
+            return exactMatches[0];
         }
-        $.ajax(request).then(response=>{
-            cb(parseWikiResponse(response));
+    }
+    const getCenturySection = (doc,number)=> {
+        number = Number(number);
+        console.log("number",number);
+        let century = Math.floor(number/100)*100;
+        let mil = millenium(number);
+        let diff = number - mil;
+        // looking for 1015 in the 1000s will be in a category like
+        // 1001-1099 rather than 1000-1099.
+        // but looking for 1115 in 1000s will be like
+        // 1100-1199.  So we make an adjustment if we are in the first century
+        if(diff < 100){
+            century+=1;
+        }
+        century += "";
+        console.log("century",century);
+        let exactMatches = doc.sections().filter(s=>startsWith(s._title,century));
+        if(exactMatches.length > 0){
+            return exactMatches[0];
+        }
+    }
+    const getMilleniumSection = (doc,number)=>{
+        number = Number(number);
+        console.log("number",number);
+        let mil = millenium(number);
+        let dmil = decamillenium(number);
+        let diff = number - dmil;
+        // looking for 1015 in the 1000s will be in a category like
+        // 1001-1099 rather than 1000-1099.
+        // but looking for 1115 in 1000s will be like
+        // 1100-1199.  So we make an adjustment if we are in the first century
+        if(diff < 1000){
+            mil+=1;
+        }
+        mil += "";
+        console.log("millenium",mil);
+        let exactMatches = doc.sections().filter(s=>startsWith(s._title,mil));
+        if(exactMatches.length > 0){
+            return exactMatches[0];
+        }
+    }
+    const millenium = number => {
+        return Math.floor(Number(number)/1000)*1000;
+    }
+    const decamillenium = number => {
+        return Math.floor(Number(number)/10000)*10000;
+
+    }
+    const getSentenceInList = (list,str) => {
+        let sentences = list.filter(li=>startsWith(li.text,str));
+        console.log("sentences",sentences,str);
+        if(sentences.length>0){
+            return sentences[0];
+        }
+        else{
+            return false;
+            // return getSentenceInList(list,Number(str)-1);
+        }
+    }
+    const getSentenceInSection = (section,str) => {
+        let lists = section.json().lists;
+        console.log("json",section.json());
+        console.log("lists",lists);
+        let result = lists.reduce((acc,curr)=>{
+            console.log("curr",curr);
+            if(acc) return acc;
+            return getSentenceInList(curr,str);
+        },false);
+
+        if(result){
+            return result;
+        }
+        let other = oneOf(oneOf(lists));
+        return {
+            text:str+" is not interesting 🙁<br>"+other.text
+        };
+    }
+    const getSectionFromDoc = (doc,number) => {
+        let allSections = doc.sections()
+        if(Number(number) % 100 == 0){
+            let preferred = allSections.filter(s=>{
+                if(startsWith(s._title,"Integers from")){
+                    return false;
+                }
+                if(startsWith(s._title,"Selected numbers")){
+                    return false;
+                }
+                if(s._title == ""){
+                    return false;
+                }
+                if(s.depth > 0){
+                    return false;
+                }
+                return true;
+            })
+            if(preferred.length>0){
+                return oneOf(preferred);
+            }
+            else{
+                return allSections.filter(s=>s._title=="")[0];
+            }
+        }
+        console.log("all sections",allSections);
+        let goodSections = allSections.filter(s=>{
+            if(badSections.includes(s._title)){
+                return false;
+            }
+            return true;
+        });
+        console.log("good sectiosn",goodSections);
+        let listSections = goodSections.filter(s=>{
+            let l = s.lists();
+            console.log("lists",l);
+            return l.length>0;
+        });
+        console.log("list sections",listSections);
+        if(listSections.length > 0){
+            return oneOf(listSections);
+        }
+        else if(goodSections.length > 0){
+            return oneOf(goodSections);
+        }
+        else{
+            return oneOf(allSections);
+        }
+    }
+
+    const isFullArticle = (doc,number)=>{
+        console.log(doc.title(),"ittle");
+        return startsWith(doc.title(),number);
+    }
+    const validNumber = number => {
+        return Math.floor(Number(number));
+    }
+    /* requests the wikipedia page for a number */
+    const getDoc = (number) => {
+        if(docs[number]){
+            return new Promise((resolve,reject)=>{
+                resolve(docs[number]);
+            })
+        }
+        else{
+            let url = number + "_(number)";
+            if(Number(number) > 10000){
+                let d = decamillenium(number);
+                url = d + "_(number)";
+            }
+            else if(Number(number) > 1000){
+                let m = millenium(number);
+                url = m + "_(number)";
+            }
+            console.log("url",url);
+
+            return wtf_wikipedia.fetch(url, 'en').then(doc=>{
+                docs[number] = doc; // cache it
+                return doc;
+            })
+        }
+    }
+
+    /* tries to get a section with a title that starts with the given number */
+    const getExactSection = (doc,number)=>{
+        let matches = doc.sections().filter(s=>{
+            return startsWith(s._title,number+"")
+        });
+        console.log("matches",matches,number+"");
+        if(matches.length>0){
+            return matches[0];
+        }
+    }
+    const getFactWTF = (number,cb) => {
+        number = validNumber(number);
+        console.log("number",number);
+
+        // if(number > 1000)
+
+        getDoc(number).then(doc=>{
+            let html;
+            console.log("sections",doc.sections());
+
+            if(isFullArticle(doc,number)){
+                console.log("full article");
+                let section = getSectionFromDoc(doc,number);
+                html = section.html();
+                console.log("html",html);
+            }
+            else{
+                let exact = getExactSection(doc,number);
+                if(exact){
+                    console.log("exact section",exact);
+                    html = exact.html();
+                }
+                else if(Number(number) < 1000){
+                    let section = getDecadeSection(doc,number);
+                    console.log("decade",section);
+                    let sentence = getSentenceInSection(section,number+"");
+                    console.log("sentence",sentence);
+                    html = sentence.text;//.html();
+                }
+                else if(Number(number) < 10000){
+                    let section = getCenturySection(doc,number);
+                    console.log("century",section);
+                    let sentence = getSentenceInSection(section,number+"");
+                    console.log("sentence",sentence);
+                    html = sentence.text;//.html();
+                }
+                else{
+                    let section = getMilleniumSection(doc,number);
+                    console.log("millenium",section);
+                    let sentence = getSentenceInSection(section,number+"");
+                    console.log("sentence",sentence);
+                    html = sentence.text;//.html();
+                }
+                
+            }
+            cb(html);
+            
         });
     }
 
-    const getTitle = number => {
-        const suffix = "_(number)";
-        if(number <= 10){
-            return number+"";
-        }
-        if(number < 260){
-            return number+suffix;
-        }
-        if(number < 300){
-            var roundToTen = 10*Math.floor(number / 10);
-            return roundToTen+suffix;
-        }
-        else{
-            var roundToHundred = 100*Math.floor(number/100);
-            return roundToHundred+suffix;
-        }
-    }
-    const getSection = number => {
-        if(number < 260){
-            return 1;
-        }
-        if(number == 260){
-            return 0;
-        }
-        if(number <= 300){
-            if(number % 10 == 0){ //270, 280, 290, 300
-                return 1;
-            }
-            return number % 10 + 3;
-        }
-        else{ // 301 - ...
-            var base = number%100;
-            var numTens = Math.floor(base/10);
-            return base + 4 + numTens;
-        }
-    }
-
-    const parseMarkup = markup => {
-        var parsed = wtf_wikipedia.plaintext(markup);
-    return parsed;
-    }
-
-
-    const facts = {};
-    const getFact = (number,cb) => {
-        if(facts[number]){
-            cb(facts[number]);
-            return;
-        }
-
-        if(number < 10){
-            getFullFacts(number,cb);
-            return;
-        }
-
-
-
-        var title = getTitle(number);
-        var section = getSection(number);
-        console.log("title",title,"section",section);
-        getMarkupFromAPI(title,section,function(markup){
-            console.log("markup",markup);
-            var html = parseMarkup(markup);
-            facts[number] = html;
-            console.log("html",html);
-            cb(html);
-        })
-    }
-
-    const getFullFacts = (number,cb) => {
-        const title = getTitle(number);
-        wtf_wikipedia.from_api(title,"en",function(obj){
-            cb(wtf_wikipedia.plaintext(obj));
-        })
-    }
-
     return({
-        getFact:getFact,
-        parseMarkup:parseMarkup,
-        getFullFacts:getFullFacts
+        getFact:getFactWTF
     })
 })()
 
