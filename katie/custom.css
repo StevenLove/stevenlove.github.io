@@ -61,7 +61,13 @@ body{
     font-weight: bold;
     font-size:22px;
 }
-
+html{
+    overflow-x:hidden;
+}
+img{
+    max-width:75px;
+    max-height:75px;
+}
 
 
 /* Animation */

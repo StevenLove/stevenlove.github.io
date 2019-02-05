@@ -66,17 +66,17 @@ const toggleDaysMonths = ()=>{
 }
 $(document).ready(()=>{
 
-    fadeIn(showDays);
-    var handle = setInterval(toggleDaysMonths,9000);
-    $("#explanation").on("scroll mousemove mouseenter mouseleave",()=>{
-        clearInterval(handle);
-        handle = setInterval(toggleDaysMonths,9000);
-    });
-    $(document).on("click touch",()=>{
-        clearInterval(handle);
-        handle = setInterval(toggleDaysMonths,9000);
-        toggleDaysMonths();
-    })
+    fadeIn(showYears);
+    // var handle = setInterval(toggleDaysMonths,9000);
+    // $("#explanation").on("scroll mousemove mouseenter mouseleave",()=>{
+    //     clearInterval(handle);
+    //     handle = setInterval(toggleDaysMonths,9000);
+    // });
+    // $(document).on("click touch",()=>{
+    //     clearInterval(handle);
+    //     handle = setInterval(toggleDaysMonths,9000);
+    //     toggleDaysMonths();
+    // })
 
     // $("#testNumber").on("change",()=>{
     //     Wiki.getFact($("#testNumber").val(),html=>{
