@@ -194,7 +194,7 @@ const Wiki = (()=>{
 
         // if(number > 1000)
 
-        getDoc(number).then(doc=>{
+        return getDoc(number).then(doc=>{
             let html;
             console.log("sections",doc.sections());
 
