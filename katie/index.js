@@ -1,17 +1,18 @@
 const ANNIVERSARY = moment("10-19-2016","MM-DD-YYYY");
+const END_DATE = moment("7-31-2019","MM-DD-YYYY");
 const Wiki = require("./wiki.js");
 
 const getAnniversaryDays = () => {
-    return moment().diff(ANNIVERSARY,"days");
+    return END_DATE.diff(ANNIVERSARY,"days");
 }
 const getAnniversaryMonths = () => {
-    return moment().diff(ANNIVERSARY,"months",true);
+    return END_DATE.diff(ANNIVERSARY,"months",true);
 }
 const getAnniversaryYears = () => {
-    return moment().diff(ANNIVERSARY,"years",true);
+    return END_DATE.diff(ANNIVERSARY,"years",true);
 }
 const getAnniversaryHours = () => {
-    return moment().diff(ANNIVERSARY,"hours",true);
+    return END_DATE.diff(ANNIVERSARY,"hours",true);
 }
 
 const fadeIn = cb => {
