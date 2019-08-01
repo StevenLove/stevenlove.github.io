@@ -1,5 +1,5 @@
 const ANNIVERSARY = moment("10-19-2016","MM-DD-YYYY");
-const END_DATE = moment("7-31-2019","MM-DD-YYYY");
+const END_DATE = moment("07-31-2019","MM-DD-YYYY");
 const Wiki = require("./wiki.js");
 
 const getAnniversaryDays = () => {

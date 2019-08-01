@@ -1,18 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const ANNIVERSARY = moment("10-19-2016","MM-DD-YYYY");
+const END_DATE = moment("07-31-2019","MM-DD-YYYY");
 const Wiki = require("./wiki.js");
 
 const getAnniversaryDays = () => {
-    return moment().diff(ANNIVERSARY,"days");
+    return END_DATE.diff(ANNIVERSARY,"days");
 }
 const getAnniversaryMonths = () => {
-    return moment().diff(ANNIVERSARY,"months",true);
+    return END_DATE.diff(ANNIVERSARY,"months",true);
 }
 const getAnniversaryYears = () => {
-    return moment().diff(ANNIVERSARY,"years",true);
+    return END_DATE.diff(ANNIVERSARY,"years",true);
 }
 const getAnniversaryHours = () => {
-    return moment().diff(ANNIVERSARY,"hours",true);
+    return END_DATE.diff(ANNIVERSARY,"hours",true);
 }
 
 const fadeIn = cb => {
