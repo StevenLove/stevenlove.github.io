@@ -12,29 +12,11 @@
 	import Footer from "@components/common/footer/footer.svelte";
 	import { translate } from "@app/translations/translate";
 	import {wordList} from "./home";
-	// import {readFileSync} from 'fs';
-	// import path from 'path';
-
-	// import Input from "./input.svelte";
-
-
-	let wordToTest = "hi"
-	let isAWord = false;
 	
-	function loadTextFile(){
-		// wordList = readFileSync(path.join(__dirname, './wordlist.txt'), 'utf-8');
-	}
+	let wordToTest = "hi"
 
-	function test(value:String):Boolean{
-		console.log("test",value);
-		let str = value
-		if(str.length>3){
-			return true;
-		}else{
-			return false
-		}
-	}
 	function isInWordList(word:String):Boolean{
+		word = word.toLowerCase();
 		const regex = RegExp("^"+word+"$","gm")
 		let m;
 		let found = false;
@@ -50,13 +32,6 @@
 				found = true;
 				return;
 			})
-			
-			// // The result can be accessed through the `m`-variable.
-			// m.forEach((match, groupIndex) => {
-			// 	console.log(`Found match, group ${groupIndex}: ${match}`);
-			// 	found = true;
-			// 	return;
-			// });
 		}
 		return found;
 	}
@@ -68,12 +43,11 @@
 			return "❌ "+word + " is not a wordle word"
 		}
 	}
-	loadTextFile()
 </script>
 
 <!-- <Menu /> -->
 
-<input bind:value={wordToTest} maxlength="5"/>
+<input bind:value={wordToTest} maxlength="5" autocapitalize="false"/>
 <h3>{getDescription(wordToTest)}</h3>
 
 <!-- <div id="container">
