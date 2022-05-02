@@ -38,6 +38,7 @@
 		const regex = RegExp("^"+word+"$","gm")
 		let m;
 		let found = false;
+		if(word.length<5)return false;
 		while ((m = regex.exec(wordList)) !== null) {
 			// This is necessary to avoid infinite loops with zero-width matches
 			if (m.index === regex.lastIndex) {
@@ -59,12 +60,23 @@
 		}
 		return found;
 	}
+	function getDescription(word:String):String{
+		let bool = isInWordList(word)
+		if(bool){
+			return "✅ " + word + " is a wordle word"
+		}else{
+			return "❌ "+word + " is not a wordle word"
+		}
+	}
 	loadTextFile()
 </script>
 
-<Menu />
+<!-- <Menu /> -->
 
-<div id="container">
+<input bind:value={wordToTest} maxlength="5"/>
+<h3>{getDescription(wordToTest)}</h3>
+
+<!-- <div id="container">
 	<section class="hero is-medium is-primary is-bold">
 		<div class="hero-body">
 			<div class="container">
@@ -76,9 +88,9 @@
 		</div>
 	</section>
 	<div class="content has-text-centered">app/pages/home.svelte</div>
-</div>
+</div> -->
 
-<Footer />
+<!-- <Footer /> -->
 
 <style lang="scss">
 	@import "./home.scss";
