@@ -19,6 +19,17 @@ eval("!function(e,t){if(true)module.exports=t();else { var r, n; }}(this,(functi
 
 /***/ }),
 
+/***/ "./dictionary.ts":
+/*!***********************!*\
+  !*** ./dictionary.ts ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"load\": () => (/* binding */ load),\n/* harmony export */   \"searchDictionaryWithRegexp\": () => (/* binding */ searchDictionaryWithRegexp)\n/* harmony export */ });\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sql.js-httpvfs */ \"./node_modules/sql.js-httpvfs/dist/index.js\");\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./lib.ts\");\n\n\nconst workerUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sqlite.worker.js */ \"./node_modules/sql.js-httpvfs/dist/sqlite.worker.js\"), __webpack_require__.b);\nconst wasmUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sql-wasm.wasm */ \"./node_modules/sql.js-httpvfs/dist/sql-wasm.wasm\"), __webpack_require__.b);\nconst load = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(async function () {\n    let worker = await (0,sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__.createDbWorker)([\n        {\n            from: \"inline\",\n            config: {\n                serverMode: \"full\",\n                url: new URL(/* asset import */ __webpack_require__(/*! Dictionary.db */ \"./Dictionary.db\"), __webpack_require__.b).toString(),\n                // url: \"/Dictionary.db\",\n                // url: \"/example.sqlite3\",\n                requestChunkSize: 4096,\n            },\n        },\n    ], workerUrl.toString(), wasmUrl.toString());\n    let dict = await worker.db.query(`SELECT word FROM xxxxxentries`);\n    return dict.map(row => row.word); // convert from [{word:\"aardvark\"},{word:\"apple\"} to [\"aardvark\",\"apple\"]\n});\nasync function searchDictionaryWithRegexp(rx) {\n    let dic = await load();\n    return dic.filter(rx.test.bind(rx)); // filter out non-matches\n}\n\n\n//# sourceURL=webpack:///./dictionary.ts?");
+
+/***/ }),
+
 /***/ "./index.ts":
 /*!******************!*\
   !*** ./index.ts ***!
@@ -26,7 +37,29 @@ eval("!function(e,t){if(true)module.exports=t();else { var r, n; }}(this,(functi
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sql.js-httpvfs */ \"./node_modules/sql.js-httpvfs/dist/index.js\");\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__);\n\n// import {Database} from \"./sql/dist/8c500ff8a49b305f9ab6\nconst workerUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sqlite.worker.js */ \"./node_modules/sql.js-httpvfs/dist/sqlite.worker.js\"), __webpack_require__.b);\nconst wasmUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sql-wasm.wasm */ \"./node_modules/sql.js-httpvfs/dist/sql-wasm.wasm\"), __webpack_require__.b);\nlet ready = false;\nlet loadPromise = null;\nfunction load() {\n    if (loadPromise)\n        return loadPromise;\n    loadPromise = (0,sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__.createDbWorker)([\n        {\n            from: \"inline\",\n            config: {\n                serverMode: \"full\",\n                url: new URL(/* asset import */ __webpack_require__(/*! Dictionary.db */ \"./Dictionary.db\"), __webpack_require__.b).toString(),\n                // url: \"/Dictionary.db\",\n                // url: \"/example.sqlite3\",\n                requestChunkSize: 4096,\n            },\n        },\n    ], workerUrl.toString(), wasmUrl.toString()).then(worker => {\n        return worker.db.query(`SELECT word FROM xxxxxentries`)\n            .then(v => {\n            return v.map(row => row.word);\n        });\n        // return loadPromise\n    });\n    return loadPromise;\n}\nasync function searchDictionary(str) {\n    let dic = await load();\n    /* remove duplicate chars from the str */\n    let withoutDupes = str.split(\"\")\n        .filter(str => /^[a-z]/i.test(str.charAt(0))) // only letters\n        .filter((v, i, a) => a.indexOf(v) === i); // remove duplicates\n    if (withoutDupes.length < 0)\n        return [\"no word supplied\"];\n    if (withoutDupes.length > 12)\n        return [\"too many chars\"];\n    /* get a regexp that matches any of the chars in the str */\n    let regexp = new RegExp(`^[${withoutDupes.join(\"\")}]+$`, \"gi\");\n    // let regexp = new//\n    console.log(\"searching for\", regexp);\n    let filtered = dic.filter(word => {\n        // console.log(\"row\",row);\n        let test = regexp.test(word);\n        // console.log(\"test\",test);\n        return !!test;\n    });\n    return filtered.filter((v, i, a) => a.indexOf(v) === i);\n}\n// function objWordMatchesRegex(obj,regexp){\n//   return regexp.test(JSON.stringify(obj.word));\n// }\nfunction setupHTML() {\n    async function submit() {\n        let input = document.getElementById(\"input\").value;\n        let result = await searchDictionary(input);\n        console.log(\"result\", result);\n        let x = document.getElementById(\"textarea\");\n        console.log(\"x\", x);\n        x.value = result.join(\"\\n\");\n    }\n    /* Submit when we press enter */\n    document.getElementById(\"input\")?.addEventListener(\"keyup\", function (event) {\n        if (event.keyCode === 13) {\n            event.preventDefault();\n            submit();\n        }\n    });\n    document.getElementById(\"button\")?.addEventListener(\"click\", submit);\n}\nsetupHTML();\n\n\n//# sourceURL=webpack:///./index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib */ \"./lib.ts\");\n/* harmony import */ var _dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dictionary */ \"./dictionary.ts\");\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui */ \"./ui.ts\");\n\n\n\nasync function findAllTheStrings(text) {\n    let searchChars = text.split(\"\")\n        .filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.onlyHasLetters)\n        .filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.noDupes);\n    if (searchChars.length === 0) {\n        return [\"no valid letters\"];\n    }\n    if (searchChars.length > 12) {\n        return [\"too many letters\"];\n    }\n    return (await (0,_dictionary__WEBPACK_IMPORTED_MODULE_1__.searchDictionaryWithRegexp)(new RegExp(`^[${searchChars.join(\"\")}]+$`, \"gi\"))).filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.noDupes);\n}\n_ui__WEBPACK_IMPORTED_MODULE_2__.onSubmit(async function (inputText) {\n    _ui__WEBPACK_IMPORTED_MODULE_2__.setTextarea(\"loading...\\nShould take ~4 seconds\");\n    let result = await findAllTheStrings(inputText);\n    _ui__WEBPACK_IMPORTED_MODULE_2__.setTextarea(result.join(\"\\n\"));\n});\n\n\n//# sourceURL=webpack:///./index.ts?");
+
+/***/ }),
+
+/***/ "./lib.ts":
+/*!****************!*\
+  !*** ./lib.ts ***!
+  \****************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"FILTERS\": () => (/* binding */ FILTERS),\n/* harmony export */   \"memoize\": () => (/* binding */ memoize)\n/* harmony export */ });\nfunction memoize(method) {\n    let cache = {};\n    return async function () {\n        let args = JSON.stringify(arguments);\n        cache[args] = cache[args] || method.apply(this, arguments);\n        return cache[args];\n    };\n}\nconst FILTERS = {\n    \"onlyHasLetters\": function (str) { return /^[a-z]+$/i.test(str); },\n    \"noDupes\": function (v, i, a) { return a.indexOf(v) === i; }\n};\n\n\n//# sourceURL=webpack:///./lib.ts?");
+
+/***/ }),
+
+/***/ "./ui.ts":
+/*!***************!*\
+  !*** ./ui.ts ***!
+  \***************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"onSubmit\": () => (/* binding */ onSubmit),\n/* harmony export */   \"setTextarea\": () => (/* binding */ setTextarea)\n/* harmony export */ });\nfunction getInputText() { return document.getElementById(\"input\").value; }\nfunction onSubmit(handler) {\n    /* Submit when we press enter */\n    document.getElementById(\"input\")?.addEventListener(\"keyup\", function (event) {\n        if (event.keyCode === 13) {\n            event.preventDefault();\n            handler(getInputText());\n        }\n    });\n    /* Submit when we click the button */\n    document.getElementById(\"button\")?.addEventListener(\"click\", () => handler(getInputText()));\n}\nfunction setTextarea(text) {\n    document.getElementById(\"textarea\").value = text;\n}\n\n\n//# sourceURL=webpack:///./ui.ts?");
 
 /***/ }),
 
