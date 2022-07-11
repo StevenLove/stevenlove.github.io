@@ -17,7 +17,8 @@ function load() {
         from: "inline",
         config: {
           serverMode: "full",
-          url: "/Dictionary.db",
+          url: new URL("Dictionary.db", import.meta.url).toString(),
+          // url: "/Dictionary.db",
           // url: "/example.sqlite3",
           requestChunkSize: 4096,
         },
