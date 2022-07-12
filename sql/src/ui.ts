@@ -29,12 +29,11 @@ export const onChangeTextInput = implementOnTextInputChanged("input");
 export const onChangeRegexInput = implementOnTextInputChanged("regexInput");
 export const onChangeInputN = implementOnNumberInputChanged("inputNRow");
 export const onChangeInputNTotal = implementOnNumberInputChanged("inputNTotal");
-export const onPressRandomize = (handler:()=>void)=>{
-    getElement("randomize").addEventListener("click",()=>{
-        lib.timeStart("input")
-        handler()
-    })
-}
+// export const onPressRandomize = (handler:()=>void)=>{
+//     getElement("randomize").addEventListener("click",()=>{
+//         handler()
+//     })
+// }
 
 export function displayTheseWords(text:string[]){
     let time = new Date().getTime();

@@ -1,6 +1,5 @@
-import { createDbWorker, WorkerHttpvfs } from "sql.js-httpvfs";
 import { getWorker } from "./dictionary0";
-import {memoize,debounce,isMac} from './lib';
+import {memoize} from './lib';
 import * as Worker from "./workerWrapper";
 
 const MAC_DICTIONARY = {

@@ -62,7 +62,7 @@ UI.onChangeInputNTotal(async (n:number)=>{
   useRegex(".*(.).*"+(new Array(n-1).fill("\\1")).join(".*")+".*")
 })
 
-UI.onPressRandomize(searchForSomethingInteresting);
+// UI.onPressRandomize(searchForSomethingInteresting);
 
 
 function useRegex(regexString:string){
