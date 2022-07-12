@@ -69,3 +69,4 @@ async function displayDefinitions(text:string){
     }
 }
 
+export {IDs};

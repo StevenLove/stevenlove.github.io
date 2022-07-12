@@ -1,4 +1,5 @@
 import * as lib from "./lib";
+import { updateQueryString } from "./querystring";
 import { setRegexInput } from "./ui";
 
 export const IDs = {
@@ -42,6 +43,7 @@ export function implementOnTextInputChanged(id:IDs){
             lib.timeStart("input")
             handler(getElement(id).value)
             clearInputsOtherThan(id);
+            updateQueryString({[id]:getElement(id).value})
         })
     }
 }
@@ -56,6 +58,7 @@ export function implementOnNumberInputChanged(id:IDs){
             }else{
                 handler(v);
             }
+            updateQueryString({[id]:getElement(id).value})
             clearInputsOtherThan(id);
         })
     }

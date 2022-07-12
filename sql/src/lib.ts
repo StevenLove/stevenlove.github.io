@@ -76,3 +76,7 @@ export function timeEnd(name:string){
 export function isMac():boolean{
     return navigator.platform.toLowerCase().indexOf("mac")>-1;
 }
+
+export function from(a:number,b:number){return Math.floor(Math.random()*(b-a+1))+a;}
+export function oneOf<T>(array:T[]):T{return array[Math.floor(Math.random()*array.length)];}
+export function getRandomChar(){return String.fromCharCode(Math.floor(Math.random()*26)+97)}

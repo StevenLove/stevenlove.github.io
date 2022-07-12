@@ -1,18 +1,29 @@
 import * as Dictionary from "./dictionary";
 import { FILTERS} from "./lib";
 import * as UI from "./ui";
+import { from, oneOf, getRandomChar } from "./lib";
+import { getQueryObject } from "./querystring";
 
 async function init(){
   UI.displayTheseWords(["loading dictionary..."]);
   await Dictionary.preloadWordList();
-  searchForSomethingInteresting();
+  if(!processQueryString()){
+    searchForSomethingInteresting();
+  }
 }
 init();
 
-/* function to choose one of an array */
-function from(a:number,b:number){return Math.floor(Math.random()*(b-a+1))+a;}
-function oneOf<T>(array:T[]):T{return array[Math.floor(Math.random()*array.length)];}
-let getRandomChar = ()=>{return String.fromCharCode(Math.floor(Math.random()*26)+97)}
+function processQueryString(){
+  let query = getQueryObject();
+  console.log("query",query);
+  return Object.keys(query).some(key=>{
+    if(Object.values(UI.IDs).includes(key)){
+      UI.setAndTrigger((key as UI.IDs),query[key]);
+      return true;
+    }
+  });
+}
+
 function searchForSomethingInteresting(){
   /* randomly choose one of 5 options */
   let option = from(0,4);
@@ -35,12 +46,11 @@ function searchForSomethingInteresting(){
       ".*ooz|uze|euz.*",
       ".*urple.*",
       ".*rg[aoeui]r",
+      ".*e[ae]+.*zy.*",
     ]));
       break;
   }
 }
-
-function toRegExp(str:string):RegExp{return new RegExp(`^${str}$`,"i")}
 
 UI.onChangeTextInput(async (text:string)=>{
   useRegex('['+text.split("").filter(FILTERS.onlyHasLetters).map(x=>x.toLowerCase()).filter(FILTERS.noDupes).join("")+']+');
@@ -62,13 +72,16 @@ UI.onChangeInputNTotal(async (n:number)=>{
   useRegex(".*(.).*"+(new Array(n-1).fill("\\1")).join(".*")+".*")
 })
 
-// UI.onPressRandomize(searchForSomethingInteresting);
-
-
+/* Enact a search with a given regex string
+  1. Populate the regex textbox with the appropriate text
+  2. Convert to an actual regex and search with that
+  3. Display the results or an error message
+ */
 function useRegex(regexString:string){
   UI.setRegexInput(regexString);
   try{
-    Dictionary.searchDictionaryWithRegexp(toRegExp(regexString)).then(results=>{
+    Dictionary.searchDictionaryWithRegexp(new RegExp(`^${regexString}$`,"i"))
+    .then(results=>{
       UI.displayTheseWords(results);
     }).catch(()=>{
       UI.displayTheseWords(["regexp timed out"]);
