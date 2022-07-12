@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 
-<title> Word Permuter </title>
+<head>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <title> Dictionary Search Fun </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="./style.css">
+</head>
 <body>
-    <h3> Word Permuter </h3>
-    <p> Type something in below and hit [Enter].</p>
-    <p> You'll be rewarded with a list of all the words that can be constructed using just the letters in your word!</p>
-    <input type="text" id="input" placeholder="Enter a word">
-    <button id="button">Submit</button><br>
-    <textarea id="textarea" style="overflow-y:scroll;" disabled rows="20" cols="20">
-    </textarea>
+    <h3> Dictionary Search Fun <!--<button id="randomize">Randomize</button>--></h3>
+    <!-- <div>Search for words with <input type="number" id="inputNTotal2" style="width:2em"> of the same letter </div> -->
+    <div>Search for words with <input type="number" id="inputNTotal" style="width:2em"> of the same letter </div>
+    <div>Search for words with <input type="number" id="inputNRow" style="width:2em"> of the same letter in a row </div>
+    <div>Search for words containing only the letters within <input type="text" id="input" placeholder="Enter a word"></div>
+    <div>Search for words containing these letters <b>in order</b> <input type="text" id="inputInOrder" placeholder="Enter a word"></div>
+    <!-- <div>Search for words containing these letters <b>in any</b> <input type="text" id="input" placeholder="Enter a word"></div> -->
+
+    <div>Search for words matching this <a href="https://dl.icewarp.com/online_help/203030104.htm">Regular Expression</a>
+        <span>
+            /^<input type="text" id="regexInput" placeholder="[taco]+">$/i
+        </span>
+    </div>
+
+    <br>
+    <b>RESULTS:</b><br/>
+    <span id="textarea" style="
+    overflow-y:scroll;
+    width:12em;
+    height:25em;
+    border:1px solid black;
+    padding:none;
+    margin:none;
+    display:inline-block;
+    ">
+    <div id="resultsbg"></div>
+    <div id="results"></div>
+    </span>
+    <textarea id="definition" style="overflow-y:scroll;" disabled rows="25" cols="80">
+Hover over a word to see its definition.
+    </textarea> 
 </body>
 
 <script src="./dist/bundle.js"></script>

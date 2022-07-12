@@ -9,6 +9,28 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/microevent.ts/lib/Event.js":
+/*!*************************************************!*\
+  !*** ./node_modules/microevent.ts/lib/Event.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar factories = [];\nfactories[0] = function () {\n    return function dispatcher0() { };\n};\nfactories[1] = function (callback, context) {\n    if (typeof (context) === 'undefined')\n        return callback;\n    return function dispatcher1(payload) {\n        callback(payload, context);\n    };\n};\nfunction getFactory(handlerCount) {\n    if (!factories[handlerCount])\n        factories[handlerCount] = compileFactory(handlerCount);\n    return factories[handlerCount];\n}\nfunction compileFactory(handlerCount) {\n    var src = 'return function dispatcher' + handlerCount + '(payload) {\\n';\n    var argsHandlers = [], argsContexts = [];\n    for (var i = 0; i < handlerCount; i++) {\n        argsHandlers.push('cb' + i);\n        argsContexts.push('ctx' + i);\n        src += '    cb' + i + '(payload, ctx' + i + ');\\n';\n    }\n    src += '};';\n    return new (Function.bind.apply(Function, [void 0].concat(argsHandlers.concat(argsContexts), [src])))();\n}\nvar Event = /** @class */ (function () {\n    function Event() {\n        this.hasHandlers = false;\n        this._handlers = [];\n        this._contexts = [];\n        this._createDispatcher();\n    }\n    Event.prototype.addHandler = function (handler, context) {\n        if (!this.isHandlerAttached(handler, context)) {\n            this._handlers.push(handler);\n            this._contexts.push(context);\n            this._createDispatcher();\n            this._updateHasHandlers();\n        }\n        return this;\n    };\n    Event.prototype.removeHandler = function (handler, context) {\n        var idx = this._getHandlerIndex(handler, context);\n        if (typeof (idx) !== 'undefined') {\n            this._handlers.splice(idx, 1);\n            this._contexts.splice(idx, 1);\n            this._createDispatcher();\n            this._updateHasHandlers();\n        }\n        return this;\n    };\n    Event.prototype.isHandlerAttached = function (handler, context) {\n        return typeof (this._getHandlerIndex(handler, context)) !== 'undefined';\n    };\n    Event.prototype._updateHasHandlers = function () {\n        this.hasHandlers = !!this._handlers.length;\n    };\n    Event.prototype._getHandlerIndex = function (handler, context) {\n        var handlerCount = this._handlers.length;\n        var idx;\n        for (idx = 0; idx < handlerCount; idx++) {\n            if (this._handlers[idx] === handler && this._contexts[idx] === context)\n                break;\n        }\n        return idx < handlerCount ? idx : undefined;\n    };\n    Event.prototype._createDispatcher = function () {\n        this.dispatch = getFactory(this._handlers.length).apply(this, this._handlers.concat(this._contexts));\n    };\n    return Event;\n}());\nexports[\"default\"] = Event;\n\n\n//# sourceURL=webpack:///./node_modules/microevent.ts/lib/Event.js?");
+
+/***/ }),
+
+/***/ "./node_modules/microevent.ts/lib/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/microevent.ts/lib/index.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar Event_1 = __webpack_require__(/*! ./Event */ \"./node_modules/microevent.ts/lib/Event.js\");\nexports.Event = Event_1.default;\n\n\n//# sourceURL=webpack:///./node_modules/microevent.ts/lib/index.js?");
+
+/***/ }),
+
 /***/ "./node_modules/sql.js-httpvfs/dist/index.js":
 /*!***************************************************!*\
   !*** ./node_modules/sql.js-httpvfs/dist/index.js ***!
@@ -19,47 +41,113 @@ eval("!function(e,t){if(true)module.exports=t();else { var r, n; }}(this,(functi
 
 /***/ }),
 
-/***/ "./dictionary.ts":
-/*!***********************!*\
-  !*** ./dictionary.ts ***!
-  \***********************/
+/***/ "./src/constants.ts":
+/*!**************************!*\
+  !*** ./src/constants.ts ***!
+  \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"load\": () => (/* binding */ load),\n/* harmony export */   \"searchDictionaryWithRegexp\": () => (/* binding */ searchDictionaryWithRegexp)\n/* harmony export */ });\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sql.js-httpvfs */ \"./node_modules/sql.js-httpvfs/dist/index.js\");\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./lib.ts\");\n\n\nconst workerUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sqlite.worker.js */ \"./node_modules/sql.js-httpvfs/dist/sqlite.worker.js\"), __webpack_require__.b);\nconst wasmUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sql-wasm.wasm */ \"./node_modules/sql.js-httpvfs/dist/sql-wasm.wasm\"), __webpack_require__.b);\nconst load = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(async function () {\n    let worker = await (0,sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__.createDbWorker)([\n        {\n            from: \"inline\",\n            config: {\n                serverMode: \"full\",\n                url: new URL(/* asset import */ __webpack_require__(/*! Dictionary.db */ \"./Dictionary.db\"), __webpack_require__.b).toString(),\n                // url: \"/Dictionary.db\",\n                // url: \"/example.sqlite3\",\n                requestChunkSize: 4096,\n            },\n        },\n    ], workerUrl.toString(), wasmUrl.toString());\n    let dict = await worker.db.query(`SELECT word FROM xxxxxentries`);\n    return dict.map(row => row.word); // convert from [{word:\"aardvark\"},{word:\"apple\"} to [\"aardvark\",\"apple\"]\n});\nasync function searchDictionaryWithRegexp(rx) {\n    let dic = await load();\n    return dic.filter(rx.test.bind(rx)); // filter out non-matches\n}\n\n\n//# sourceURL=webpack:///./dictionary.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"MAX_RESULTS\": () => (/* binding */ MAX_RESULTS),\n/* harmony export */   \"WEB_WORKER_TIMEOUT\": () => (/* binding */ WEB_WORKER_TIMEOUT)\n/* harmony export */ });\nconst MAX_RESULTS = 500;\nconst WEB_WORKER_TIMEOUT = 1000;\n\n\n//# sourceURL=webpack:///./src/constants.ts?");
 
 /***/ }),
 
-/***/ "./index.ts":
-/*!******************!*\
-  !*** ./index.ts ***!
-  \******************/
+/***/ "./src/dictionary.ts":
+/*!***************************!*\
+  !*** ./src/dictionary.ts ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib */ \"./lib.ts\");\n/* harmony import */ var _dictionary__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dictionary */ \"./dictionary.ts\");\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui */ \"./ui.ts\");\n\n\n\nasync function findAllTheStrings(text) {\n    let searchChars = text.split(\"\")\n        .filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.onlyHasLetters)\n        .filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.noDupes);\n    if (searchChars.length === 0) {\n        return [\"no valid letters\"];\n    }\n    if (searchChars.length > 12) {\n        return [\"too many letters\"];\n    }\n    return (await (0,_dictionary__WEBPACK_IMPORTED_MODULE_1__.searchDictionaryWithRegexp)(new RegExp(`^[${searchChars.join(\"\")}]+$`, \"gi\"))).filter(_lib__WEBPACK_IMPORTED_MODULE_0__.FILTERS.noDupes);\n}\n_ui__WEBPACK_IMPORTED_MODULE_2__.onSubmit(async function (inputText) {\n    _ui__WEBPACK_IMPORTED_MODULE_2__.setTextarea(\"loading...\\nShould take ~4 seconds\");\n    let result = await findAllTheStrings(inputText);\n    _ui__WEBPACK_IMPORTED_MODULE_2__.setTextarea(result.join(\"\\n\"));\n});\n\n\n//# sourceURL=webpack:///./index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"define\": () => (/* binding */ define),\n/* harmony export */   \"preloadWordList\": () => (/* binding */ preloadWordList),\n/* harmony export */   \"searchDictionaryWithRegexp\": () => (/* binding */ searchDictionaryWithRegexp)\n/* harmony export */ });\n/* harmony import */ var _dictionary0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dictionary0 */ \"./src/dictionary0.ts\");\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./src/lib.ts\");\n/* harmony import */ var _workerWrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./workerWrapper */ \"./src/workerWrapper.ts\");\n\n\n\nconst MAC_DICTIONARY = {\n    path: new URL(/* asset import */ __webpack_require__(/*! ../MacDictionary.db */ \"./MacDictionary.db\"), __webpack_require__.b).toString(),\n    tableName: \"xxxxxentries\",\n    wordRowName: \"A\",\n    getDefinitionTextFromRow: row => \"undefined\",\n};\nconst AYESH_DICTIONARY = {\n    path: new URL(/* asset import */ __webpack_require__(/*! ../Dictionary.db */ \"./Dictionary.db\"), __webpack_require__.b).toString(),\n    tableName: \"xxxxxentries\",\n    wordRowName: \"word\",\n    getDefinitionTextFromRow: function (row) {\n        return `${row.word} - ${row.wordtype}\\n${row.definition}`;\n    }\n};\nconst DEFINITION_DICTIONARY = AYESH_DICTIONARY;\nconst WORDLIST_DICTIONARY = MAC_DICTIONARY;\nconst prepareWordList = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(async function setup() {\n    let worker = await (0,_dictionary0__WEBPACK_IMPORTED_MODULE_0__.getWorker)(WORDLIST_DICTIONARY.path);\n    let dict = await worker.db.query(`SELECT ${WORDLIST_DICTIONARY.wordRowName} FROM ${WORDLIST_DICTIONARY.tableName}`);\n    let words = dict.map(row => row[WORDLIST_DICTIONARY.wordRowName]); // convert from [{word:\"aardvark\"},{word:\"apple\"} to [\"aardvark\",\"apple\"]\n    return await _workerWrapper__WEBPACK_IMPORTED_MODULE_2__.postDictionary(words);\n});\nconst searchDictionaryWithRegexp = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(async function searchDictionaryWithRegexp(rx) {\n    await prepareWordList();\n    return _workerWrapper__WEBPACK_IMPORTED_MODULE_2__.postRegex(rx);\n});\nconst define = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(\n// debounce( // debouncing is fine but if we cancel the call then we will store the result in the cache and never actually get the definition\nasync function define(word) {\n    let worker = await (0,_dictionary0__WEBPACK_IMPORTED_MODULE_0__.getWorker)(DEFINITION_DICTIONARY.path);\n    let query = `SELECT * FROM ${DEFINITION_DICTIONARY.tableName} WHERE ${DEFINITION_DICTIONARY.wordRowName} = ?`;\n    let rows = await worker.db.query(query, [word]);\n    return rows.map(DEFINITION_DICTIONARY.getDefinitionTextFromRow);\n}\n// ,50)\n);\nconst preloadWordList = function () { prepareWordList(); };\n\n\n//# sourceURL=webpack:///./src/dictionary.ts?");
 
 /***/ }),
 
-/***/ "./lib.ts":
-/*!****************!*\
-  !*** ./lib.ts ***!
-  \****************/
+/***/ "./src/dictionary0.ts":
+/*!****************************!*\
+  !*** ./src/dictionary0.ts ***!
+  \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"FILTERS\": () => (/* binding */ FILTERS),\n/* harmony export */   \"memoize\": () => (/* binding */ memoize)\n/* harmony export */ });\nfunction memoize(method) {\n    let cache = {};\n    return async function () {\n        let args = JSON.stringify(arguments);\n        cache[args] = cache[args] || method.apply(this, arguments);\n        return cache[args];\n    };\n}\nconst FILTERS = {\n    \"onlyHasLetters\": function (str) { return /^[a-z]+$/i.test(str); },\n    \"noDupes\": function (v, i, a) { return a.indexOf(v) === i; }\n};\n\n\n//# sourceURL=webpack:///./lib.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getWorker\": () => (/* binding */ getWorker)\n/* harmony export */ });\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sql.js-httpvfs */ \"./node_modules/sql.js-httpvfs/dist/index.js\");\n/* harmony import */ var sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./src/lib.ts\");\n\n\nconst workerUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sqlite.worker.js */ \"./node_modules/sql.js-httpvfs/dist/sqlite.worker.js\"), __webpack_require__.b);\nconst wasmUrl = new URL(/* asset import */ __webpack_require__(/*! sql.js-httpvfs/dist/sql-wasm.wasm */ \"./node_modules/sql.js-httpvfs/dist/sql-wasm.wasm\"), __webpack_require__.b);\nconst getWorker = (0,_lib__WEBPACK_IMPORTED_MODULE_1__.memoize)(async function (path) {\n    return await (0,sql_js_httpvfs__WEBPACK_IMPORTED_MODULE_0__.createDbWorker)([\n        {\n            from: \"inline\",\n            config: {\n                serverMode: \"full\",\n                url: path,\n                // url: \"/Dictionary.db\",\n                // url: \"/example.sqlite3\",\n                requestChunkSize: 4096,\n            },\n        },\n    ], workerUrl.toString(), wasmUrl.toString());\n});\n\n\n//# sourceURL=webpack:///./src/dictionary0.ts?");
 
 /***/ }),
 
-/***/ "./ui.ts":
-/*!***************!*\
-  !*** ./ui.ts ***!
-  \***************/
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"onSubmit\": () => (/* binding */ onSubmit),\n/* harmony export */   \"setTextarea\": () => (/* binding */ setTextarea)\n/* harmony export */ });\nfunction getInputText() { return document.getElementById(\"input\").value; }\nfunction onSubmit(handler) {\n    /* Submit when we press enter */\n    document.getElementById(\"input\")?.addEventListener(\"keyup\", function (event) {\n        if (event.keyCode === 13) {\n            event.preventDefault();\n            handler(getInputText());\n        }\n    });\n    /* Submit when we click the button */\n    document.getElementById(\"button\")?.addEventListener(\"click\", () => handler(getInputText()));\n}\nfunction setTextarea(text) {\n    document.getElementById(\"textarea\").value = text;\n}\n\n\n//# sourceURL=webpack:///./ui.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dictionary */ \"./src/dictionary.ts\");\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./src/lib.ts\");\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui */ \"./src/ui.ts\");\n\n\n\nasync function init() {\n    _ui__WEBPACK_IMPORTED_MODULE_2__.displayTheseWords([\"loading dictionary...\"]);\n    await _dictionary__WEBPACK_IMPORTED_MODULE_0__.preloadWordList();\n    searchForSomethingInteresting();\n}\ninit();\n/* function to choose one of an array */\nfunction from(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }\nfunction oneOf(array) { return array[Math.floor(Math.random() * array.length)]; }\nlet getRandomChar = () => { return String.fromCharCode(Math.floor(Math.random() * 26) + 97); };\nfunction searchForSomethingInteresting() {\n    /* randomly choose one of 5 options */\n    let option = from(0, 4);\n    if ([2].includes(option)) {\n        option = from(0, 4);\n    }\n    switch (option) {\n        case 0:\n            _ui__WEBPACK_IMPORTED_MODULE_2__.setAndTrigger(\"inputInOrder\", new Array(from(3, 5)).fill(0).map(getRandomChar).join(\"\"));\n            break;\n        case 1:\n            _ui__WEBPACK_IMPORTED_MODULE_2__.setAndTrigger(\"inputNTotal\", from(2, 8));\n            break;\n        case 2:\n            _ui__WEBPACK_IMPORTED_MODULE_2__.setAndTrigger(\"inputNRow\", from(2, 3));\n            break;\n        case 3:\n            _ui__WEBPACK_IMPORTED_MODULE_2__.setAndTrigger(\"input\", oneOf([\"maddox\", \"steven\", \"esther\", \"william\", \"lisa\", \"chugbert\", \"taco\", \"taylor\", \"sarah\", \"dusty\", \"gerald\", \"bonnie\", \"lydia\"]));\n            break;\n        case 4:\n            _ui__WEBPACK_IMPORTED_MODULE_2__.setAndTrigger(\"regexInput\", oneOf([\n                new Array(from(1, 24)).fill('.').join(\"\"),\n                \".*(([^s])\\\\2).*\\\\1.*\",\n                \"[^aeiou]{3}[^aeiou]*\",\n                \".*ology\",\n                \".*([gbzp])\\\\1y.*\",\n                \".*ooz|uze|euz.*\",\n                \".*urple.*\",\n                \".*rg[aoeui]r\",\n            ]));\n            break;\n    }\n}\nfunction toRegExp(str) { return new RegExp(`^${str}$`, \"i\"); }\n_ui__WEBPACK_IMPORTED_MODULE_2__.onChangeTextInput(async (text) => {\n    useRegex('[' + text.split(\"\").filter(_lib__WEBPACK_IMPORTED_MODULE_1__.FILTERS.onlyHasLetters).map(x => x.toLowerCase()).filter(_lib__WEBPACK_IMPORTED_MODULE_1__.FILTERS.noDupes).join(\"\") + ']+');\n});\n_ui__WEBPACK_IMPORTED_MODULE_2__.onChangeRegexInput(async (regexpString) => {\n    useRegex(regexpString);\n});\n_ui__WEBPACK_IMPORTED_MODULE_2__.onChangeInputInOrder(async (text) => {\n    useRegex(\".*\" + text.split(\"\").map(x => x.toLowerCase()).join(\".*\") + \".*\");\n});\n_ui__WEBPACK_IMPORTED_MODULE_2__.onChangeInputN(async (n) => {\n    useRegex(\".*(.)\\\\1{\" + (n - 1) + \"}.*\");\n});\n_ui__WEBPACK_IMPORTED_MODULE_2__.onChangeInputNTotal(async (n) => {\n    useRegex(\".*(.).*\" + (new Array(n - 1).fill(\"\\\\1\")).join(\".*\") + \".*\");\n});\n_ui__WEBPACK_IMPORTED_MODULE_2__.onPressRandomize(searchForSomethingInteresting);\nfunction useRegex(regexString) {\n    _ui__WEBPACK_IMPORTED_MODULE_2__.setRegexInput(regexString);\n    try {\n        _dictionary__WEBPACK_IMPORTED_MODULE_0__.searchDictionaryWithRegexp(toRegExp(regexString)).then(results => {\n            _ui__WEBPACK_IMPORTED_MODULE_2__.displayTheseWords(results);\n        }).catch(() => {\n            _ui__WEBPACK_IMPORTED_MODULE_2__.displayTheseWords([\"regexp timed out\"]);\n        });\n    }\n    catch (e) {\n        _ui__WEBPACK_IMPORTED_MODULE_2__.displayTheseWords([\"invalid regular expression\"]);\n    }\n}\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+
+/***/ }),
+
+/***/ "./src/lib.ts":
+/*!********************!*\
+  !*** ./src/lib.ts ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"FILTERS\": () => (/* binding */ FILTERS),\n/* harmony export */   \"debounce\": () => (/* binding */ debounce),\n/* harmony export */   \"isMac\": () => (/* binding */ isMac),\n/* harmony export */   \"memoize\": () => (/* binding */ memoize),\n/* harmony export */   \"timeEnd\": () => (/* binding */ timeEnd),\n/* harmony export */   \"timeStart\": () => (/* binding */ timeStart),\n/* harmony export */   \"timeoutPromise\": () => (/* binding */ timeoutPromise)\n/* harmony export */ });\nfunction memoize(method) {\n    let cache = {};\n    return async function (...args) {\n        // let args = JSON.stringify(arguments);\n        let argString = stringifyEvenWithRegex(arguments);\n        // let time = Date.now();\n        if (cache[argString]) {\n            console.log(\"cache hit\", argString, cache[argString]);\n        }\n        else {\n            cache[argString] = method.apply(this, arguments);\n        }\n        return cache[argString];\n    };\n}\nfunction stringifyEvenWithRegex(obj) {\n    if (obj.hasOwnProperty('callee')) {\n        obj = Array.from(obj);\n    }\n    if (Array.isArray(obj)) {\n        return \"[\" + obj.map(stringifyEvenWithRegex).join(\",\") + \"]\";\n    }\n    else if (obj instanceof RegExp) {\n        return obj.toString();\n    }\n    return JSON.stringify(obj);\n}\nfunction debounce(method, time) {\n    let timeout;\n    return async function (...args) {\n        clearTimeout(timeout);\n        return new Promise((res, rej) => {\n            timeout = setTimeout(() => {\n                res(method.apply(this, arguments));\n            }, time);\n        });\n    };\n}\nconst FILTERS = {\n    \"onlyHasLetters\": function (str) { return /^[a-z]+$/i.test(str); },\n    \"noDupes\": function (v, i, a) { return a.indexOf(v) === i; }\n};\nfunction timeoutPromise(ms, promise) {\n    /* wrap a promise and reject it if it takes too long */\n    return new Promise((resolve, reject) => {\n        setTimeout(() => {\n            console.log(\"TIMED OUT PROMISE\");\n            reject(\"timeout\");\n        }, ms);\n        promise.then(resolve, reject);\n    });\n}\nlet times = {};\nfunction timeStart(name) {\n    // if(!times[name]){\n    times[name] = Date.now();\n    // }else{\n    //     let diff = Date.now()-times[name]\n    //     console.log(name,\"took\",diff/1000,\"seconds\");\n    // }\n}\nfunction timeEnd(name) {\n    let diff = Date.now() - times[name];\n    console.log(name, \"took\", diff / 1000, \"seconds\");\n    delete times[name];\n}\n/* detect if the user is on Mac */\nfunction isMac() {\n    return navigator.platform.toLowerCase().indexOf(\"mac\") > -1;\n}\n\n\n//# sourceURL=webpack:///./src/lib.ts?");
+
+/***/ }),
+
+/***/ "./src/ui.ts":
+/*!*******************!*\
+  !*** ./src/ui.ts ***!
+  \*******************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"displayTheseWords\": () => (/* binding */ displayTheseWords),\n/* harmony export */   \"onChangeInputInOrder\": () => (/* binding */ onChangeInputInOrder),\n/* harmony export */   \"onChangeInputN\": () => (/* binding */ onChangeInputN),\n/* harmony export */   \"onChangeInputNTotal\": () => (/* binding */ onChangeInputNTotal),\n/* harmony export */   \"onChangeRegexInput\": () => (/* binding */ onChangeRegexInput),\n/* harmony export */   \"onChangeTextInput\": () => (/* binding */ onChangeTextInput),\n/* harmony export */   \"onPressRandomize\": () => (/* binding */ onPressRandomize),\n/* harmony export */   \"setAndTrigger\": () => (/* binding */ setAndTrigger),\n/* harmony export */   \"setRegexInput\": () => (/* binding */ setRegexInput)\n/* harmony export */ });\n/* harmony import */ var _dictionary__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dictionary */ \"./src/dictionary.ts\");\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib */ \"./src/lib.ts\");\n/* harmony import */ var _ui0__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui0 */ \"./src/ui0.ts\");\n\n\n\nfunction setRegexInput(text) { (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.getElement)(\"regexInput\").value = text; }\nlet firstRandomization = true;\nasync function setAndTrigger(id, value) {\n    let e = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.getElement)(id);\n    e.value = value + \"\";\n    e.dispatchEvent(new Event(\"input\"));\n    firstRandomization && animations(id);\n    firstRandomization = false;\n    /* Bring attention to the element by pulsing it */\n}\nasync function animations(id) {\n    await (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.tempAddClass)(id, \"pulse\", 2000);\n    if (id != \"regexInput\") {\n        await (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.tempAddClass)(\"regexInput\", \"pulse\", 2000);\n    }\n    (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.tempAddClass)(\"resultsbg\", \"showy\", 5000);\n}\nconst onChangeInputInOrder = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.implementOnTextInputChanged)(\"inputInOrder\");\nconst onChangeTextInput = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.implementOnTextInputChanged)(\"input\");\nconst onChangeRegexInput = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.implementOnTextInputChanged)(\"regexInput\");\nconst onChangeInputN = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.implementOnNumberInputChanged)(\"inputNRow\");\nconst onChangeInputNTotal = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.implementOnNumberInputChanged)(\"inputNTotal\");\nconst onPressRandomize = (handler) => {\n    (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.getElement)(\"randomize\").addEventListener(\"click\", () => {\n        _lib__WEBPACK_IMPORTED_MODULE_1__.timeStart(\"input\");\n        handler();\n    });\n};\nfunction displayTheseWords(text) {\n    let time = new Date().getTime();\n    if (text.length == 0) {\n        text.push(\"no results\");\n    }\n    let element = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.getElement)(\"results\");\n    /* empty results */\n    while (element?.firstChild) {\n        element.removeChild(element.firstChild);\n    }\n    /* populate with hoverable word entries */\n    text.forEach(x => {\n        let p = document.createElement(\"span\");\n        p.innerText = x;\n        p.addEventListener(\"mouseover\", () => displayDefinitions(x));\n        element?.appendChild(p);\n        element?.appendChild(document.createElement(\"br\"));\n    });\n    let t2 = new Date().getTime();\n    console.log(\"took\", (t2 - time) / 1000, \"seconds to display\", text.length, \"words\");\n    _lib__WEBPACK_IMPORTED_MODULE_1__.timeEnd(\"input\");\n}\nasync function displayDefinitions(text) {\n    let element = (0,_ui0__WEBPACK_IMPORTED_MODULE_2__.getElement)(\"definition\");\n    element.value = \"loading definition...\";\n    let definitions = await _dictionary__WEBPACK_IMPORTED_MODULE_0__.define(text);\n    if (definitions.length == 0) {\n        element.value = \"no definition found...\" +\n            (_lib__WEBPACK_IMPORTED_MODULE_1__.isMac() ? \"\\nIf you're on Mac, try hovering the word and typing [Ctrl][Command]+[D]\" : \"\");\n    }\n    else {\n        element.value = definitions.join(\"\\n\\n\");\n    }\n}\n\n\n//# sourceURL=webpack:///./src/ui.ts?");
+
+/***/ }),
+
+/***/ "./src/ui0.ts":
+/*!********************!*\
+  !*** ./src/ui0.ts ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"IDs\": () => (/* binding */ IDs),\n/* harmony export */   \"getElement\": () => (/* binding */ getElement),\n/* harmony export */   \"implementOnNumberInputChanged\": () => (/* binding */ implementOnNumberInputChanged),\n/* harmony export */   \"implementOnTextInputChanged\": () => (/* binding */ implementOnTextInputChanged),\n/* harmony export */   \"tempAddClass\": () => (/* binding */ tempAddClass)\n/* harmony export */ });\n/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib */ \"./src/lib.ts\");\n/* harmony import */ var _ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui */ \"./src/ui.ts\");\n\n\nconst IDs = {\n    results: \"results\",\n    randomize: \"randomize\",\n    input: \"input\",\n    regexInput: \"regexInput\",\n    textarea: \"textarea\",\n    definition: \"definition\",\n    inputInOrder: \"inputInOrder\",\n    inputNRow: \"inputNRow\",\n    inputNTotal: \"inputNTotal\",\n    resultsbg: \"resultsbg\",\n};\nfunction getElement(id) { return document.getElementById(id); }\nasync function tempAddClass(id, className, duration = 1000) {\n    let e = getElement(id);\n    e.classList.add(className);\n    e.style.position = \"relative\";\n    await new Promise((res, rej) => {\n        setTimeout(() => {\n            // temp.remove();\n            e.classList.remove(className);\n            res(true);\n        }, duration);\n    });\n}\nfunction implementOnTextInputChanged(id) {\n    return (handler) => {\n        getElement(id).addEventListener(\"input\", () => {\n            _lib__WEBPACK_IMPORTED_MODULE_0__.timeStart(\"input\");\n            handler(getElement(id).value);\n            clearInputsOtherThan(id);\n        });\n    };\n}\nfunction implementOnNumberInputChanged(id) {\n    return (handler) => {\n        getElement(id).addEventListener(\"input\", () => {\n            _lib__WEBPACK_IMPORTED_MODULE_0__.timeStart(\"input\");\n            let v = parseInt(getElement(id).value);\n            if (v <= 0 || Number.isNaN(v) || v > 20) {\n                getElement(id).value = \"\";\n                (0,_ui__WEBPACK_IMPORTED_MODULE_1__.setRegexInput)(\"\");\n            }\n            else {\n                handler(v);\n            }\n            clearInputsOtherThan(id);\n        });\n    };\n}\n/* When typing in one of the inputs, we want to clear other inputs\nso it is clear that they are not being used.\nBut we don't clear the regex because it is always used */\nfunction clearInputsOtherThan(dontClearThis) {\n    // get all the inputs\n    let inputs = document.getElementsByTagName(\"input\");\n    // filter out the ones we don't want to clear\n    let inputsToClear = Array.from(inputs).filter(x => x.id != dontClearThis && x.id != \"regexInput\");\n    // clear them\n    inputsToClear.forEach(x => x.value = \"\");\n}\n\n\n//# sourceURL=webpack:///./src/ui0.ts?");
+
+/***/ }),
+
+/***/ "./src/workerWrapper.ts":
+/*!******************************!*\
+  !*** ./src/workerWrapper.ts ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"postDictionary\": () => (/* binding */ postDictionary),\n/* harmony export */   \"postRegex\": () => (/* binding */ postRegex)\n/* harmony export */ });\n/* harmony import */ var worker_rpc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! worker-rpc */ \"./node_modules/worker-rpc/lib/index.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ \"./src/constants.ts\");\n\n\n// import { memoize } from './lib';\nconst remoteWorker = new Worker('./dist/worker.js', { type: 'module' }), rpcProvider = new worker_rpc__WEBPACK_IMPORTED_MODULE_0__.RpcProvider((message, transfer) => remoteWorker.postMessage(message, transfer), _constants__WEBPACK_IMPORTED_MODULE_1__.WEB_WORKER_TIMEOUT);\n// worker.onmessage = e => \nremoteWorker.onmessage = e => {\n    // console.log(\"on message\",e);\n    rpcProvider.dispatch(e.data);\n};\n// let remoteWorker = new Worker(\n//     './dist/worker.js',\n//     // URL.createObjectURL('./src/worker.js'), import.meta.url),\n//     // new URL('./src/worker.js', import.meta.url),\n//     {type: 'module'}\n// );\n// remoteWorker.postMessage(\"ping\");\n// export async function getDefinition(word:string){\n//     return rpcProvider.rpc('definition',word);\n// }\nfunction postDictionary(words) {\n    rpcProvider.rpc('dict', words).then(() => {\n        console.log(\"postDictionary done\");\n    });\n}\n// rpcProvider.registerRpcHandler('regexp', (rx:string) => ')\nfunction postRegex(regex) {\n    return rpcProvider.rpc('regexp', regex);\n    // .then(a=>{\n    //     // console.log(\"we got back\",a);\n    //     UI.displayResults(a);\n    // });\n}\n\n\n//# sourceURL=webpack:///./src/workerWrapper.ts?");
+
+/***/ }),
+
+/***/ "./node_modules/worker-rpc/lib/RpcProvider.js":
+/*!****************************************************!*\
+  !*** ./node_modules/worker-rpc/lib/RpcProvider.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar microevent_ts_1 = __webpack_require__(/*! microevent.ts */ \"./node_modules/microevent.ts/lib/index.js\");\nvar MSG_RESOLVE_TRANSACTION = \"resolve_transaction\", MSG_REJECT_TRANSACTION = \"reject_transaction\", MSG_ERROR = \"error\";\nvar RpcProvider = /** @class */ (function () {\n    function RpcProvider(_dispatch, _rpcTimeout) {\n        if (_rpcTimeout === void 0) { _rpcTimeout = 0; }\n        this._dispatch = _dispatch;\n        this._rpcTimeout = _rpcTimeout;\n        this.error = new microevent_ts_1.Event();\n        this._rpcHandlers = {};\n        this._signalHandlers = {};\n        this._pendingTransactions = {};\n        this._nextTransactionId = 0;\n    }\n    RpcProvider.prototype.dispatch = function (payload) {\n        var message = payload;\n        switch (message.type) {\n            case RpcProvider.MessageType.signal:\n                return this._handleSignal(message);\n            case RpcProvider.MessageType.rpc:\n                return this._handeRpc(message);\n            case RpcProvider.MessageType.internal:\n                return this._handleInternal(message);\n            default:\n                this._raiseError(\"invalid message type \" + message.type);\n        }\n    };\n    RpcProvider.prototype.rpc = function (id, payload, transfer) {\n        var _this = this;\n        var transactionId = this._nextTransactionId++;\n        this._dispatch({\n            type: RpcProvider.MessageType.rpc,\n            transactionId: transactionId,\n            id: id,\n            payload: payload\n        }, transfer ? transfer : undefined);\n        return new Promise(function (resolve, reject) {\n            var transaction = _this._pendingTransactions[transactionId] = {\n                id: transactionId,\n                resolve: resolve,\n                reject: reject\n            };\n            if (_this._rpcTimeout > 0) {\n                _this._pendingTransactions[transactionId].timeoutHandle =\n                    setTimeout(function () { return _this._transactionTimeout(transaction); }, _this._rpcTimeout);\n            }\n        });\n    };\n    ;\n    RpcProvider.prototype.signal = function (id, payload, transfer) {\n        this._dispatch({\n            type: RpcProvider.MessageType.signal,\n            id: id,\n            payload: payload,\n        }, transfer ? transfer : undefined);\n        return this;\n    };\n    RpcProvider.prototype.registerRpcHandler = function (id, handler) {\n        if (this._rpcHandlers[id]) {\n            throw new Error(\"rpc handler for \" + id + \" already registered\");\n        }\n        this._rpcHandlers[id] = handler;\n        return this;\n    };\n    ;\n    RpcProvider.prototype.registerSignalHandler = function (id, handler) {\n        if (!this._signalHandlers[id]) {\n            this._signalHandlers[id] = [];\n        }\n        this._signalHandlers[id].push(handler);\n        return this;\n    };\n    RpcProvider.prototype.deregisterRpcHandler = function (id, handler) {\n        if (this._rpcHandlers[id]) {\n            delete this._rpcHandlers[id];\n        }\n        return this;\n    };\n    ;\n    RpcProvider.prototype.deregisterSignalHandler = function (id, handler) {\n        if (this._signalHandlers[id]) {\n            this._signalHandlers[id] = this._signalHandlers[id].filter(function (h) { return handler !== h; });\n        }\n        return this;\n    };\n    RpcProvider.prototype._raiseError = function (error) {\n        this.error.dispatch(new Error(error));\n        this._dispatch({\n            type: RpcProvider.MessageType.internal,\n            id: MSG_ERROR,\n            payload: error\n        });\n    };\n    RpcProvider.prototype._handleSignal = function (message) {\n        if (!this._signalHandlers[message.id]) {\n            return this._raiseError(\"invalid signal \" + message.id);\n        }\n        this._signalHandlers[message.id].forEach(function (handler) { return handler(message.payload); });\n    };\n    RpcProvider.prototype._handeRpc = function (message) {\n        var _this = this;\n        if (!this._rpcHandlers[message.id]) {\n            return this._raiseError(\"invalid rpc \" + message.id);\n        }\n        Promise.resolve(this._rpcHandlers[message.id](message.payload))\n            .then(function (result) { return _this._dispatch({\n            type: RpcProvider.MessageType.internal,\n            id: MSG_RESOLVE_TRANSACTION,\n            transactionId: message.transactionId,\n            payload: result\n        }); }, function (reason) { return _this._dispatch({\n            type: RpcProvider.MessageType.internal,\n            id: MSG_REJECT_TRANSACTION,\n            transactionId: message.transactionId,\n            payload: reason\n        }); });\n    };\n    RpcProvider.prototype._handleInternal = function (message) {\n        var transaction = typeof (message.transactionId) !== 'undefined' ? this._pendingTransactions[message.transactionId] : undefined;\n        switch (message.id) {\n            case MSG_RESOLVE_TRANSACTION:\n                if (!transaction || typeof (message.transactionId) === 'undefined') {\n                    return this._raiseError(\"no pending transaction with id \" + message.transactionId);\n                }\n                transaction.resolve(message.payload);\n                this._clearTransaction(this._pendingTransactions[message.transactionId]);\n                break;\n            case MSG_REJECT_TRANSACTION:\n                if (!transaction || typeof (message.transactionId) === 'undefined') {\n                    return this._raiseError(\"no pending transaction with id \" + message.transactionId);\n                }\n                this._pendingTransactions[message.transactionId].reject(message.payload);\n                this._clearTransaction(this._pendingTransactions[message.transactionId]);\n                break;\n            case MSG_ERROR:\n                this.error.dispatch(new Error(\"remote error: \" + message.payload));\n                break;\n            default:\n                this._raiseError(\"unhandled internal message \" + message.id);\n                break;\n        }\n    };\n    RpcProvider.prototype._transactionTimeout = function (transaction) {\n        transaction.reject('transaction timed out');\n        this._raiseError(\"transaction \" + transaction.id + \" timed out\");\n        delete this._pendingTransactions[transaction.id];\n        return;\n    };\n    RpcProvider.prototype._clearTransaction = function (transaction) {\n        if (typeof (transaction.timeoutHandle) !== 'undefined') {\n            clearTimeout(transaction.timeoutHandle);\n        }\n        delete this._pendingTransactions[transaction.id];\n    };\n    return RpcProvider;\n}());\n(function (RpcProvider) {\n    var MessageType;\n    (function (MessageType) {\n        MessageType[MessageType[\"signal\"] = 0] = \"signal\";\n        MessageType[MessageType[\"rpc\"] = 1] = \"rpc\";\n        MessageType[MessageType[\"internal\"] = 2] = \"internal\";\n    })(MessageType = RpcProvider.MessageType || (RpcProvider.MessageType = {}));\n    ;\n})(RpcProvider || (RpcProvider = {}));\nexports[\"default\"] = RpcProvider;\n\n\n//# sourceURL=webpack:///./node_modules/worker-rpc/lib/RpcProvider.js?");
+
+/***/ }),
+
+/***/ "./node_modules/worker-rpc/lib/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/worker-rpc/lib/index.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar RpcProvider_1 = __webpack_require__(/*! ./RpcProvider */ \"./node_modules/worker-rpc/lib/RpcProvider.js\");\nexports.RpcProvider = RpcProvider_1.default;\n\n\n//# sourceURL=webpack:///./node_modules/worker-rpc/lib/index.js?");
 
 /***/ }),
 
@@ -71,6 +159,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 "use strict";
 eval("module.exports = __webpack_require__.p + \"85bbdb65490b1de21a2d.db\";\n\n//# sourceURL=webpack:///./Dictionary.db?");
+
+/***/ }),
+
+/***/ "./MacDictionary.db":
+/*!**************************!*\
+  !*** ./MacDictionary.db ***!
+  \**************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"cefe294b17d5ea8c4ff9.db\";\n\n//# sourceURL=webpack:///./MacDictionary.db?");
 
 /***/ }),
 
@@ -150,18 +249,6 @@ eval("module.exports = __webpack_require__.p + \"8c500ff8a49b305f9ab6.js\";\n\n/
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -180,22 +267,7 @@ eval("module.exports = __webpack_require__.p + \"8c500ff8a49b305f9ab6.js\";\n\n/
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 		__webpack_require__.p = "/dist/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -206,7 +278,7 @@ eval("module.exports = __webpack_require__.p + \"8c500ff8a49b305f9ab6.js\";\n\n/
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"main": 0
+/******/ 			"bundle": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -229,7 +301,7 @@ eval("module.exports = __webpack_require__.p + \"8c500ff8a49b305f9ab6.js\";\n\n/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./index.ts");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
 /******/ 	
 /******/ })()
 ;

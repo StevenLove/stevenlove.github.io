@@ -1,5 +1,10 @@
+const path = require('path');
+
 module.exports = {
-  entry: "./index.ts",
+  entry: {
+    bundle:"./src/index.ts",
+    worker:"./src/worker.ts"
+  },
   module: {
     rules: [
       {
@@ -13,9 +18,14 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
+    filename: '[name].js'
   },
   devServer: {
-    publicPath: "/dist",
+    static: {
+      directory: './',
+    },
+    // 
   },
 };
