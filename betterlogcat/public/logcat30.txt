@@ -1,0 +1,30 @@
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket: WebSocket received {
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "candidate" : "candidate:1801838682 1 tcp 1517887231 172.19.226.101 50008 typ host tcptype passive generation 0 ufrag BJBR network-id 1",
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "sdpMLineIndex" : 0,
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "sdpMid" : "0"
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket: }
+07-14 10:15:00.361 10044 29857 30026 I VCOMVirtualMatrixObject: Server Message: SignalingCandidate
+07-14 10:15:00.361 10044 29857 30026 D MEOW    : handle remote candidate
+07-14 10:15:00.362  1000  1123  1232 I ASH     : @ 65757.881: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.362  1000  1123  1232 D ASH     : @ 65757.881: tcs3701: start power rail timer, state:3
+07-14 10:15:00.364 10044 29857 30026 D MEOW    : ingest remote candidate {"adapterType":"UNKNOWN","sdp":"candidate:1801838682 1 tcp 1517887231 172.19.226.101 50008 typ host tcptype passive generation 0 ufrag BJBR network-id 1","sdpMLineIndex":0,"sdpMid":"audio","serverUrl":""}
+07-14 10:15:00.436 10173  4160  4507 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+07-14 10:15:00.437 10238  2637  2637 D InterruptionStateProvider: No alerting: suppressed due to group alert behavior
+07-14 10:15:00.437 10238  2637  2637 D InterruptionStateProvider: No alerting: suppressed due to group alert behavior
+07-14 10:15:00.442 10238  2637  2732 D PeopleSpaceWidgetMgr: Sbn doesn't contain valid PeopleTileKey: null/0/com.telex.pttoc
+07-14 10:15:00.445 10173  4160  4507 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+07-14 10:15:00.449  1000  1123  1232 I ASH     : @ 65757.968: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.449  1000  1123  1232 D ASH     : @ 65757.968: tcs3701: start power rail timer, state:3
+07-14 10:15:00.455 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.457 10238  2637  2637 D InterruptionStateProvider: No bubble up: not allowed to bubble: 0|com.cliffcawley.calendarnotify|1|null|10350
+07-14 10:15:00.458 10238  2637  2637 D InterruptionStateProvider: No heads up: unimportant notification: 0|com.cliffcawley.calendarnotify|1|null|10350
+07-14 10:15:00.460 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.463 10238  2637  2732 D PeopleSpaceWidgetMgr: Sbn doesn't contain valid PeopleTileKey: null/0/com.cliffcawley.calendarnotify
+07-14 10:15:00.500  1041  1106  5695 D audio_hw_primary: out_standby: enter: stream (0xe53864c0) usecase(1: low-latency-playback)
+07-14 10:15:00.523 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.525  1041  1106  5695 D audio_hw_primary: disable_audio_route: reset and update mixer path: low-latency-playback
+07-14 10:15:00.528  1041  1106  5695 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 1 of type 0 for Event 2, with Raise=0
+07-14 10:15:00.528  1041  1106  5695 D hardware_info: hw_info_append_hw_type : device_name = speaker
+07-14 10:15:00.536  1000  1123  1232 I ASH     : @ 65758.054: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.536  1000  1123  1232 D ASH     : @ 65758.055: tcs3701: start power rail timer, state:3
+07-14 10:15:00.622  1000  1123  1232 I ASH     : @ 65758.141: tcs3701: stop power rail pending_off timer

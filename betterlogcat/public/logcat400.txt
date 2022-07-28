@@ -1,0 +1,394 @@
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket: WebSocket received {
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "candidate" : "candidate:1801838682 1 tcp 1517887231 172.19.226.101 50008 typ host tcptype passive generation 0 ufrag BJBR network-id 1",
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "sdpMLineIndex" : 0,
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket:    "sdpMid" : "0"
+07-14 10:15:00.361 10044 29857 30026 D VCOMWebSocket: }
+07-14 10:15:00.361 10044 29857 30026 I VCOMVirtualMatrixObject: Server Message: SignalingCandidate
+07-14 10:15:00.361 10044 29857 30026 D MEOW    : handle remote candidate
+07-14 10:15:00.362  1000  1123  1232 I ASH     : @ 65757.881: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.362  1000  1123  1232 D ASH     : @ 65757.881: tcs3701: start power rail timer, state:3
+07-14 10:15:00.364 10044 29857 30026 D MEOW    : ingest remote candidate {"adapterType":"UNKNOWN","sdp":"candidate:1801838682 1 tcp 1517887231 172.19.226.101 50008 typ host tcptype passive generation 0 ufrag BJBR network-id 1","sdpMLineIndex":0,"sdpMid":"audio","serverUrl":""}
+07-14 10:15:00.436 10173  4160  4507 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+07-14 10:15:00.437 10238  2637  2637 D InterruptionStateProvider: No alerting: suppressed due to group alert behavior
+07-14 10:15:00.437 10238  2637  2637 D InterruptionStateProvider: No alerting: suppressed due to group alert behavior
+07-14 10:15:00.442 10238  2637  2732 D PeopleSpaceWidgetMgr: Sbn doesn't contain valid PeopleTileKey: null/0/com.telex.pttoc
+07-14 10:15:00.445 10173  4160  4507 W AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+07-14 10:15:00.449  1000  1123  1232 I ASH     : @ 65757.968: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.449  1000  1123  1232 D ASH     : @ 65757.968: tcs3701: start power rail timer, state:3
+07-14 10:15:00.455 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.457 10238  2637  2637 D InterruptionStateProvider: No bubble up: not allowed to bubble: 0|com.cliffcawley.calendarnotify|1|null|10350
+07-14 10:15:00.458 10238  2637  2637 D InterruptionStateProvider: No heads up: unimportant notification: 0|com.cliffcawley.calendarnotify|1|null|10350
+07-14 10:15:00.460 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.463 10238  2637  2732 D PeopleSpaceWidgetMgr: Sbn doesn't contain valid PeopleTileKey: null/0/com.cliffcawley.calendarnotify
+07-14 10:15:00.500  1041  1106  5695 D audio_hw_primary: out_standby: enter: stream (0xe53864c0) usecase(1: low-latency-playback)
+07-14 10:15:00.523 10044 29857 29947 E chromium: [ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -202
+07-14 10:15:00.525  1041  1106  5695 D audio_hw_primary: disable_audio_route: reset and update mixer path: low-latency-playback
+07-14 10:15:00.528  1041  1106  5695 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 1 of type 0 for Event 2, with Raise=0
+07-14 10:15:00.528  1041  1106  5695 D hardware_info: hw_info_append_hw_type : device_name = speaker
+07-14 10:15:00.536  1000  1123  1232 I ASH     : @ 65758.054: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.536  1000  1123  1232 D ASH     : @ 65758.055: tcs3701: start power rail timer, state:3
+07-14 10:15:00.622  1000  1123  1232 I ASH     : @ 65758.141: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.622  1000  1123  1232 D ASH     : @ 65758.141: tcs3701: start power rail timer, state:3
+07-14 10:15:00.687 10044 29857 30000 I VCOMMySharedPrefs: Set string obj from string goldenLayoutState, {"settings":{"hasHeaders":true,"constrainDragToContainer":true,"reorderEnabled":false,"selectionEnabled":false,"popoutWholeStack":false,"blockedPopoutsThrowError":true,"closePopoutsOnUnload":true,"showPopoutIcon":true,"showMaximiseIcon":false,"showCloseIcon":true,"responsiveMode":"onload","tabOverlapAllowance":0,"reorderOnTabMenuClick":false,"tabControlOffset":10},"dimensions":{"borderWidth":5,"borderGrabWidth":15,"minItemHeight":10,"minItemWidth":10,"headerHeight":30,"dragProxyWidth":300,"dragProxyHeight":200},"labels":{"close":"close","maximise":"maximise","minimise":"minimise","popout":"open in new window","popin":"pop in","tabDropdown":"additional tabs"},"content":[{"type":"column","isClosable":false,"reorderEnabled":true,"title":"","content":[{"id":"mainStack","type":"stack","isClosable":false,"reorderEnabled":true,"title":"","height":100,"activeItemIndex":0,"content":[{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchRadios","title":"<div class='dispatch-title dispatch-radios'><img style='height:90%' src='../img/groups.png'><div>","componentName":"dispatchRadios","componentState":{"templateId":"dispatchRadios"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchDirectory","title":"<div class='dispatch-title dispatch-directory'><img style='height:90%' src='../img/directory.png'><div>","componentName":"dispatchDirectory","componentState":{"templateId":"dispatchDirectory"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchRecents","title":"<div class='dispatch-title dispatch-recents'><img style='height:90%' src='../img/recents.png'><div>","componentName":"dispatchRecents","componentState":{"templateId":"dispatchRecents"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchEmergency","title":"<div class='dispatch-title dispatch-emergency'><img style='height:90%' src='../img/emergency.png'><div>","componentName":"dispatchEmergency","componentState":{"templateId":"dispatchEmergency"}}]}]}],"isClosable":true,"reorderEnabled":true,"title":"","openPopouts":[],"maximisedItemId":null}
+07-14 10:15:00.687 10044 29857 30000 I VCOMMySharedPrefs: set string goldenLayoutState OBJECT::{"settings":{"hasHeaders":true,"constrainDragToContainer":true,"reorderEnabled":false,"selectionEnabled":false,"popoutWholeStack":false,"blockedPopoutsThrowError":true,"closePopoutsOnUnload":true,"showPopoutIcon":true,"showMaximiseIcon":false,"showCloseIcon":true,"responsiveMode":"onload","tabOverlapAllowance":0,"reorderOnTabMenuClick":false,"tabControlOffset":10},"dimensions":{"borderWidth":5,"borderGrabWidth":15,"minItemHeight":10,"minItemWidth":10,"headerHeight":30,"dragProxyWidth":300,"dragProxyHeight":200},"labels":{"close":"close","maximise":"maximise","minimise":"minimise","popout":"open in new window","popin":"pop in","tabDropdown":"additional tabs"},"content":[{"type":"column","isClosable":false,"reorderEnabled":true,"title":"","content":[{"id":"mainStack","type":"stack","isClosable":false,"reorderEnabled":true,"title":"","height":100,"activeItemIndex":0,"content":[{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchRadios","title":"<div class='dispatch-title dispatch-radios'><img style='height:90%' src='../img/groups.png'><div>","componentName":"dispatchRadios","componentState":{"templateId":"dispatchRadios"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchDirectory","title":"<div class='dispatch-title dispatch-directory'><img style='height:90%' src='../img/directory.png'><div>","componentName":"dispatchDirectory","componentState":{"templateId":"dispatchDirectory"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchRecents","title":"<div class='dispatch-title dispatch-recents'><img style='height:90%' src='../img/recents.png'><div>","componentName":"dispatchRecents","componentState":{"templateId":"dispatchRecents"}},{"type":"component","popoutEnabled":false,"reorderEnabled":false,"isClosable":false,"id":"dispatchEmergency","title":"<div class='dispatch-title dispatch-emergency'><img style='height:90%' src='../img/emergency.png'><div>","componentName":"dispatchEmergency","componentState":{"templateId":"dispatchEmergency"}}]}]}],"isClosable":true,"reorderEnabled":true,"title":"","openPopouts":[],"maximisedItemId":null}
+07-14 10:15:00.709  1000  1123  1232 I ASH     : @ 65758.228: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.709  1000  1123  1232 D ASH     : @ 65758.228: tcs3701: start power rail timer, state:3
+07-14 10:15:00.789  1000  1123  1232 W CHRE    : @ 65758.307: [AR] unknown event: 515
+07-14 10:15:00.789  1000  1123  1232 W CHRE    : @ 65758.307: [MotionDetector] Unexpected event type 515
+07-14 10:15:00.796  1000  1123  1232 I ASH     : @ 65758.315: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.796  1000  1123  1232 D ASH     : @ 65758.315: tcs3701: start power rail timer, state:3
+07-14 10:15:00.806  1000  1123  1232 D ASH     : @ 65758.324: SensorType 195 resampler quality 1
+07-14 10:15:00.806  1000  1123  1232 D ASH     : @ 65758.325: SensorType 195 resampler quality 1
+07-14 10:15:00.882  1000  1123  1232 I ASH     : @ 65758.401: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.882  1000  1123  1232 D ASH     : @ 65758.401: tcs3701: start power rail timer, state:3
+07-14 10:15:00.937 10044 29857 30013 E VCOPeer : onSelectedCandidatePairChanged: org.webrtc.CandidatePairChangeEvent@d2f9599
+07-14 10:15:00.938 10044 29857 30013 E VCOPeer : onStandardizedIceConnectionChange: CONNECTED
+07-14 10:15:00.938 10044 29857 30013 E VCOPeer : onIceGatheringChange: COMPLETE
+07-14 10:15:00.969  1000  1123  1232 I ASH     : @ 65758.488: tcs3701: stop power rail pending_off timer
+07-14 10:15:00.969  1000  1123  1232 D ASH     : @ 65758.488: tcs3701: start power rail timer, state:3
+07-14 10:15:01.056  1000  1123  1232 I ASH     : @ 65758.575: tcs3701: stop power rail pending_off timer
+07-14 10:15:01.056  1000  1123  1232 D ASH     : @ 65758.575: tcs3701: start power rail timer, state:3
+07-14 10:15:01.075 10044 29857 30013 E VCOPeer : onConnectionChange: CONNECTED
+07-14 10:15:01.075 10044 29857 30013 D VCOMConnectionState: webRTC:connected. Now Connected
+07-14 10:15:01.075 10044 29857 30013 I VCOMMyState: EVENT (RTCEvent): Connected
+07-14 10:15:01.075 10044 29857 30013 I VCOMRTCMonitor: RTCMonitor event: Connected
+07-14 10:15:01.075 10044 29857 30013 E VCOPeer : onIceConnectionChange: CONNECTED
+07-14 10:15:01.084 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: initRecording(sampleRate=48000, channels=1)
+07-14 10:15:01.084 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: byteBuffer.capacity: 960
+07-14 10:15:01.085 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: AudioRecord.getMinBufferSize: 3840
+07-14 10:15:01.085 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: bufferSizeInBytes: 7680
+07-14 10:15:01.085 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: createAudioRecordOnMOrHigher
+07-14 10:15:01.092  1041  1106  5695 D audio_hw_primary: adev_open_input_stream: enter: sample_rate(48000) channel_mask(0x10) devices(0x80000080)        stream_handle(0xe7781cf0) io_handle(614) source(7) format 1
+07-14 10:15:01.094  1041  1179 30104 I AudioFlinger: AudioFlinger's thread 0xb400007ef9058c60 tid=30104 ready to run
+07-14 10:15:01.094  1041  1106  1106 D audio_hw_primary: in_standby: enter: stream (0xe7781cf0) usecase(34: audio-record-voip)
+07-14 10:15:01.098  1041  1106  5695 D audio_hw_primary: in_standby: enter: stream (0xe7781cf0) usecase(34: audio-record-voip)
+07-14 10:15:01.098  1041  1106  5695 I EffectsFactory: EffectCreate() create_effect
+07-14 10:15:01.099  1041  1106  2568 W EffectHAL: Effect 0xe3ecaff0 command SET_CONFIG returned status: Invalid argument
+07-14 10:15:01.099  1041  1106  1169 W EffectHAL: Effect 0xe3ecaff0 command SET_CONFIG returned status: Invalid argument
+07-14 10:15:01.099  1041  1106  2329 I EffectsFactory: EffectCreate() create_effect
+07-14 10:15:01.105  1041  1106  6779 W EffectHAL: Effect 0xe3ecc190 command SET_CONFIG returned status: Invalid argument
+07-14 10:15:01.106  1041  1106  5695 W EffectHAL: Effect 0xe3ecaff0 command SET_CONFIG returned status: Invalid argument
+07-14 10:15:01.106  1041  1106  2329 W EffectHAL: Effect 0xe3ecc190 command SET_CONFIG returned status: Invalid argument
+07-14 10:15:01.110 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioEffectsExternal: enable(audioSession=2201)
+07-14 10:15:01.114 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioEffectsExternal: AcousticEchoCanceler: was enabled, enable: true, is now: enabled
+07-14 10:15:01.116 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioEffectsExternal: NoiseSuppressor: was enabled, enable: true, is now: enabled
+07-14 10:15:01.116 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: AudioRecord: session ID: 2201, channels: 1, sample rate: 48000
+07-14 10:15:01.116 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: AudioRecord: buffer size in frames: 3840
+07-14 10:15:01.116 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: Number of active recording sessions: 0
+07-14 10:15:01.116 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: startRecording
+07-14 10:15:01.122  1041  1106  6779 D audio_hw_primary: adev_create_audio_patch: enter: num sources 1, num_sinks 1, handle 0
+07-14 10:15:01.122  1041  1106  6779 D audio_hw_primary: adev_create_audio_patch: Added a new patch with handle 230
+07-14 10:15:01.124  1000  1799  1953 I SoundTriggerMiddlewareLogging: setCaptureState[this=com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareImpl@163538b, client=null](true)
+07-14 10:15:01.125  1041  1106 30105 D audio_hw_primary: AEC enable 1
+07-14 10:15:01.125  1041  1106 30105 D audio_hw_primary: select_devices for use case (mmap-playback)
+07-14 10:15:01.125  1041  1106 30105 D audio_hw_primary: select_devices: changing use case mmap-playback output device from(2: speaker, acdb 513) to (26: voice-speaker, acdb 14)
+07-14 10:15:01.125  1041  1106 30105 D audio_hw_primary: disable_audio_route: reset and update mixer path: mmap-playback
+07-14 10:15:01.126 10044 29857 30012 I org.webrtc.Logging: WebRtcAudioRecordExternal: scheduleLogRecordingConfigurationsTask
+07-14 10:15:01.127 10044 29857 30106 I org.webrtc.Logging: WebRtcAudioRecordExternal: AudioRecordThread@[name=AudioRecordJavaThread, id=90]
+07-14 10:15:01.127 10044 29857 30106 I org.webrtc.Logging: WebRtcAudioRecordExternal: doAudioRecordStateCallback: START
+07-14 10:15:01.129  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 13 of type 0 for Event 2, with Raise=0
+07-14 10:15:01.129  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = speaker
+07-14 10:15:01.129  1041  1106 30105 I msm8974_platform: platform_check_and_set_codec_backend_cfg:becf: afe: bitwidth 24, samplerate 48000 channels 2, backend_idx 0 usecase = 13 device (voice-speaker)
+07-14 10:15:01.129  1041  1106 30105 I msm8974_platform: platform_check_and_set_codec_backend_cfg: new_snd_devices[0] is 26
+07-14 10:15:01.129  1041  1106 30105 I msm8974_platform: platform_check_codec_backend_cfg:becf: afe: bitwidth 24, samplerate 48000 channels 2, backend_idx 0 usecase = 13 device (voice-speaker)
+07-14 10:15:01.129  1041  1106 30105 D msm8974_platform: platform_check_codec_backend_cfg:napb: (0) - (audio-playback-voip)id (33) sr 48000 bw (16) ch (2) device speaker
+07-14 10:15:01.131  1041  1106 30105 D msm8974_platform: platform_check_codec_backend_cfg:becf: updated afe: bitwidth 24, samplerate 48000 channels 2,backend_idx 0 usecase = 13 device (voice-speaker)
+07-14 10:15:01.131  1041  1106 30105 I msm8974_platform: platform_check_codec_backend_cfg:becf: afe: Codec selected backend: 0 updated bit width: 24 and sample rate: 48000
+07-14 10:15:01.131  1041  1106 30105 I msm8974_platform: platform_check_codec_backend_cfg:becf: afe: Codec backend needs to be updated. new bit width: 24new sample rate: 48000 new channels: 2
+07-14 10:15:01.131  1041  1106 30105 I msm8974_platform: platform_set_codec_backend_cfg:becf: afe: bitwidth 24, samplerate 48000 channels 2 format 1, backend_idx 0 device (voice-speaker)
+07-14 10:15:01.132  1041  1106 30105 E msm8974_platform: platform_set_codec_backend_cfg:becf: afe: Could not get ctl for mixer command - SLIM_0_RX Format
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: force routing 0
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: (78) check_usecases curr device: voice-speaker, usecase device: backends match 0
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: (78) check_usecases curr device: voice-speaker, usecase device:speaker backends match 1
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: (78) check_usecases curr device: voice-speaker, usecase device:speaker backends match 1
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: check_usecases (audio-playback-voip) is active on (speaker) - disabling ..
+07-14 10:15:01.132  1041  1106 30105 D audio_hw_primary: disable_audio_route: reset and update mixer path: audio-playback-voip
+07-14 10:15:01.142  1000  1123  1232 I ASH     : @ 65758.661: tcs3701: stop power rail pending_off timer
+07-14 10:15:01.142  1000  1123  1232 D ASH     : @ 65758.661: tcs3701: start power rail timer, state:3
+07-14 10:15:01.143  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 33 of type 0 for Event 2, with Raise=0
+07-14 10:15:01.143  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: check_usecases num.of Usecases to switch 1
+07-14 10:15:01.143  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = speaker
+07-14 10:15:01.143  1041  1106 30105 D audio_hw_primary: disable_snd_device: snd_device(2: speaker)
+07-14 10:15:01.175  1041  1106 30105 D audio_hw_primary: disable_audio_route: reset and update mixer path: spkr-vi-record
+07-14 10:15:01.175  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 53 of type 1 for Event 2, with Raise=0
+07-14 10:15:01.175  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = vi-feedback
+07-14 10:15:01.175  1041  1106 30105 D audio_hw_primary: disable_snd_device: snd_device(222: vi-feedback)
+07-14 10:15:01.175  1041  1106 30105 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0xde of type 1 for Event 0, with Raise=0
+07-14 10:15:01.175  1041  1106 30105 W audio_hw_cirrus_playback: spkr_prot_stop_processing: state: 2, snd_device: 2
+07-14 10:15:01.176  1041  1106 30105 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0x2 of type 0 for Event 0, with Raise=0
+07-14 10:15:01.176  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = voice-speaker
+07-14 10:15:01.177  1041  1106 30105 D audio_route: Apply path: voice-speaker
+07-14 10:15:01.188  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = vi-feedback
+07-14 10:15:01.188  1041  1106 30105 D audio_hw_primary: enable_snd_device: snd_device(222: vi-feedback)
+07-14 10:15:01.188  1041  1106 30105 D msm8974_platform: platform_get_island_cfg_on_device:island cfg status on snd_device = (vi-feedback 0)
+07-14 10:15:01.188  1041  1106 30105 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0xde of type 1 for Event 1, with Raise=0
+07-14 10:15:01.188  1041  1106 30105 D audio_route: Apply path: vi-feedback
+07-14 10:15:01.188  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 53 of type 1 for Event 3, with Raise=0
+07-14 10:15:01.188  1041  1106 30105 D audio_hw_utils: audio_extn_utils_send_app_type_cfg: usecase->in_snd_device vi-feedback
+07-14 10:15:01.188  1041  1106 30105 E audio_hw_utils: send_app_type_cfg_for_device: Could not get ctl for mixer cmd - Audio Stream Capture 65 App Type Cfg
+07-14 10:15:01.188  1041  1106 30105 D audio_hw_waves: ma_set_device: 53 is not supported usecase
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 512, path = 1, app id = 0x11132, sample rate = 8000, afe_sample_rate = 8000
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_asm_topology
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_adm_topology
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audtable
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.189  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000200 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE_SIZE Returned = -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE
+07-14 10:15:01.189  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000200 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: ACDB audproc returned = -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL cal_type[11] acdb_id[512] app_type[69938]
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_PERSISTENT_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.189  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000200 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: ACDB_CMD_GET_PERSISTENT_AUDPROC_INSTANCE_COMMON_TABLE_SIZE returned -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audproc_persist_table -19 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: Invalid Audproc persist size = -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE_SIZE
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audstrmtable
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 20
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_topology
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 512, Topology Id 112fb
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_cal
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.189  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000200 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE Returned = -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE
+07-14 10:15:01.189  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000200 
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: Error: ACDB AFE returned = -19
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL cal_type[17] acdb_id[512]
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 512 path = 1
+07-14 10:15:01.189  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+07-14 10:15:01.189  1041  1106 30105 D audio_hw_primary: enable_audio_route: apply mixer and update path: spkr-vi-record
+07-14 10:15:01.189  1041  1106 30105 D audio_route: Apply path: spkr-vi-record
+07-14 10:15:01.205  1041  1106 30105 W audio_hw_cirrus_playback: spkr_prot_start_processing: ret: 0, state: 3, snd_device: 26
+07-14 10:15:01.205  1041  1106 30105 D audio_hw_primary: check_usecases_codec_backend:becf: enabling usecase (audio-playback-voip) on (voice-speaker)
+07-14 10:15:01.205  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 33 of type 0 for Event 3, with Raise=0
+07-14 10:15:01.205  1041  1106 30105 D audio_hw_utils: audio_extn_utils_send_app_type_cfg: usecase->out_snd_device voice-speaker
+07-14 10:15:01.206  1041  1106 30105 I audio_hw_utils: send_app_type_cfg_for_device PLAYBACK app_type 69946, acdb_dev_id 14, sample_rate 48000, snd_device_be_idx 119
+07-14 10:15:01.206  1041  1106 30105 D audio_hw_waves: ma_set_device: 33 is not supported usecase
+07-14 10:15:01.206  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 14, path = 0, app id = 0x1113a, sample rate = 48000, afe_sample_rate = 48000
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_asm_topology
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_adm_topology
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audtable
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL cal_type[11] acdb_id[14] app_type[69946]
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audvoltable
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_GAIN_DEP_STEP_TABLE_SIZE
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_GAIN_DEP_STEP_TABLE, vol index 1
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_VOL_CAL cal type = 12
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE_SIZE
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audstrmtable
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 20
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_topology
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 14, Topology Id 112fc
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_cal
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.207  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 0000000E 
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: Error: ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE Returned = -19
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE
+07-14 10:15:01.207  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 0000000E 
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: Error: ACDB AFE returned = -19
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL cal_type[16] acdb_id[14]
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 14 path = 0
+07-14 10:15:01.207  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+07-14 10:15:01.207  1041  1106 30105 D audio_hw_primary: enable_audio_route: apply mixer and update path: audio-playback-voip speaker
+07-14 10:15:01.207  1041  1106 30105 D audio_route: Apply path: audio-playback-voip speaker
+07-14 10:15:01.227 10044 29857 30107 I org.webrtc.Logging: WebRtcAudioRecordExternal: Number of active recording sessions: 1
+07-14 10:15:01.227 10044 29857 30107 I org.webrtc.Logging: WebRtcAudioRecordExternal: AudioRecordingConfigurations: 
+07-14 10:15:01.229 10044 29857 30107 I org.webrtc.Logging: WebRtcAudioRecordExternal:   client audio source=VOICE_COMMUNICATION, client session id=2201 (2201)
+07-14 10:15:01.229 10044 29857 30107 I org.webrtc.Logging:   Device AudioFormat: channel count=1, channel index mask=0, channel mask=IN_MONO, encoding=PCM_16BIT, sample rate=48000
+07-14 10:15:01.229 10044 29857 30107 I org.webrtc.Logging:   Client AudioFormat: channel count=1, channel index mask=0, channel mask=IN_MONO, encoding=PCM_16BIT, sample rate=48000
+07-14 10:15:01.229 10044 29857 30107 I org.webrtc.Logging:   AudioDevice: type=TYPE_BUILTIN_MIC, id=21
+07-14 10:15:01.229 10044 29857 30107 I org.webrtc.Logging: WebRtcAudioRecordExternal: verifyAudioConfig: PASS
+07-14 10:15:01.229  1000  1123  1232 I ASH     : @ 65758.748: tcs3701: stop power rail pending_off timer
+07-14 10:15:01.230  1000  1123  1232 D ASH     : @ 65758.748: tcs3701: start power rail timer, state:3
+07-14 10:15:01.239  1041  1106 30105 D hardware_info: hw_info_append_hw_type : device_name = voice-speaker
+07-14 10:15:01.239  1041  1106 30105 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 13 of type 0 for Event 3, with Raise=0
+07-14 10:15:01.239  1041  1106 30105 D audio_hw_utils: audio_extn_utils_send_app_type_cfg: usecase->out_snd_device voice-speaker
+07-14 10:15:01.239  1041  1106 30105 D audio_hw_waves: ma_set_device: 13 is not supported usecase
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 14, path = 0, app id = 0x11130, sample rate = 48000, afe_sample_rate = 48000
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_asm_topology
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_adm_topology
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audtable
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL cal_type[11] acdb_id[14] app_type[69936]
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audvoltable
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_GAIN_DEP_STEP_TABLE_SIZE
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_GAIN_DEP_STEP_TABLE, vol index 1
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_VOL_CAL cal type = 12
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE_SIZE
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_audstrmtable
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 536
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_topology
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 14, Topology Id 112fc
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_afe_cal
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.239  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 0000000E 
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: Error: ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE Returned = -19
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE
+07-14 10:15:01.239  1041  1106 30105 D android.hardware.audio.service: Failed to fetch the lookup information of the device 0000000E 
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: Error: ACDB AFE returned = -19
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL cal_type[16] acdb_id[14]
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 14 path = 0
+07-14 10:15:01.239  1041  1106 30105 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+07-14 10:15:01.239  1041  1106 30105 D audio_hw_primary: enable_audio_route: apply mixer and update path: mmap-playback speaker
+07-14 10:15:01.239  1041  1106 30105 D audio_route: Apply path: mmap-playback speaker
+07-14 10:15:01.244  1041  1106 30105 D audio_hw_primary: select_devices for use case (audio-playback-voip)
+07-14 10:15:01.245  1041  1106  6779 D audio_hw_primary: NS enable 1
+07-14 10:15:01.246  1041  1106 30108 D audio_hw_primary: start_input_stream: enter: stream(0xe7781cf0)usecase(34: audio-record-voip)
+07-14 10:15:01.246  1041  1106 30108 D audio_hw_primary: select_devices for use case (audio-record-voip)
+07-14 10:15:01.246  1041  1106 30108 I msm8974_platform: platform_check_and_set_capture_codec_backend_cfg:txbecf: afe: bitwidth 16, samplerate 48000, channel 1 format 1, backend_idx 8 usecase = 34 device (speaker-dmic-endfire)
+07-14 10:15:01.246  1041  1106 30108 I msm8974_platform: platform_check_capture_codec_backend_cfg:txbecf: afe: Codec selected backend: 8 current bit width: 16 and sample rate: 48000, channels 1 format 1
+07-14 10:15:01.246  1041  1106 30108 W msm8974_platform: platform_get_backend_index:napb: Invalid device - 0 
+07-14 10:15:01.246  1041  1106 30108 I msm8974_platform: platform_check_capture_codec_backend_cfg:txbecf: afe: current backend bit_width 16 sample_rate 48000 channels 1, format 0
+07-14 10:15:01.246  1041  1106 30108 I msm8974_platform: platform_check_capture_codec_backend_cfg:txbecf: afe: Codec backend needs to be updated. new bit width: 16 new sample rate: 48000 new channel: 1 new format: 1
+07-14 10:15:01.246  1041  1106 30108 I msm8974_platform: platform_set_codec_backend_cfg:becf: afe: bitwidth 16, samplerate 48000 channels 1 format 1, backend_idx 8 device (speaker-dmic-endfire)
+07-14 10:15:01.246  1041  1106 30108 D audio_hw_primary: check_usecases_capture_codec_backend:becf: force routing 0
+07-14 10:15:01.246  1041  1106 30108 D hardware_info: hw_info_append_hw_type : device_name = speaker-dmic-endfire
+07-14 10:15:01.246  1041  1106 30108 D audio_hw_primary: enable_snd_device: snd_device(161: speaker-dmic-endfire)
+07-14 10:15:01.246  1041  1106 30108 D msm8974_platform: platform_get_island_cfg_on_device:island cfg status on snd_device = (speaker-dmic-endfire 0)
+07-14 10:15:01.246  1041  1106 30108 D soundtrigger: audio HAL using same device 161 as ST
+07-14 10:15:01.246  1041  1106 30108 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0xa1 of type 1 for Event 1, with Raise=1
+07-14 10:15:01.246  1041  1106 30108 D sound_trigger_platform: platform_stdev_check_and_update_concurrency: Received DEVICE event, event type 1
+07-14 10:15:01.246  1041  1106 30108 D sound_trigger_platform: platform_stdev_check_and_update_concurrency: dedicated path 0, reset backend 0, tx 1, rx 0,concurrency session allowed
+07-14 10:15:01.246  1041  1106 30108 D sound_trigger_hw: Audio HAL has a capture session ON, don't disable the device
+07-14 10:15:01.246  1041  1106 30108 D sound_trigger_hw_common: st_hw_check_lpi_support: lpi NOT supported due to concurrency
+07-14 10:15:01.246  1041  1106 30108 D sound_trigger_hw_common: st_hw_check_vad_support: VAD NOT supported due to concurrency
+07-14 10:15:01.246  1041  1106 30108 D audio_route: Apply path: speaker-dmic-endfire
+07-14 10:15:01.250  1041  1106 30108 D sound_trigger_hw: handle_audio_ec_ref_enabled: Enter
+07-14 10:15:01.250  1041  1106 30108 D sound_trigger_hw: handle_audio_ec_ref_enabled: Exit audio ec ref=1
+07-14 10:15:01.250  1041  1106 30108 D soundtrigger: audio_extn_sound_trigger_update_ec_ref_status: update audio echo ref status true
+07-14 10:15:01.250  1041  1106 30108 D audio_route: Apply path: echo-reference speaker
+07-14 10:15:01.250  1041  1106 30108 D msm8974_platform: platform_set_echo_reference: enabling echo-reference speaker
+07-14 10:15:01.250  1041  1106 30108 D soundtrigger: audio HAL using same device 161 as ST
+07-14 10:15:01.250  1041  1106 30108 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_info->id 34 of type 1 for Event 3, with Raise=1
+07-14 10:15:01.250  1041  1106 30108 D soundtrigger: audio_extn_sound_trigger_update_stream_status: send event 13: usecase id 34, type 1
+07-14 10:15:01.250  1041  1106 30108 I sound_trigger_platform: platform_stdev_check_and_update_concurrency: Received STREAM event, event type 13, usecase type 3
+07-14 10:15:01.250  1041  1106 30108 D sound_trigger_platform: platform_stdev_check_and_update_concurrency: dedicated path 0, reset backend 0, tx 1, rx 0,concurrency session not allowed
+07-14 10:15:01.250  1041  1106 30108 D sound_trigger_hw: idle_state_fn:[31] handle event id 11
+07-14 10:15:01.250  1041  1106 30108 D sound_trigger_hw_common: st_hw_check_lpi_support: lpi NOT enabled for ses 31
+07-14 10:15:01.251  1041  1106 30108 D sound_trigger_hw_common: st_hw_check_vad_support: VAD NOT supported due to concurrency
+07-14 10:15:01.251  1041  1106 30108 D audio_hw_utils: audio_extn_utils_send_app_type_cfg: usecase->in_snd_device speaker-dmic-endfire
+07-14 10:15:01.251  1041  1106 30108 I audio_hw_utils: audio_extn_utils_get_app_sample_rate_for_device CAPTURE enforcing sample_rate 48000 for device 161
+07-14 10:15:01.251  1041  1106 30108 I audio_hw_utils: send_app_type_cfg_for_device CAPTURE app_type 69946, acdb_dev_id 19, sample_rate 48000, snd_device_be_idx 56
+07-14 10:15:01.251  1041  1106 30108 D audio_hw_waves: ma_set_device: 34 is not supported usecase
+07-14 10:15:01.251  1041  1106 30108 I audio_hw_utils: audio_extn_utils_get_app_sample_rate_for_device CAPTURE enforcing sample_rate 48000 for device 161
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 19, path = 1, app id = 0x1113a, sample rate = 48000, afe_sample_rate = 48000
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_asm_topology
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_adm_topology
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_audtable
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_COMMON_TABLE
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL cal_type[11] acdb_id[19] app_type[69946]
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_PERSISTENT_AUDPROC_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: ACDBFILE_MGR: Property for the pid 000133B7 not found
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: [Data Manager]-> No data found
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: Error: ACDB_CMD_GET_PERSISTENT_AUDPROC_INSTANCE_COMMON_TABLE_SIZE returned -18
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_audproc_persist_table -18 
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: Error: Invalid Audproc persist size = -18
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE_SIZE
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_audstrmtable
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_INSTANCE_STREAM_TABLE
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 20
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_afe_topology
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 19, Topology Id 112fb
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_afe_cal
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000013 
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: Error: ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE_SIZE Returned = -19
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_INSTANCE_COMMON_TABLE
+07-14 10:15:01.251  1041  1106 30108 D android.hardware.audio.service: Failed to fetch the lookup information of the device 00000013 
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: Error: ACDB AFE returned = -19
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL cal_type[17] acdb_id[19]
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 19 path = 1
+07-14 10:15:01.251  1041  1106 30108 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+07-14 10:15:01.251  1041  1106 30108 D audio_hw_primary: enable_audio_route: apply mixer and update path: audio-record-voip speaker-mic
+07-14 10:15:01.251  1041  1106 30108 D audio_route: Apply path: audio-record-voip speaker-mic
+07-14 10:15:01.317  1000  1123  1232 I ASH     : @ 65758.835: tcs3701: stop power rail pending_off timer
+07-14 10:15:01.317  1000  1123  1232 D ASH     : @ 65758.835: tcs3701: start power rail timer, state:3
+07-14 10:15:01.402  1000  1123  1232 I ASH     : @ 65758.921: tcs3701: stop power rail pending_off timer
+07-14 10:15:01.402  1000  1123  1232 D ASH     : @ 65758.921: tcs3701: start power rail timer, state:3
+07-14 10:15:01.424  1041  1106  2304 W audio_hw_cirrus_playback: pixel_rtlogger_data_analysis: Left/Top amp is disabled or doesn't exist
+07-14 10:15:01.431  1000  1799  2226 I EthernetTracker: interfaceLinkStateChanged, iface: rmnet_data2, up: true
+07-14 10:15:01.435  1000  1799  2226 I EthernetTracker: interfaceLinkStateChanged, iface: rmnet_data2, up: true
+07-14 10:15:01.447 10165  2663 23557 V NativeCrypto: Read error: ssl=0xb40000767dd0e258: I/O error during system call, Software caused connection abort
+07-14 10:15:01.447 10165  2852 29135 V NativeCrypto: Read error: ssl=0xb40000767dd32cd8: I/O error during system call, Software caused connection abort
+07-14 10:15:01.447 10165  2852 29774 V NativeCrypto: Read error: ssl=0xb40000767dd46058: I/O error during system call, Software caused connection abort
+07-14 10:15:01.449 10165  2663 24930 V NativeCrypto: Write error: ssl=0xb40000767dd0e258: I/O error during system call, Broken pipe
+07-14 10:15:01.450 10165  2663 24930 V NativeCrypto: SSL shutdown failed: ssl=0xb40000767dd0e258: I/O error during system call, Success
+07-14 10:15:01.451 10165  2852 29816 V NativeCrypto: Write error: ssl=0xb40000767dd32cd8: I/O error during system call, Broken pipe
+07-14 10:15:01.451 10165  2663 29444 V NativeCrypto: Read error: ssl=0xb40000767dd10ad8: I/O error during system call, Software caused connection abort
+07-14 10:15:01.451 10165  2852 29816 V NativeCrypto: SSL shutdown failed: ssl=0xb40000767dd32cd8: I/O error during system call, Success
+07-14 10:15:01.452 10165  2663 24930 V NativeCrypto: Write error: ssl=0xb40000767dd10ad8: I/O error during system call, Broken pipe
+07-14 10:15:01.452 10165  2663 24930 V NativeCrypto: SSL shutdown failed: ssl=0xb40000767dd10ad8: I/O error during system call, Success
+07-14 10:15:01.462 10165  2852 29135 V NativeCrypto: SSL shutdown failed: ssl=0xb40000767dd46058: I/O error during system call, Broken pipe
+07-14 10:15:01.462 10165  2852 29135 E WakeLock: GCM_HB_ALARM release without a matched acquire!
+07-14 10:15:01.462 10165  2852 29135 W WakeLock: GCM_HB_ALARM counter does not exist
+07-14 10:15:01.462  1000  1799  2226 I EthernetTracker: interfaceLinkStateChanged, iface: rmnet_data2, up: false
+07-14 10:15:01.467  1000  1799  2548 W NetworkPolicy: shared quota unsupported; generating rule for each iface
+07-14 10:15:01.471 10397  2945  3914 D QCNEJ/DataCallAgent: onLinkPropertiesChanged: 101 mSubId: 4 mSlotId: 1
+07-14 10:15:01.480 10352 13977 14285 I PJSIP   : 10:15:01.480 tcpc0xb4000077  TCP connection closed: (reason=120103)
+07-14 10:15:01.480 10152  7743 29837 I CarrierServices: [500] cxn.b: Using config server URL from bkv
+07-14 10:15:01.480 10352 13977 14285 D PJJNI   : on_transport_state 0xb40000775ddca5f8 tcpc0xb40000775ddca5f8 state 1 status 120103
+07-14 10:15:01.480 10352 13977 14285 I PJSIP   : 10:15:01.480 sip_transport.  Transport tcpc0xb40000775ddca5f8 shutting down
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: [500] fon.run: (RCS): : Error while receiving message: Software caused connection abort: java.net.SocketException: Software caused connection abort
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.net.SocketInputStream.socketRead0(Native Method)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.net.SocketInputStream.socketRead(SocketInputStream.java:119)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.net.SocketInputStream.read(SocketInputStream.java:176)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.net.SocketInputStream.read(SocketInputStream.java:144)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readFromSocket(ConscryptEngineSocket.java:945)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.processDataFromSocket(ConscryptEngineSocket.java:909)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.readUntilDataAvailable(ConscryptEngineSocket.java:824)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at com.android.org.conscrypt.ConscryptEngineSocket$SSLInputStream.read(ConscryptEngineSocket.java:797)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.io.BufferedInputStream.fill(BufferedInputStream.java:248)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at java.io.BufferedInputStream.read(BufferedInputStream.java:267)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at drp.a(PG:2)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at fnp.a(PG:3)
+07-14 10:15:01.482 10152  7743 29837 E CarrierServices: 	at fon.run(PG:6)
+07-14 10:15:01.483 10165  2852 29135 E WakeLock: GCM_CONN_ALARM release without a matched acquire!
+07-14 10:15:01.483 10165  2852 29135 W WakeLock: GCM_CONN_ALARM counter does not exist
+07-14 10:15:01.483 10044 29857 30027 I VCOMWebSocket: WebSocket Disconnected
