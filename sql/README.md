@@ -24,6 +24,9 @@ will allow you to navigate to localhost:8080 to see the page
 
 At the moment we have to have two separate threads running in the terminal for watching/rebuilding and for serving to localhost. It would be nice to condense these to one but it is more trouble than it is worth :)
 
+*worker.js* will be cached by the browser and cause development problems.
+Make sure to separately open localhost:8080/dist/worker.js and force refresh that page to get changes to flush through.
+
 ## Build
 
 `npm run build`
