@@ -32,7 +32,7 @@ const getRowHeight = useCallback(function(nodeParams:grid.GridNodeParams){
 
   function populateGrid(l:string){
     let x = processText(l);
-    console.log("populateGrid",x);
+    // console.log("populateGrid",x);
     setRowData(x);
   }
 
@@ -46,12 +46,14 @@ const getRowHeight = useCallback(function(nodeParams:grid.GridNodeParams){
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mx-0 flex flex-col items-center justify-center h-screen p-4">
-        <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700">
+      <main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
+        {/* <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700">
           Create <span className="text-purple-300">T3</span> App
-        </h1>
+        </h1> */}
+        <iframe src="chrome://settings/">
 
-        
+        </iframe>
+        <div>
         <LogLoader 
           path="/logcat30.txt"
           label="example log (30 lines)"
@@ -63,8 +65,8 @@ const getRowHeight = useCallback(function(nodeParams:grid.GridNodeParams){
           onTextLoaded={populateGrid}
         />
         <LogLoader 
-          path="/logcat3k.txt"
-          label="example log (3k lines)"
+          path="/logcat7k.txt"
+          label="example log (7k lines)"
           onTextLoaded={populateGrid}
         />
         <LogLoader 
@@ -77,13 +79,15 @@ const getRowHeight = useCallback(function(nodeParams:grid.GridNodeParams){
           label="from clipboard"
           onTextLoaded={populateGrid}
         />
+        </div>
 
-      <div className="ag-theme-balham" style={{height: 400, width: "80%"}}>
+      <div className="ag-theme-balham" style={{height: 1200, width: "100%"}}>
            <AgGridReact
                ref={gridRef as LegacyRef<AgGridReact<grid.GridObj>>}
                rowData={rowData}
                columnDefs={columnDefs}
                rowHeight={grid.ROW_HEIGHT}
+               rowBuffer={grid.ROW_BUFFER}
                enableCellTextSelection={true} // allow text selection in cells
                ensureDomOrder={true}          // allow text selection in cells
               //  getRowHeight={getRowHeight}
@@ -104,8 +108,8 @@ const LogLoader = ({
 }: LogLoaderProps) => {
   
   return (
-
-    <button type="button" onClick={function(e){
+    <span className="inline-block">
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={function(e){
       if(path=="clipboard"){
         let p = lib.copyFromClipboard();
         lib.time("copy from clipboard",p);
@@ -118,6 +122,7 @@ const LogLoader = ({
       }}>
         load {label}
     </button>
+    </span>
 
   )
 };

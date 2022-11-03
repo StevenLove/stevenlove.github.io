@@ -96,7 +96,7 @@ function levelCellStyle(params:GridRowParams):{[key:string]:any} {
 let initialColumnDefs:AGGRidColDef[] = [
     { field: 'domain', width:50,pinned: true,resizable:false},
     { field: 'datetime',width:140,pinned:true,cellStyle:datetimeCellStyle},
-    { field: 'level' ,width:6,pinned:true,resizable:false,cellStyle:levelCellStyle},
+    { field: 'level' ,width:40,pinned:true,resizable:false,cellStyle:levelCellStyle},
     { field: 'pid' ,width:30,resizable:false},
     { field: 'tid' ,width:30,resizable:false},
     // { field: 'uid' ,width:0}, // don't care
@@ -120,4 +120,5 @@ export const initialRowData = processor.processText(`07-25 12:17:31.923  5107  7
 // ] as GridObj[];
 
 
-export const ROW_HEIGHT = 20;
+export const ROW_HEIGHT = 20; // in pixels
+export const ROW_BUFFER = 10; // # of rows loaded outside of viewport. Smaller is more performant. Default is 10

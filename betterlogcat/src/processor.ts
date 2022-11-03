@@ -40,7 +40,7 @@ function firstPass(l:string):IntermediateLogObj[]{
                 uid: 0,
                 domain: sectionName,
             } as IntermediateLogObj);
-            console.log("unhandled line",line);
+            // console.log("unhandled line",line);
           }
         }
       })
@@ -53,16 +53,19 @@ filter duplicates
 */
 function secondPass(input:IntermediateLogObj[]):IntermediateLogObj[]{
     let out = [] as IntermediateLogObj[];
+    // const regex1 = /Failed to measure fs-verity, errno 1:.*/
     // logs = logs.filter(l=>!l.message.match(/Failed to measure fs-verity, errno 1:.*/));
     input.forEach(l=>{
-        if(l.message.match(/Failed to measure fs-verity, errno 1:.*/)){
-            return;
-        }
-        let mostRecent = out[out.length-1];
-        if(mostRecent && lib.areSimilar(l.message,mostRecent.message)){
-            mostRecent.message = "(x2)" + mostRecent.message;
-            return;
-        }
+        // if(regex1.test(l.message)){return}
+        // if(l.message.match(regex1)){
+        //     return;
+        // }
+        // if(/Failed to measure fs-verity, errno 1:.*/.test(l.message)){return}
+        // let mostRecent = out[out.length-1];
+        // if(mostRecent && lib.areSimilar(l.message,mostRecent.message)){
+        //     mostRecent.message = "(x2)" + mostRecent.message;
+        //     return;
+        // }
         out.push(l);
     })
     return out;

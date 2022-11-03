@@ -31,5 +31,9 @@ src/parsing.ts
 5. condense repeated messages
 
 
+## Conclusion
+I've decided to look into making a vscode plugin.
+This app is not as pleasant as vscode to just scroll up and down. You cannot use CMD+F to search the logs easily here. you do not see the zoomed out preview. And it's just not as smooth to scroll through. 
 
+I like the idea of programmatically assessing which lines are important - I can score each line and subtract some if it appears in a recording that I take of me doing nothing, as well as hand-picked unimportant lines. And add points for known important things like I have recorded in my notes. All my vscode plugin needs to do is perhaps apply some highlighting to different lines.
 
