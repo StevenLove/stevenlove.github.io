@@ -1,5 +1,5 @@
 import { Time } from "./Time";
-import { pageLoaded } from "./Lib";
+import { pageLoaded,Canceler } from "./Lib";
 
 const Synth = (async (optionalCTX?:AudioContext)=>{
  
@@ -140,14 +140,20 @@ const Synth = (async (optionalCTX?:AudioContext)=>{
     masterGain.connect(computerSpeakers);
 
 
-    function playTone(freq:number, duration:Time){
+    function playTone(freq:number, duration?:Time):Canceler{
         const osc = Oscillator();
         osc.setFrequency(freq);
         osc.connect(dynamicNotesOutro.node);
         osc.start();
-        setTimeout(()=>{
+
+        if(duration){
+            setTimeout(()=>{
+                osc.stop();
+            }, duration.toMs());
+        }
+        return new Canceler(()=>{
             osc.stop();
-        }, duration.toMs());
+        })
     }
     
     return {

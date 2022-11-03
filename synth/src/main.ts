@@ -2,41 +2,38 @@
 import {Synth} from './Synth';
 import {Time} from './Time';
 import {KeysLevel1,Key} from './Keys';
+import {Canceler} from './Lib';
 
 
 async function main(){
         
         const synth = await Synth();
-        // synth.playTone(540, Time.seconds(1));
         let keyboard = await KeysLevel1()
-        // keyboard.onDown(Key.of("i"),()=>{
-        //         synth.playTone(540, Time.seconds(1));
-        // });
-        // keyboard.whileHeld(
-        //         Key.of("a"),
-        //         ()=>{
-        //                 synth.playTone(540, Time.seconds(1));
-        //         }, ()=>{
-        //                 synth.playTone(300, Time.seconds(1));
-        //         }
-        // )
+        let cancelMap = new Map<Key,Canceler>();
 
-        let multiplier = 1
-        setInterval(()=>{
-                console.log("go");
-        keyboard.whileHeldOnce(
-                Key.j,
-                ()=>{
-                        multiplier = 2;
-                }
-                ,()=>{
-                        multiplier = 1;
-                }
-        )
+        function mapKey(k:Key, freq:number){
+                keyboard.whileHeld(k,()=>{
+                        cancelMap.set(k,synth.playTone(freq))
+                },()=>{
+                        cancelMap.get(k)?.cancel();
+                })
+        }
+
+        mapKey(Key.CAPS_LOCK, 261.63);
+        mapKey(Key.a, 440);
+        mapKey(Key.s, 493.88);
+        mapKey(Key.d, 523.25);
+        mapKey(Key.f, 587.33);
+        mapKey(Key.g, 659.25);
+        mapKey(Key.h, 698.46);
+        mapKey(Key.j, 783.99);
+        mapKey(Key.k, 880);
+        mapKey(Key.l, 987.77);
+        mapKey(Key.SEMICOLON, 1046.5);
+        mapKey(Key.SINGLE_QUOTE, 1174.66);
+        mapKey(Key.ENTER, 1318.51);
+
         
-        keyboard.onDownOnce(Key.a,()=>synth.playTone(300*multiplier, Time.seconds(1)));
-        }, 3000)
-
 
 
 }

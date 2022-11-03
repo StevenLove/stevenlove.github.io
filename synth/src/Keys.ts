@@ -1,4 +1,4 @@
-import { pageLoaded } from "./Lib"
+import { pageLoaded, CancelableEventMap,LazyInitializingMap,Canceler } from "./Lib";
 
 enum Key{
     A = "A",B = "B",C="C",D="D",E="E",F="F",G="G",H="H",I="I",J="J",K="K",L="L",M="M",N="N",O="O",P="P",Q="Q",R="R",S="S",T="T",U="U",V="V",W="W",X="X",Y="Y",Z="Z",
@@ -21,96 +21,14 @@ enum Key{
     UNKNOWN = "Unknown",
     UNSPECIFIED = "Unspecified",
 }
-    function KeyFromEvent(e:KeyboardEvent):Key{
-        const key = Key[e.key as keyof typeof Key];
-        if(key){
-            return key
-        }else{
-            return Key.UNKNOWN
+function KeyFromEvent(e:KeyboardEvent):Key{
+    // compare e.key to the string value of the enum
+    for(let k in Key){
+        if(Key[k] === e.key){
+            return Key[k];
         }
     }
-// class Key{
-//     enum:KeyEnum = KeyEnum.UNSPECIFIED;
-//     constructor(key:KeyEnum){
-//         this.enum = key;
-//     }
-//     static of(name:string){
-//         const key = KeyEnum[name as keyof typeof KeyEnum];
-//         if(key){
-//             return new Key(key);
-//         }else{
-//             return new Key(KeyEnum.UNKNOWN);
-//         }
-//     }
-//     static from(e:KeyboardEvent){
-//         const key = KeyEnum[e.key as keyof typeof KeyEnum];
-//         if(key){
-//             return new Key(key);
-//         }else{
-//             return new Key(KeyEnum.UNKNOWN);
-//         }
-//     }
-// }
-
-
-class Canceler{
-    private fn:()=>void;
-    constructor(fn:()=>void){
-        this.fn = fn;
-    }
-    cancel(){
-        this.fn()
-    }
-}
-
-class CancelableEventMap{
-    private map:Map<number,()=>void> = new Map();
-
-    add(handler:()=>void):Canceler{
-        const id = Math.random();
-        this.map.set(id,handler);
-        return new Canceler(()=>{
-            this.cancel(id);
-        })
-    }
-    cancel(id:number){
-        this.map.delete(id);
-    }
-    addOnce(handler:()=>void){
-        const id = Math.random();
-        let newHandler = ()=>{
-            this.cancel(id);
-            handler();
-        }
-        this.map.set(id,newHandler);
-        return new Canceler(()=>{
-            this.cancel(id);
-        })
-    }
-    triggerAll(){
-        this.map.forEach((handler)=>{
-            handler();
-        });
-    }
-    cancelAll(){
-        this.map.forEach((handler, id)=>{
-            this.cancel(id);
-        })
-    }
-}
-
-class LazyInitializingMap<K,V>{
-    private map:Map<K,V> = new Map();
-    private fn:(key:K)=>V;
-    constructor(fn:(key:K)=>V){
-        this.fn = fn;
-    }
-    get(key:K):V{
-        if(!this.map.has(key)){
-            this.map.set(key,this.fn(key));
-        }
-        return this.map.get(key);
-    }
+    return Key.UNKNOWN;
 }
 
 const KeysLevel1 = (async()=>{
