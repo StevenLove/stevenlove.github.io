@@ -1,4 +1,5 @@
 import { Time } from "./Time";
+import { pageLoaded } from "./Lib";
 
 const Synth = (async (optionalCTX?:AudioContext)=>{
  
@@ -86,19 +87,6 @@ const Synth = (async (optionalCTX?:AudioContext)=>{
         }
     })
     
-
-    /* function to await the page loading */
-    function pageLoaded():Promise<void>{
-        return new Promise((resolvef)=>{
-            if(document.readyState === "complete"){
-                resolvef();
-            }else{
-                window.addEventListener("load", ()=>{
-                    resolvef();
-                })
-            }
-        })
-    }
 
     /* function to await an audio context that has been enabled by the user and is running.
     You can optionally supply an existing audiocontext to use that instance but still wait for it to become ready
