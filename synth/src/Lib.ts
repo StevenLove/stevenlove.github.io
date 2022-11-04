@@ -72,4 +72,4 @@ class LazyInitializingMap<K,V>{
         return this.map.get(key);
     }
 }
-export {pageLoaded, Canceler, CancelableEventMap, LazyInitializingMap}};
+export {pageLoaded, Canceler, CancelableEventMap, LazyInitializingMap};

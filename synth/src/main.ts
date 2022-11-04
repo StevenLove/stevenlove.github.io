@@ -10,10 +10,12 @@ async function main(){
         const synth = await Synth();
         let keyboard = await KeysLevel1()
         let cancelMap = new Map<Key,Canceler>();
+        let multiplier = 1;
 
         function mapKey(k:Key, freq:number){
                 keyboard.whileHeld(k,()=>{
-                        cancelMap.set(k,synth.playTone(freq))
+                        console.log("playing",freq*multiplier);
+                        cancelMap.set(k,synth.playTone(freq*multiplier))
                 },()=>{
                         cancelMap.get(k)?.cancel();
                 })
@@ -32,6 +34,21 @@ async function main(){
         mapKey(Key.SEMICOLON, 1046.5);
         mapKey(Key.SINGLE_QUOTE, 1174.66);
         mapKey(Key.ENTER, 1318.51);
+
+        keyboard.onDown(Key.A,()=>synth.setTargetFrequency(440))
+        keyboard.onDown(Key.S,()=>synth.setTargetFrequency(493.88))
+        keyboard.onDown(Key.D,()=>synth.setTargetFrequency(523.25))
+        keyboard.onDown(Key.F,()=>synth.setTargetFrequency(587.33))
+        keyboard.onDown(Key.G,()=>synth.setTargetFrequency(659.25))
+        keyboard.onDown(Key.H,()=>synth.setTargetFrequency(698.46))
+        keyboard.onDown(Key.J,()=>synth.setTargetFrequency(783.99))
+        keyboard.onDown(Key.K,()=>synth.setTargetFrequency(880))
+        keyboard.onDown(Key.L,()=>synth.setTargetFrequency(987.77))
+
+        keyboard.onDown(Key.w,()=>multiplier/=2);
+        keyboard.onDown(Key.e,()=>multiplier*=2);
+
+        keyboard.onDown(Key.q,synth.printBuffer);
 
         
 

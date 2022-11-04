@@ -1,13 +1,21 @@
 import { Time } from "./Time";
 import { pageLoaded,Canceler } from "./Lib";
+import { getReadyAudioContext } from "./AudioContext"
+import { MyChart } from "./Chart"
 
-const Synth = (async (optionalCTX?:AudioContext)=>{
+const Synth = (async ()=>{
  
-    const ctx = await getAudioContext(optionalCTX);
+    const ctx = await getReadyAudioContext();
+
+    console.log("sample rate",ctx.sampleRate);
 
     const C = {
         GAIN_NODE_STOP_TIME_CONSTANT:0.015, // smaller value = faster change
         OSCILLATOR_TIME_TO_STOP:Time.ms(0.5), // smaller value = faster change
+        VISUALIZER_FFT_SIZE:32768/4,
+        VISUALIZER_MIN_DECIBELS:-90,
+        VISUALIZER_MAX_DECIBELS:-10,
+        VISUALIZER_SMOOTHING_TIME_CONSTANT:0.85,
     }
 
     const Gain = (()=>{
@@ -86,58 +94,138 @@ const Synth = (async (optionalCTX?:AudioContext)=>{
             connect: gain.connect,
         }
     })
-    
 
-    /* function to await an audio context that has been enabled by the user and is running.
-    You can optionally supply an existing audiocontext to use that instance but still wait for it to become ready
-    and prompt the user to enable it of course. */
-    async function getAudioContext(ctx?:AudioContext):Promise<AudioContext>{
-        await pageLoaded();
-        let got = ctx || new AudioContext()
-        let thingsToDoWhenWeResumeSuccessfully:Array<Function> = [];
-        let p = new Promise<AudioContext>((resolve)=>{
-            got.onstatechange = ()=>{
-                if(got.state === "running"){
-                    thingsToDoWhenWeResumeSuccessfully.forEach((fn)=>{fn()});
-                    resolve(got);
-                }
+    const Visualizer = (()=>{
+        const analyserNode = ctx.createAnalyser();
+        analyserNode.fftSize = C.VISUALIZER_FFT_SIZE;
+        analyserNode.minDecibels = C.VISUALIZER_MIN_DECIBELS;
+        analyserNode.maxDecibels = C.VISUALIZER_MAX_DECIBELS;
+        analyserNode.smoothingTimeConstant = C.VISUALIZER_SMOOTHING_TIME_CONSTANT;
+        const bufferLength = analyserNode.frequencyBinCount;
+        const analyserBuffer = new Uint8Array(bufferLength);
+        
+            
+        const WIDTH = 400;
+        const HEIGHT = 200;
+        /* create a canvas with the given width and height */
+        var canvas = document.createElement("canvas");
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+        /* get the 2d context of the canvas */
+        var canvasContext = canvas.getContext("2d");
+        /* draw a rectangle with the given dimensions */
+        canvasContext.fillStyle = "rgb(200,0,0)";
+        canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
+        
+        const draw = () => {
+            requestAnimationFrame(draw);
+            analyserNode.getByteFrequencyData(analyserBuffer); // update data in analyserBuffer
+            canvasContext.fillStyle = "black";
+            canvasContext.fillRect(0,0,WIDTH,HEIGHT);
+            var barWidth = (WIDTH / bufferLength) * 2.5;
+            var barHeight;
+            var x = 0;
+            for(var i = 0; i < bufferLength; ++i){
+                barHeight = analyserBuffer[i]/2;
+                canvasContext.fillStyle = 'rgb('+(barHeight+100) + ',50,50)';
+                canvasContext.fillRect(x,HEIGHT-barHeight/2, barWidth,barHeight);
+                x += barWidth + 1;
+            }
+        }
+        /* append the canvas element to the screen */
+            
+        return ({
+            node:analyserNode,
+            buffer:analyserBuffer,
+            canvas,
+            display:async()=>{
+                await pageLoaded();
+                document.body.appendChild(canvas);
+                draw();
+            },
+            connect: (destination:AudioNode)=>{
+                analyserNode.connect(destination);
             }
         })
-        function attemptResume(){got.resume()}
-        if(got.state === "suspended"){
-            /* notify the user that they need to click a button to start the audio */
-            const button = document.createElement("button");
-            button.innerText = "Click to start audio";
-            button.addEventListener("click", attemptResume);
-            button.style.width = "100%";
-            button.style.height = "100%";
-            button.style.fontSize = "100px";
-            button.style.position = "absolute";
-            button.style.top = "0";
-            button.style.left = "0";
-            button.style.zIndex = "1000";
-            document.body.appendChild(button);
-            thingsToDoWhenWeResumeSuccessfully.push(()=>button.remove())
+    
+    
+    })
 
-            document.addEventListener("keydown", attemptResume);
-            thingsToDoWhenWeResumeSuccessfully.push(()=>{
-                document.removeEventListener("keydown", attemptResume);
-            })
+    const ToneAnalyzer = (()=>{
+        let node = new AudioWorkletNode(
+            ctx,
+            "random-noise-processor",
+            {
+                parameterData:{
+                    targetFrequency: 440,
+                }
+            }
+        )
+        node.parameters.forEach(param=>{
+            param.setValueAtTime(440,ctx.currentTime);
+        })
+
+        return {
+            node,
+            setTargetFrequency: (freq:number)=>{
+                node.parameters.forEach(param=>{
+                    param.setValueAtTime(freq,ctx.currentTime);
+                })
+            },
+            onMessage: (cb:(e:MessageEvent)=>void)=>{
+                node.port.onmessage = cb;
+            }
         }
-        return p;
-    }
+    })
+    
+
+    
 
 
     const masterGain = Gain();
     const dynamicNotesIntro = Gain();
     const dynamicNotesOutro = Gain();
     const computerSpeakers = ctx.destination;
-    
+    const visualizer = await Visualizer();
+    const chart = await MyChart()
+
+    await ctx.audioWorklet.addModule("randomNoiseProcessor.js?q="+Math.random());
+    const randomNoiseNode = new AudioWorkletNode(
+        ctx,
+        "random-noise-processor"
+    );
+    let testers = [];
+    testers.push(ToneAnalyzer())
+    testers.push(ToneAnalyzer())
+    // testers.push(ToneAnalyzer())
+    // testers.push(ToneAnalyzer())
+    // testers.push(ToneAnalyzer())
+    // testers.push(ToneAnalyzer())
+
+    testers[1].setTargetFrequency(587.33)
+
+    testers.forEach(tester=>{
+        tester.onMessage(e=>{
+            chart.add(e.data.sum)
+        })
+    })
+    // loop over each tester and connect each one to the next one
+    for(let i = 0; i < testers.length-1; ++i){
+        testers[i].node.connect(testers[i+1].node);
+    }
+
 
     // connect up all the basic nodes
     dynamicNotesIntro.connect(dynamicNotesOutro.node);
     dynamicNotesOutro.connect(masterGain.node);
-    masterGain.connect(computerSpeakers);
+    masterGain.connect(visualizer.node);
+    masterGain.connect(testers[0].node);
+    testers[testers.length-1].node.connect(computerSpeakers);
+    // randomNoiseNode.connect(testnode2);
+    // testnode2.connect(computerSpeakers);
+    // randomNoiseNode.connect(computerSpeakers);
+    // visualizer.connect(computerSpeakers);
+    // await visualizer.display();
 
 
     function playTone(freq:number, duration?:Time):Canceler{
@@ -155,8 +243,19 @@ const Synth = (async (optionalCTX?:AudioContext)=>{
             osc.stop();
         })
     }
+
+    function printBuffer(){
+        console.log(JSON.stringify(visualizer.buffer));
+    }
     
     return {
+        setTargetFrequency: (freq:number)=>{
+            // testnode2.parameters.forEach((param)=>{
+            //     // console.log(param);
+            //     param.setValueAtTime(freq,ctx.currentTime);
+            // })
+        },
+        printBuffer,
         playTone
     };
 })
