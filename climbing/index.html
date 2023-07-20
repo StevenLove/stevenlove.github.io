@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="papaparse.min.js"></script>
+<script>
+    let csvLines = null;
+
+    function loadCSVLines(url) {
+        showLoadingCSV();
+        return new Promise((res,rej)=>{
+                Papa.parse(url, {
+                download: true,
+                complete: results => {
+                    // results.data has CSV data
+                    
+                    // sort by date with most recent first
+                    csvLines = results.data.sort((a,b)=>{
+                        let aDate = new Date(a[3]);
+                        let bDate = new Date(b[3]);
+                        return bDate - aDate;
+                    });
+                    // csvLines = results.data.reverse();
+                    res(csvLines);
+                    hideLoadingCSV();
+                }
+            })
+        });
+    }
+
+
+async function ensureLoadedCSV(){
+    if (csvLines == null){
+        return loadCSVLines("./data.csv");
+    }
+    return csvLines;
+}
+
+
+const worker = new Worker('filterWorker.js'); 
+async function updateUI() {
+  showLoading();
+  let filterText = document.getElementById("myInput").value;
+  let csvLines = await ensureLoadedCSV();
+  worker.postMessage([csvLines, filterText]);
+  worker.onmessage = e => {  
+    hideLoading();
+    document.getElementById("summary").textContent = e.data[0]
+    document.getElementById("myOutput").innerHTML = e.data[1];
+  }
+}
+
+function showLoading() {
+  document.getElementById("loading").style.display = "block";
+}
+
+function hideLoading() {
+  document.getElementById("loading").style.display = "none"; 
+}
+
+function showLoadingCSV() {
+  document.getElementById("loadingCSV").style.display = "block";
+}
+function hideLoadingCSV() {
+  document.getElementById("loadingCSV").style.display = "none"; 
+}
+
+function onPageLoad(){
+    ensureLoadedCSV().then(()=>{
+        updateUI();
+    });
+}
+
+(() => {
+    document.addEventListener('DOMContentLoaded', onPageLoad);
+})()
+</script>
+<style>
+    #myOutput tr:nth-child(even) {
+        background: #eee;
+    }
+</style>
+</head>
+<body>
+<h1>Climbing Accidents</h1>
+<span>Check <a href="http://publications.americanalpineclub.org/">http://publications.americanalpineclub.org/</a> for more up-to-date info.</span>
+<span> Thanks to Eliot Caroom for this data</span>
+<input type="text" id="myInput" placeholder="Pilot Mountain" onkeyup="updateUI()">
+<span id="loading" style="display:none">Filtering...</span>
+<span id="loadingCSV" style="display:none">Loading CSV...</span>
+
+<br>
+<div id="summary"></div>
+<div id="myOutput"></div>
+
+</body>
+</html>
