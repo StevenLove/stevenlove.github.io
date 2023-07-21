@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="style.css">
     <script src="papaparse.min.js"></script>
 <script>
     let csvLines = null;
+    let csvPolicy = 1;
+    const csvConfig = [
+        {
+            filepath:"./data.csv",
+            toLines: data => {
+                return data.map(line =>{
+                    return [line[2],line[3],line[4]]
+                });
+            }
+        },{
+            filepath:"./puppeteer/out/results.csv",
+            toLines: data => {
+                return data.map(line =>{
+                    return [line[0],line[1],line[2],line[3],line[4]]
+                })
+            }
+        }
+    ]
 
-    function loadCSVLines(url) {
+    function removeHTMLTags(str) {
+        return str.replace(/<[^>]*>/g, '');
+    }
+
+    function collapseWhitespace(text) {
+        return text.replace(/\s+/g, ' ');
+    }
+
+    function loadCSVLines() {
+        let url = csvConfig[csvPolicy].filepath;
+        let dataAdapter = csvConfig[csvPolicy].toLines;
+        let reverseChronSort = (a,b)=>{
+            let aDate = new Date(a[2]);
+            let bDate = new Date(b[2]);
+            if(aDate > bDate){return -1}
+            if(aDate < bDate){return 1}
+            return Math.random() > 0.5 ? 1 : -1
+        }
         showLoadingCSV();
         return new Promise((res,rej)=>{
                 Papa.parse(url, {
                 download: true,
                 complete: results => {
-                    // results.data has CSV data
-                    
-                    // sort by date with most recent first
-                    csvLines = results.data.sort((a,b)=>{
-                        let aDate = new Date(a[3]);
-                        let bDate = new Date(b[3]);
-                        return bDate - aDate;
-                    });
-                    // csvLines = results.data.reverse();
+                    csvLines = (dataAdapter(results.data)).sort(reverseChronSort);
                     res(csvLines);
                     hideLoadingCSV();
                 }
@@ -27,10 +55,11 @@
         });
     }
 
+   
 
 async function ensureLoadedCSV(){
     if (csvLines == null){
-        return loadCSVLines("./data.csv");
+        return loadCSVLines(csvConfig[csvPolicy].filepath);
     }
     return csvLines;
 }
@@ -50,43 +79,90 @@ async function updateUI() {
 }
 
 function showLoading() {
-  document.getElementById("loading").style.display = "block";
+  document.getElementById("loading").style.display = "block"
 }
 
 function hideLoading() {
-  document.getElementById("loading").style.display = "none"; 
+  document.getElementById("loading").style.display = "none"
+
 }
 
 function showLoadingCSV() {
-  document.getElementById("loadingCSV").style.display = "block";
+  document.getElementById("loadingCSV").style.display = "block"
 }
 function hideLoadingCSV() {
-  document.getElementById("loadingCSV").style.display = "none"; 
+  document.getElementById("loadingCSV").style.display = "none"
 }
 
 function onPageLoad(){
+      // Check for query string
+  const urlParams = new URLSearchParams(window.location.search);
+  const query = urlParams.get('q');
+
+  if (query) {
+    // Set input value if there is a 'q' param
+    document.getElementById("myInput").value = query; 
+  }
+
     ensureLoadedCSV().then(()=>{
         updateUI();
     });
+
+    // listen for clicks on myOutput
+    // document.getElementById("myOutput").addEventListener("click", function(e) {
+        // console.log("clicked",e);
+        // e.target is the clicked element!
+        // If it was a td, check the id of the parent
+        // if(e.target && e.target.nodeName == "TD" && e.target.classList.contains("summary")) {
+            // let url = 'http://publications.americanalpineclub.org/articles/' + e.target.parentNode.id;
+            // redirect the user
+            // window.open(url, '_blank');
+            // // fetch the article with id equivalent to the id of the table
+            // fetch('http://publications.americanalpineclub.org/articles/' + e.target.id)
+            // .then(response => response.text())
+            // .then(data => {
+
+            //     // Create DOM parser
+            //     const parser = new DOMParser();
+
+            //     // Parse response data to DOM
+            //     const doc = parser.parseFromString(data, 'text/html');
+
+            //     // Query selector 
+            //     let content = doc.querySelector('#article').textContent;
+            //     content = removeHTMLTags(content);
+            //     content = collapseWhitespace(content);
+
+            //     // replace the table's summary with the article's content
+            //     e.target.textContent = content;
+            //     e.target.classList.remove("summary");
+            // });
+        // }
+
+    // });
+}
+
+function onInputModified(){
+    // set query string to match input element
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('q', document.getElementById("myInput").value);
+    window.history.replaceState({}, '', `${location.pathname}?${urlParams}`);
+
+    updateUI();
 }
 
 (() => {
     document.addEventListener('DOMContentLoaded', onPageLoad);
 })()
 </script>
-<style>
-    #myOutput tr:nth-child(even) {
-        background: #eee;
-    }
-</style>
 </head>
 <body>
 <h1>Climbing Accidents</h1>
-<span>Check <a href="http://publications.americanalpineclub.org/">http://publications.americanalpineclub.org/</a> for more up-to-date info.</span>
-<span> Thanks to Eliot Caroom for this data</span>
-<input type="text" id="myInput" placeholder="Pilot Mountain" onkeyup="updateUI()">
-<span id="loading" style="display:none">Filtering...</span>
-<span id="loadingCSV" style="display:none">Loading CSV...</span>
+<span>Data is from ANAC <a href="http://publications.americanalpineclub.org/">(Accidents in North American Climbing)</a></span><br>
+Search:<input type="text" id="myInput" placeholder="Pilot Mountain" onkeyup="onInputModified()"><br>
+<span>
+    <span style="float:left;" id="loadingCSV">[Loading CSV...]&nbsp;</span><span style="float:left;" id="loading">[Filtering...]</span>
+</span>
 
 <br>
 <div id="summary"></div>

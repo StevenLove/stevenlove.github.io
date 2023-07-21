@@ -1,0 +1,26 @@
+#myOutput tr:nth-child(odd) {
+    background: #eee;
+}
+
+/* body {
+    background-color: #212121; 
+    color: #fff;
+  }
+  
+  h1 {
+    color: #eee;
+  }
+  
+  #myInput {
+    background-color: #424242;
+    color: #fff;
+    border: 1px solid #555;
+  }
+  
+  #myOutput tr:nth-child(odd) {
+    background: #333;
+  }
+  
+  #summary {
+    color: #eee;
+  } */

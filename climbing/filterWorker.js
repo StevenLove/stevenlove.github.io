@@ -4,20 +4,21 @@ onmessage = function(e) {
 
     const csvLines = e.data[0];
     const filterText = e.data[1];
+    // console.log("csvlines",csvLines);
   
-    const filtered = filterCaseInsensitiveSecondColumn(csvLines, filterText);
+    const filtered = filterCaseInsensitiveByNthColumn(csvLines, filterText,1);
     
     postMessage([getSummary(filtered), getResultsHTML(filtered)]);
   
   }
   
-  function filterCaseInsensitiveSecondColumn(csvLines, filterText){
+  function filterCaseInsensitiveByNthColumn(csvLines, filterText, nth){
   
     var output = [];
   
     for(var i=1; i<csvLines.length; i++) {
       let cols = csvLines[i];
-      let lower = cols[2].toLowerCase();
+      let lower = cols[nth].toLowerCase();
       if(lower.includes(filterText.toLowerCase())){
         output.push(csvLines[i]);
       }
@@ -32,14 +33,20 @@ onmessage = function(e) {
   }
 
   function getResultsHTML(filtered){
-    const MAX = 25;
+    const MAX = 150;
     let TOO_MANY = filtered.length > MAX;
     filtered = filtered.slice(0, MAX);
-    let html = "<table>";
-    for (let row of filtered) {
-      html += "<tr>";
-      for (let i = 2; i < 5; i++) {
-        html += `<td>${row[i]}</td>`;
+    let html = `<table>`;
+    // ensure we loop over every row of filtered in order
+    for(let i=0; i<filtered.length; i++){
+    let row = filtered[i];
+      html += `<tr id=${row[0]}>`;
+      html += `<td>${row[1]}</td>`;
+      html += `<td>${row[2]}</td>`;
+      if(row[4]){
+        html += `<td>${row[4]}</td>`;
+      }else{
+        html += `<td class="summary">${row[3]}<a href='http://publications.americanalpineclub.org/articles/${row[0]}'>[...]</a></td>`;
       }
       html += "</tr>";
     }

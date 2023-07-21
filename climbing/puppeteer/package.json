@@ -1,0 +1,17 @@
+{
+  "name": "puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "filereader": "^0.10.3",
+    "papaparse": "^5.4.1",
+    "pupeteer": "^0.0.1",
+    "puppeteer": "^20.9.0"
+  }
+}
