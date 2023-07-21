@@ -2,6 +2,53 @@
     background: #eee;
 }
 
+#myOutput{
+    width:100%;
+}
+table {
+    table-layout: fixed;
+    word-break:break-word;
+    max-width: 100%; 
+    border-collapse: collapse;
+  }
+  tbody{
+    width:100%;
+  }
+  tr{
+    width:100%;
+  }
+  
+  /* Columns */
+  td:nth-child(1) {
+    width: 33%; 
+  }
+  
+  /* td:nth-child(2) {
+    width: 75%;
+  } */
+  td{
+    position:relative;
+  }
+  td:first-child::after {
+    content: '';
+    position: absolute;
+    top: 10%; 
+    bottom: 10%;
+    right: 0;
+    border-left: 1px solid #ccc;
+    box-shadow: 0 0 2px 1px #ccc;
+  }
+  .summary,.fulltext{
+    padding-left:4px;
+  }
+  .fulltext{
+    max-height:400px;
+    overflow-y:auto;
+    display:block;
+  }
+  /* td:nth-child(3) {
+    width: 70%;
+  } */
 /* body {
     background-color: #212121; 
     color: #fff;

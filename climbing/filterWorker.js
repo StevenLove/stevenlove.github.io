@@ -41,8 +41,8 @@ onmessage = function(e) {
     for(let i=0; i<filtered.length; i++){
     let row = filtered[i];
       html += `<tr id=${row[0]}>`;
-      html += `<td>${row[1]}</td>`;
-      html += `<td>${row[2]}</td>`;
+      html += `<td>${row[1]}<br>Published <span style="font-size:1.5em">${row[2]}</span></td>`;
+    //   html += `<td>${row[2]}</td>`;
       if(row[4]){
         html += `<td class="summary hasfulltext">${row[3]}<a href='#0'>[expand]</a></td>`;
       }else{

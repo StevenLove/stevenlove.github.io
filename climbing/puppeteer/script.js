@@ -109,30 +109,30 @@ async function manuallyEditResultsFile(){
 }
 
 
-async function fillInSomeFulltexts(numberToDo){
-    if(!numberToDo){ numberToDo = 5; }
-    let raw = await lib.papa.loadCSV('./out/results.csv');
-    // find some entries that have an ID but no fulltext
-    let toFill = raw.filter(row => !row[4]);
-    console.log("toFill",toFill);
-    // load the page for the first two
-    let ids = toFill.map(row => row[0]).slice(0,numberToDo);
-    console.log("ids",ids);
-    // grab the fulltext
-    let fulltexts = await Promise.all(ids.map(async id => {return {
-        id:id,
-        fulltext:await grabFulltext(id)
-    }}));
-    console.log("fulltexts",fulltexts);
-    // write the fulltext back to the csv
-    fulltexts.forEach(obj=>{
-        let row = raw.find(row => row[0] === obj.id);
-        row[4] = obj.fulltext;
-    });
-    // write back to file
-    const csvString = Papa.unparse(raw);
-    fs.writeFileSync('./out/results.csv', csvString);
-}
+// async function fillInSomeFulltexts(numberToDo){
+//     if(!numberToDo){ numberToDo = 5; }
+//     let raw = await lib.papa.loadCSV('./out/results.csv');
+//     // find some entries that have an ID but no fulltext
+//     let toFill = raw.filter(row => !row[4]);
+//     console.log("toFill",toFill);
+//     // load the page for the first two
+//     let ids = toFill.map(row => row[0]).slice(0,numberToDo);
+//     console.log("ids",ids);
+//     // grab the fulltext
+//     let fulltexts = await Promise.all(ids.map(async id => {return {
+//         id:id,
+//         fulltext:await grabFulltext(id)
+//     }}));
+//     console.log("fulltexts",fulltexts);
+//     // write the fulltext back to the csv
+//     fulltexts.forEach(obj=>{
+//         let row = raw.find(row => row[0] === obj.id);
+//         row[4] = obj.fulltext;
+//     });
+//     // write back to file
+//     const csvString = Papa.unparse(raw);
+//     fs.writeFileSync('./out/results.csv', csvString);
+// }
 
 async function grabFulltext(id){
     let url = "http://publications.americanalpineclub.org/articles/"+id;
@@ -171,14 +171,15 @@ async function searchMultipleTerms(terms){
     }
 }
 
-async function grabTheseFulltexts(){
-    const HOW_MANY = 39;
+async function grabTheseFulltexts(HOW_MANY){
+    if(!HOW_MANY){ HOW_MANY = 5; }
     const DELAY_BETWEEN = 10000;
     // load CSV
     let raw = await lib.papa.loadCSV('./out/results.csv');
     // search for entries with title that includes "north carolina" case insesitive
-    let nc = raw.filter(row => row[1].toLowerCase().includes("north carolina"));
-    let needFulltexts = nc.filter(row => !row[4]).slice(-HOW_MANY).map(row => row[0]);
+    let filtered = raw;
+    // filtered = filtered.filter(row => row[1].toLowerCase().includes("north carolina"));
+    let needFulltexts = filtered.filter(row => !row[4]).slice(-HOW_MANY).map(row => row[0]);
     let fulltexts = [];
     
     for(const id of needFulltexts) {
@@ -227,8 +228,7 @@ async function grabTheseFulltexts(){
 
     // searchMultipleTerms(["wisconsin","wyoming"]);
     // manuallyEditResultsFile();
-    // fillInSomeFulltexts(20);
-    grabTheseFulltexts();
+    grabTheseFulltexts(20);
     // let t = await grabFulltext("13201216268");
     // updateIDWithFulltext("13201216268",t);
     // console.log("t",t);
