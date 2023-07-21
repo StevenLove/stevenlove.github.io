@@ -226,9 +226,13 @@ async function grabTheseFulltexts(HOW_MANY){
     // searchMultipleTerms(["vermont","virginia","washington","west virginia"]);
     // await new Promise(resolve => setTimeout(resolve, Math.random() * 5000));
 
-    // searchMultipleTerms(["wisconsin","wyoming"]);
+    // searchMultipleTerms(["british columbia","alberta","saskatchewan","manitoba"]);
+    // searchMultipleTerms(["ontario","quebec","new brunswick","nova scotia"]);
+    // searchMultipleTerms(["prince edward island","newfoundland and labrador","yukon","northwest territories"]);
+    // searchMultipleTerms(["nunavut","mexico","greenland","iccdeland"]);
+
     // manuallyEditResultsFile();
-    grabTheseFulltexts(20);
+    // grabTheseFulltexts(20);
     // let t = await grabFulltext("13201216268");
     // updateIDWithFulltext("13201216268",t);
     // console.log("t",t);
