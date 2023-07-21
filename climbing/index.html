@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link rel="stylesheet" href="style.css">
     <script src="papaparse.min.js"></script>
 <script>
@@ -96,6 +96,25 @@ function hideLoadingCSV() {
   document.getElementById("loadingCSV").style.display = "none"
 }
 
+function scrollToClickEvent(e){
+        // Get click event 
+    const clickEvent = e;
+
+    // Get clicked element position
+    const linkRect = clickEvent.target.getBoundingClientRect();
+
+    // Get current mouse position  
+    const mouseX = clickEvent.clientX; 
+    const mouseY = clickEvent.clientY;
+
+    // Calculate scroll offset
+    const scrollX = mouseX - linkRect.left;
+    const scrollY = mouseY - linkRect.top;
+
+    // Scroll to offset
+    window.scrollBy(scrollX, scrollY);
+}
+
 function onPageLoad(){
       // Check for query string
   const urlParams = new URLSearchParams(window.location.search);
@@ -111,37 +130,68 @@ function onPageLoad(){
     });
 
     // listen for clicks on myOutput
-    // document.getElementById("myOutput").addEventListener("click", function(e) {
-        // console.log("clicked",e);
+    document.getElementById("myOutput").addEventListener("click", function(e) {
+        console.log("clicked",e);
         // e.target is the clicked element!
         // If it was a td, check the id of the parent
-        // if(e.target && e.target.nodeName == "TD" && e.target.classList.contains("summary")) {
+        if(e.target && e.target.nodeName == "A" && e.target.parentNode.classList.contains("hasfulltext")) {
+            // get the id
+            let id = e.target.parentNode.parentNode.id;
+            // get the article's full text
+            let fulltext = csvLines.find(line => line[0] == id)[4];
+            // replace the table's summary with the article's content
+            e.target.parentNode.classList.remove("summary");
+            e.target.parentNode.classList.add("fulltext");
+            // const scrollY = window.scrollY;
+            e.target.parentNode.textContent = fulltext;
+            // window.scrollTo(0, scrollY);
+            // scrollToClickEvent(e);
+        }
+
+        if(e.target && e.target.nodeName == "TD" && e.target.classList.contains("fulltext")) {
+            // get the id
+            let id = e.target.parentNode.id;
+            // get the article's summary
+            let summary = csvLines.find(line => line[0] == id)[3];
+            // replace the table's summary with the article's content
+            e.target.classList.remove("fulltext");
+            e.target.classList.add("summary");
+
+
+            
+
+            // const scrollY = window.scrollY;
+            e.target.innerHTML = `${summary}<a href='#0'>[expand]</a>`
+            // window.scrollTo(0, scrollY);
+            // scrollToClickEvent(e);
+
+        }
             // let url = 'http://publications.americanalpineclub.org/articles/' + e.target.parentNode.id;
             // redirect the user
             // window.open(url, '_blank');
-            // // fetch the article with id equivalent to the id of the table
+            // fetch the article with id equivalent to the id of the table
             // fetch('http://publications.americanalpineclub.org/articles/' + e.target.id)
             // .then(response => response.text())
             // .then(data => {
 
-            //     // Create DOM parser
-            //     const parser = new DOMParser();
+                // Create DOM parser
+                // const parser = new DOMParser();
 
-            //     // Parse response data to DOM
-            //     const doc = parser.parseFromString(data, 'text/html');
+                // // Parse response data to DOM
+                // const doc = parser.parseFromString(data, 'text/html');
 
-            //     // Query selector 
-            //     let content = doc.querySelector('#article').textContent;
-            //     content = removeHTMLTags(content);
-            //     content = collapseWhitespace(content);
+                // // Query selector 
+                // let content = doc.querySelector('#article').textContent;
+                // content = removeHTMLTags(content);
+                // content = collapseWhitespace(content);
 
-            //     // replace the table's summary with the article's content
-            //     e.target.textContent = content;
-            //     e.target.classList.remove("summary");
+                // // replace the table's summary with the article's content
+                // e.target.textContent = content;
+                // e.target.classList.remove("summary");
             // });
         // }
 
-    // });
+    });
 }
 
 function onInputModified(){

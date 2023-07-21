@@ -44,9 +44,9 @@ onmessage = function(e) {
       html += `<td>${row[1]}</td>`;
       html += `<td>${row[2]}</td>`;
       if(row[4]){
-        html += `<td>${row[4]}</td>`;
+        html += `<td class="summary hasfulltext">${row[3]}<a href='#0'>[expand]</a></td>`;
       }else{
-        html += `<td class="summary">${row[3]}<a href='http://publications.americanalpineclub.org/articles/${row[0]}'>[...]</a></td>`;
+        html += `<td class="summary nofulltext">${row[3]}<a href='http://publications.americanalpineclub.org/articles/${row[0]}'>[link to source]</a></td>`;
       }
       html += "</tr>";
     }
