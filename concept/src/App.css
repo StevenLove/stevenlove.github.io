@@ -1,0 +1,258 @@
+/*************/
+/* Structure */
+/*************/
+#container{ /* contains the panels that make up the game (panel1,2,3) */
+  display:flex;
+}
+.conceptListContainer{
+  display:flex;
+  flex-wrap:wrap;
+}
+#hbar{ /* area above the game where options might go */
+  height:20vh;
+}
+.panel{
+  /* height:92vh; */
+  overflow-x:hidden;
+  /* padding-right:4vw; leave room for a scrollbar on the right! */
+  padding-top:4vh;
+  padding-bottom:4vh;
+}
+#panel1{
+  position:fixed;
+  left:0;
+  height:92vh;
+  padding-left:3vw;
+  width:10vw;
+}
+#panel2{
+  position:fixed;
+  left:13vw;
+  width:50vw;
+  height:92vh;
+}
+#panel3{
+  position:fixed;
+  left:63vw;
+  height:92vh;
+  width:37vw;
+}
+.scrollArea{
+  opacity:0.2;
+  position:fixed;
+  /* left:13vw; */
+  width:50vw;
+  /* top:0; */
+  background:gray;
+  height:50px;
+  z-index:10; /* appear in front of concepts */
+}
+.scrollArea-up{
+  /* background:green; */
+  top:0;
+}
+.scrollArea-down{
+  /* background:blue; */
+  bottom:0;
+}
+
+/* Selected Concepts List */
+.scl{
+  display:flex;
+  flex-wrap:wrap;
+}
+.scl-g{
+  background:green;
+}
+.scl-u{
+  background:blue;
+}
+.scl-r{
+  background:red;
+}
+.scl-y{
+  background: yellow;
+}
+.scl-b{
+  background:black;
+}
+/*********/
+/* Color */
+/*********/
+#hbar{
+  background-color:rgba(0, 128, 0, 0.274);
+}
+#panel1{
+  background-color:rgba(255, 0, 0, 0.267);
+  overflow:hidden;
+}
+#panel2{
+  background-color:#05051a36;
+}
+#panel3{
+  background-color:rgba(255, 255, 0, 0.199);
+  width:40vw;
+}
+
+.conceptMain{
+  border:5px solid orange; 
+}
+.conceptMain{
+  position:relative;
+  width:10vw;
+  cursor: pointer;
+  margin: 1vh;
+}
+.conceptMain:hover{
+  animation: pop 0.3s linear 1;
+}
+.concept{
+  position:relative;
+  width:10vw;
+  cursor: pointer;
+  margin: 1vh;
+}
+.concept:hover{
+  animation: pop 0.3s linear 1;
+}
+
+
+@keyframes pop{
+  50% {transform: scale(1.2);}
+}
+
+.concept>img{
+  width:100%;
+  height:auto;
+}
+.conceptMain>img{
+  width:100%;
+  height:auto;
+}
+button{
+  display:flex;
+  flex-wrap:wrap;
+  background-color:white;
+  width:8vw;
+  height:4vw;
+  margin:2vh;
+  /* line-height: 4vw;  */
+  justify-content: center;
+  cursor:pointer;
+}
+button:hover{
+  background-color:lightgray;
+}
+button:active{
+  transform: translateY(3px);
+}
+.secretWordButton{
+  display:flex;
+  flex-wrap:wrap;
+  background-color: white;
+  width:8vw;
+  min-height:4vw;
+  margin:2vh;
+  /* line-height: 4vw;  */
+  justify-content: center;
+  cursor:pointer;
+}
+.secretWordContainer{
+  /* background-color: white; */
+  width:8vw;
+  min-height:4vw;
+  margin:2vh;
+}
+.secretWordButton:hover{
+  animation: pop 0.3s linear 1;
+}
+.hidden{
+  display:flex;
+  flex-wrap:wrap;
+  background-color: black;
+  width:8vw;
+  height:4vw;
+  margin:2vh;
+  line-height: 4vw; 
+  justify-content: center;
+  cursor:pointer;
+}
+
+.unHidden{
+  display:flex;
+  flex-wrap:wrap;
+  background-color:white;
+  width:8vw;
+  /* height:4vw; */
+  margin:2vh;
+  /* line-height: 4vw;  */
+  justify-content: center;
+}
+/* Subconcept Selector */
+.subConceptSelector{
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.subconcept{
+  width:5vw;
+  height:5vw;
+  margin:1.5vh;
+  cursor: pointer;
+}
+.subconcept img{
+  /* width */
+  height:100%;
+  padding-left:.75vw;
+}
+
+.subconcept:hover{
+  animation: pop 0.3s linear 1;
+}
+.subconcept-red{
+  background-color:red;
+}
+.subconcept-blue{
+  background-color:blue;
+}
+.subconcept-green{
+  background-color:green;
+}
+.subconcept-yellow{
+  background-color:gold;
+}
+.subconcept-black{
+  background-color:black;
+}
+
+.subconcept-selected{
+  border:5px solid black;
+}
+.subconcept-selected.subconcept-black{
+  border:5px solid white;
+}
+
+
+/* prevents text from being selected */
+body{
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+/* prevents images from being dragged */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+
+.scrollContainer{
+  height:100%;
+}

@@ -1,0 +1,41 @@
+<body>
+    <div style="display:flex;align-items:center;justify-content:center; width:100%; margin-top:80px; margin-bottom:100px">
+        <div style="width:850px">
+            Suppose you are a demographer trying to measure the magnitue of over- and underrepresentation in the medical field.
+            You are comparing two percentages. 
+            The first is the 'expected' rate. If 3% of our population is Canadian, then we can 'expect' 3% of our doctors to be Canadian.
+            The second is the 'actual' rate. Let's say we measured that 1% of our doctors are actually Canadian.
+            I will represent this relationship between 'expected' and 'actual' as x➞y, or in this case .03➞.01.
+            Note that we'll be using values between 0 and 1 to represent percentages.
+            <br><br>
+            The standard measurement of relative change is calculated as (y-x)/x.
+            So for our example, .03➞.01 = (.01-.03)/(.03) = -.66666
+            This makes sense to express the underrepresentation of Canadians as doctors; we have 2/3 fewer Canadian doctors than we would with pure equity.
+            <br><br>
+            But if we go to measure the <u>over</u>representation of <u>Non</u>-Canadians as doctors, the data mislead us rather than informing us.
+            We look at .97➞.99, the expected and actual percentages of Non-Canadians that are doctors.
+            .97➞.99 = (.99-.97)/(.97) = .0206. A two percent increase.
+            Keep in mind that this is the exact same scenario! But it looks like a 66% decrease in one direction and 2% increase in the other. I call that misleading.
+            <br><br>
+            I seek to design a metric that will express a relative difference, but with the additional requirement that x➞y and (1-x)➞(1-y) are equivalent.
+            I also require x➞y to be the opposite of y➞x. The magnitude of the change should be the same if we are talking about change from 50% up to 75% or from 75% down to 50%.
+            On top of that, we will require the measurement to range from [-1,1].
+            <br><br>
+            <a href="https://en.wikipedia.org/wiki/Relative_change_and_difference">According to Wikipedia,</a> '[T]here is no "correct" value to scale the absolute difference with.'
+            So, with Wikipedia's blessing, we take (y-x) and instead of dividing by x, we divide by the minimum of (x,y,1-x, and 1-y).
+            This is what gives the 4-way symmetry between .01➞.03, .03➞.01, .99➞.97, and .97➞.99.
+            f(x) = (y-x)/(minimum(x,y,1-x,1-y))
+            <br><br>
+            The resulting function ranges from (-Infinity, +Infinity) but we can map it to [-1,1] by using the arctangent function.
+            atan(x) approaches pi/2 as x approaches infinity, so we can take atan(f(x))/(pi/2) to map our function to [-1,1]
+            <br><br>
+            Below is an interactive spreadsheet. Enter expected and actual percentages in the bright green box to see the results of the standard method and new method.
+            Below that are additional examples with some annotations.
+            <iframe style="width:100%;height:600px" src="https://docs.google.com/spreadsheets/d/1QuRnnhR-m91Fvs3wUFIBBmNX2ytbgTargwb53roAzBY/edit?usp=sharing&amp;single=true&amp;widget=true&amp;headers=false">
+            </iframe>
+            <br><br>
+            Other links:<br>
+            <a href="https://observablehq.com/@mbostock/methods-of-comparison-compared">Methods of comparison compared</a>
+        </div>
+    </div>
+</body>
