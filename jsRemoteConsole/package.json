@@ -1,0 +1,30 @@
+{
+  "name": "jsconsole",
+  "version": "1.0.0",
+  "description": "An app to display console.log messages on a web page if you can't otherwise access them",
+  "engines": {
+    "node": "10.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "update":"git add -u && git commit -m '...' && caprover deploy --default"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.15.2",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevenLove/jsremoteconsole"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "license": "MIT"
+}

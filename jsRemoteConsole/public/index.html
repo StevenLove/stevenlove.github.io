@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+        <title>JS Remote Console</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+
+        <script>
+            const KEEPALIVE = false;
+            const LOCAL_PORT = 5002;
+
+            (function main(){
+                offerScriptTag();
+                setBorderColor();
+                establishSocket();
+            })()
+            /* Determine how we react to messages from the websocket */
+            function establishSocket(){
+                const socket = openSocket();
+                socket.onopen = ()=>{
+                    console.log("socket opened!");
+                    initialize();
+                    // whenever we receive something from that websocket, log it
+                    socket.onmessage = (event=>{
+                        consumeMessage(event.data);
+                    })
+                    /* Keepalive! */
+                    if(KEEPALIVE){
+                        setInterval(()=>{
+                            socket.send("k");
+                        },10000)
+                    }
+                    /* Send the server our 'target' so that it knows
+                    to associate that value with us and send us anything
+                    related to that identifier */
+                    function initialize(){
+                        socket.send("rlistener"); // identify that we should receive messages
+                        socket.send("d"+getTarget()); // destined for this target
+                    }
+                }
+                socket.onclose = () => {
+                    consumeMessage("oThis page has lost its connection to the server (Try reloading the page)");
+                }
+            }
+
+            /* Open and initialize the socket connection with the server */
+            function openSocket(){
+                /* Establish protocol and host of websocket */
+                let wsProtocol = "wss://";
+                let wsHost = "jsconsole.cap.jsconsole.net"
+                /* If we are on localhost, then let's look for the websocket on localhost */
+                if(window.location.hostname == "localhost"){
+                    wsProtocol = "ws://";
+                    wsHost = "localhost:"+LOCAL_PORT;
+                }
+                const websocketURL = wsProtocol+wsHost;
+
+                return new WebSocket(websocketURL);
+            }
+
+            /* Show a message on the page as well as in the console */
+            function displayMessage(msg,type){
+                let className = classMap[type] || "log";
+                let consoleFn = consoleMap[type] || "log";
+                if(className == 'internalcomment' || className == 'internalerror'){
+                    msg = "// " + msg;
+                }
+                /* Create DOM elements */
+                let logline = document.createElement("div");
+                logline.className = className;
+                let newp = document.createElement("p")
+                newp.className="logMessage";
+                newp.innerHTML = msg;
+                let separator = document.createElement("div");
+                separator.className = "separator";
+                /* Before adding DOM elements, make note if we will need to scroll
+                as the result of the newly added line */
+                let shouldScroll = willNeedToScroll();
+                /* Add DOM elements */
+                let log = document.querySelector("#log");
+                log.append(logline)
+                logline.append(newp);
+                newp.append(separator);
+                console[consoleFn](msg); // user can look at console to see 
+                /* scroll if necessary */
+                if(shouldScroll){
+                    scrollDown();
+                }
+            }
+            let consoleMap = {
+                'i':'info',
+                'c':'info',
+                'w':'warn',
+                'l':'log',
+                'e':'error',
+                'o':'error'
+            }
+            let classMap = {
+                'i':'info',
+                'w':'warn',
+                'l':'log',
+                'e':'error',
+                'o':'internalerror',
+                'c':'internalcomment'
+            }
+            function consumeMessage(msg){
+                let typechar = msg.charAt(0);
+                let remainder = msg.slice(1);
+                console.log("type",typechar);
+                displayMessage(remainder,typechar);
+            }
+            /* Determines if we should scroll down upon receiving a new message.
+            If the user is currently scrolled near the bottom, then we do.
+            But if they are examining some older data, then we don't */
+            function willNeedToScroll(){
+                let logContainer = document.querySelector("#logContainer");
+                let scrollTop = logContainer.scrollTop;
+                let scrollHeight = logContainer.scrollHeight;
+                let offsetHeight = logContainer.offsetHeight;
+                let tolerance = 150;
+                return scrollHeight - offsetHeight - tolerance < scrollTop;
+            }
+            /* Perform scrolling to the bottom of the log */
+            function scrollDown(){
+                let logContainer = document.querySelector("#logContainer");
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+
+            function copyLink(){
+                console.log("copy link");
+                let text = document.querySelector("#linkText").textContent;
+                copy(text);
+                onCopy();
+            }
+
+            /* Display the <script> tag that the user should copy into their project */
+            function offerScriptTag(){
+                const target = getTarget();
+                const protocol = window.location.protocol;
+                const host = window.location.host
+                const src="'"+protocol+"//"+host+"/include.js?"+target+"'";
+                document.addEventListener("DOMContentLoaded", function() {
+                    // document.querySelector("#linkText").textContent = tag;
+                    document.querySelector("#linkSrc").textContent=src;
+                });
+            }
+
+            function setBorderColor(){
+                /* get a random hex string from the target variable
+                split it into its characters
+                divide each character by a little bit to mute the color
+                make sure it still looks like hex
+                join it all back up
+                make that the color for the outside of the window!*/
+
+                let randomColor = getTarget().substring(0,6);
+                let muteBy = 1.2;
+                let x = randomColor.split("").map(i=>Math.floor(Number("0x"+i)/muteBy)).map(i=>{ return{
+                    0:0,1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,
+                    10:"A",11:"B",12:"C",13:"D",14:"E",15:"F"
+                }[i]});
+                randomColor = x.join("");
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelector("#consoleContainer").setAttribute("style","background-color:#"+randomColor);
+                });
+                
+            }
+
+            /* Determine the unique identifier associated with this session */
+            function getTarget(){
+                /* Grab target from URL */
+                let suppliedTarget = location.href.split("?")[1];
+                /* Generate a new target if one is not supplied */
+                let target = suppliedTarget || generateUUID();
+                /* Make sure the URL matches the target */
+                history.replaceState(undefined,undefined,location.origin+"?"+target);
+                return target;
+            }
+            let randomColor;
+            /* Generate a new unique identifier if one is not supplied */
+            function generateUUID(){
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+                }
+
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+            }
+
+            function copy(text){
+                const el = document.createElement('textarea');  // Create a <textarea> element
+                el.value = text;                                // Set its value to the string that you want copied
+                el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';                      // Move outside the screen to make it invisible
+                document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+                const selected =
+                    document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+                    ? document.getSelection().getRangeAt(0)     // Store selection if found
+                    : false;                                    // Mark as false to know no selection existed before
+                el.select();                                    // Select the <textarea> content
+                document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+                document.body.removeChild(el);                  // Remove the <textarea> element
+                if (selected) {                                 // If a selection existed before copying
+                    document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+                    document.getSelection().addRange(selected);   // Restore the original selection
+                }
+            }
+        </script>
+    </head>
+
+
+
+
+
+    <body>
+        <div id="consoleContainer">
+            <div id="logContainer">
+                <div id="log">
+                    <div id="logInstructions">
+                        <div id="explanation" class="comment">/* This project exists as a quick-and-dirty way to forward your debugging messages
+                                like 'console.log' from your javascript app to this console. This is useful if you
+                                are trying to debug on iOS but don't have a Mac computer. */</div>
+                        <br>
+                        <span class="comment">// 1. Copy this &lt;script&gt; tag.</span>
+                        <br>
+                        <span class="bracket">&lt;</span><span class="element">script&nbsp;</span><span class="property">id</span><span class="equals">=</span><span class="string">'jsrcs'</span><span class="property">&nbsp;src</span><span class="equals">=</span><span id="linkSrc" class="string"></span><span class="bracket">&gt;&lt;/</span><span class="element">script</span><span class="bracket">&gt;</span>
+                        <br>
+                        <span class="comment">
+                            // 2. Paste it into your web page.<br>
+                            // 3. Open your web page and see your messages appear below!<rr>
+                        <br>
+                        <br>
+                        /* Helpful links:<br>
+                        &bull;<a target="_blank" href="https://jsconsole.com/">The inspiration for this project</a><br>
+                        &bull;<a target="_blank" href="https://blog.idrsolutions.com/2015/02/remote-debugging-ios-safari-on-os-x-windows-and-linux/">An article that helped me find it</a><br>
+                        &bull;<a target="_blank" href="https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter">A more permanent solution moving forward</a><br>
+                        &bull;<a target="_blank" href="https://caprover.com/">Built with CapRover</a><br>
+                        &bull;<a target="_blank" href="mailto:feedback@jsconsole.net">Feedback</a><br>
+                        &bull;<a target="_blank" href="https://github.com/StevenLove/jsremoteconsole">Github</a><br>
+                        &bull;<a target="_blank" href="https://www.paypal.me/lovestevend/3.00usd">Donate</a><br>
+                        */
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

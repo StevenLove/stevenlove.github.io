@@ -1,0 +1,86 @@
+body{
+  background-color:#1E1E1E;
+}
+#consoleContainer{
+  width:calc(100% - 4vw);
+  height:calc(100vh - 40px);
+  margin-left:2vw; /* 3vw? */ 
+  margin-right:2vw;
+  border-radius:15px;
+  border:1px solid black;
+  background-color:#555555;
+}
+#logContainer{
+  height:calc(100% - 50px);
+  margin:25px;
+  overflow:scroll;
+  box-shadow: inset 0 0 0 1px black;
+  background-color:#1E1E1E;
+}
+#log{
+  width:calc(100% - 20px);
+  height:calc(100% - 20px);
+  margin:10px;
+  color:#D5D5D5;
+}
+
+.separator{
+  width:100%; /* when user scrolls to the right, the line should keep going! */
+  height:1px;
+  background-color:#555555AA;
+  position:relative;
+  top:5px;
+}
+.logMessage{
+  display:inline-block;
+  font-family: Menlo,consolas,monospace;
+  min-width:calc(100% - 20px);
+  margin: 5px;
+}
+
+#logInstructions *{
+  font-family: Menlo,consolas,monospace;
+}
+
+#explanation{
+  max-width:500px;
+}
+/* explanatory text types */
+.comment, .comment a{
+  color:#6A9955;
+}
+.element{
+  color:#499CD6;
+}
+.property{
+  color:#9CDCFE
+}
+.equals{
+  color:#D4D4D4;
+}
+.bracket{
+  color:#808080;
+}
+.string{
+  color:#CE9178;
+}
+
+/* message types */
+.log{
+  color:#D5D5D5;
+}
+.warn{
+  color:#F4BD00;
+}
+.error{
+  color:#F44747;
+}
+.info{
+  color:#9CDCFE;
+}
+.internalcomment{
+  color:#6A9955;
+}
+.internalerror{
+  color:#F44747;
+}
