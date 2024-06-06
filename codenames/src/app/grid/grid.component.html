@@ -1,0 +1,115 @@
+<!-- <h1 *ngIf="modeName=='codenames'" class="lg"> Codenames! </h1>
+<h1 *ngIf="modeName=='undercover'" class="lg"> Codenames: Deep Undercover! </h1>
+<h1 *ngIf="modeName=='duet'" class="lg"> Codenames: Duet! </h1> -->
+<div id="titleDiv"> CodeGames </div>
+<select id="gameChooser" class="bar" #t (change)="chooseMode(t.value)">
+  <option  value="codenames">Change Game Mode</option>
+  <option  value="codenames">Codenames!</option>
+  <option  value="undercover">Codenames: Deep Undercover!</option>
+  <option  value="duet">Codenames: Duet!</option>
+  <option  value="emoji">CodeGames: Emoji!</option>
+  <option  value="francis">CodeGames: Hungry Has Hansen's</option>
+  <option  value="paintings">CodeGames: Paintings!</option>
+</select>
+<!-- 
+<h4> A word-guessing game designed by Vlaada Chvátil.</h4>
+<h3> Rules </h3>
+<p> If you are unfamiliar with the rules, check out <a href="https://en.wikipedia.org/wiki/Codenames_(board_game)#Rules" target="_blank">the Wikipedia page</a> or 
+  <a href="https://czechgames.com/files/rules/codenames-rules-en.pdf" target="_blank">The official rules pdf</a>.<br>
+</p>
+<h3> Setup </h3>
+<h4> Required Materials </h4>
+<p>
+  This version is meant to be played in-person, not online; so grab a couple of friends!<br>
+  You'll want three devices to play. One for each Spymaster and one to function as the public board. <br>
+  Typically, the Spymasters will use smartphones and you'll use something larger to be the public board. <br>
+  Navigate to this webpage on all three devices. <br>
+</p>
+<h4> Seed Synchronization</h4>
+<p>
+  You'll want to make sure that everyone is playing the same game. <br>
+  Check the value of the Seed below, and make sure it's the same on all three devices. <br>
+  If they aren't, everyone should agree on a Seed to use and type it into the Seed box below and hit <kbd class='key'>Enter</kbd> or the Set Seed Button<br>
+</p>
+<h3> How to Play </h3>
+<p>
+  Some things are a little different in this digital version.<br>
+  <br>
+  For the public board...<br>
+  Click the 'No!' button below, as you are not a Spymaster.<br>
+  Any tile that you click on will cycle through all possible values: Red, Blue, Civilian, and Assassin.<br>
+  After choosing a tile, you'll have to ask your Spymaster if you were right.<br>
+  <br>
+  For Spymasters...<br>
+  Click the 'Yes!' button below.<br>
+  The true colors should be revealed to you now. Make sure to hide this from other operatives.<br>
+  You can click on tiles to hide their text.<br>
+  This can reduce visual clutter and indicate which tiles have already been chosen.<br>
+</p>
+<p>
+  Updated 3/10/2018
+</p> -->
+<!-- Reveal Captions -->
+<button id="showCaptions" *ngIf="['paintings','emoji'].includes(modeName)" class="btn" (click)="showCaptions = !showCaptions">
+  Show Captions
+  <span *ngIf="showCaptions">✅</span>
+  <span *ngIf="!showCaptions">❌</span>
+</button>
+<!-- Mute Sounds -->
+<button id="muteSounds" *ngIf="isSpymaster" class="btn" (click)="muteSounds = !muteSounds">
+  Mute Sounds
+  <span *ngIf="muteSounds">✅</span>
+  <span *ngIf="!muteSounds">❌</span>
+</button>
+<!-- Chill Tunes -->
+<button id="chillTunes" class="btn" (click)="showChillTunes = !showChillTunes">Chill Tunes</button>
+<iframe *ngIf="showChillTunes" src="https://open.spotify.com/embed/user/1137876031/playlist/35HE0QT1p4gOxhOnjZ6oky" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+<!-- Claim to be Spymaster -->
+<button *ngIf="!identityConfirmed" id="claimToBeSpymaster" class="btn" (click)="claimToBeSpymaster()">I am a Spymaster</button>
+<!-- Seed Box -->
+<div class="bar" style="position:relative">
+  <input id="seedBox" class="bar"type="text" #seedBox (input)="this.ss.setSeed(seedBox.value)" value="{{this.ss.initialSeed}}">
+  <span id="seedLabel">Seed:</span>
+</div>
+
+<div ng-show="false">
+  <audio id="audioPlayer0"  ></audio>
+  <audio id="audioPlayer1"  ></audio>
+  <audio id="audioPlayer2"  ></audio>
+  <audio id="audioPlayer3"  ></audio>
+</div>
+
+
+
+<!-- Grid -->
+<div class="team{{firstTeam}} showing firstTeam bar">
+  <span *ngIf="getRedScore() || getBlueScore()" id="scoreBoard">
+    <!-- <div class="bubble"> -->
+      Red:{{getRedScore()}}/{{getRedMaxScore()}} | Blue:{{getBlueScore()}}/{{getBlueMaxScore()}}
+    <!-- </div> -->
+  </span>
+  <div id="firstTeamBubble" class="bubble">{{firstTeam}} goes first</div>
+  <span *ngIf="timeSinceLastChange>=60" class="timer" (click)="flipTimer()">{{timeSinceLastChange}}</span>
+</div>
+<div id="gridDiv">
+  <div *ngIf="zoom.show" class="zoom {{zoom.side=='left'?'left':'right'}}">
+    <img src="{{zoom.src}}">
+    <div *ngIf="showCaptions"class="zoomLabel">
+      {{zoom.label}}
+    </div>
+  </div>
+  <div *ngFor="let item of items" (click)="clickItem(item,$event)" class="gridItemDiv cols-{{cols}} rows-{{rows}} {{isSpymaster?'team'+item.trueTeam + ' spymaster' : 'team'+item.team}} {{item.revealed?'revealed':''}} ">
+    <div class="gridItemContents">
+      <div *ngIf="!['emoji','paintings'].includes(modeName)">{{item.description}}</div>
+      <!-- src="https://twemoji.maxcdn.com/72x72/{{item.description}}.png" -->
+      <div *ngIf="modeName=='emoji'" class="emoji">
+        <div class="emojiContent">
+          <!-- {{item.description}} -->
+          <app-grid-item name="{{item.description}}"></app-grid-item>
+        </div>
+        <div class="emojiCaption" *ngIf="showCaptions">{{getEmojiCaption(item.description)}}</div>
+      </div>
+      <img *ngIf="modeName=='paintings'" class="painting" src="{{item.description}}" (mouseenter)="showPaintingZoom(item.description,$event)" (mouseleave)="hideZoom()">
+    </div>
+  </div>
+</div>
