@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/wordclouds/static/css/main.1a17fa20.chunk.css",
+    "main.js": "/wordclouds/static/js/main.52d46d93.chunk.js",
+    "main.js.map": "/wordclouds/static/js/main.52d46d93.chunk.js.map",
+    "runtime~main.js": "/wordclouds/static/js/runtime~main.553f788e.js",
+    "runtime~main.js.map": "/wordclouds/static/js/runtime~main.553f788e.js.map",
+    "static/css/2.2c457428.chunk.css": "/wordclouds/static/css/2.2c457428.chunk.css",
+    "static/js/2.85dd31b2.chunk.js": "/wordclouds/static/js/2.85dd31b2.chunk.js",
+    "static/js/2.85dd31b2.chunk.js.map": "/wordclouds/static/js/2.85dd31b2.chunk.js.map",
+    "index.html": "/wordclouds/index.html",
+    "precache-manifest.e468d49338012b28303ff3fa7232364b.js": "/wordclouds/precache-manifest.e468d49338012b28303ff3fa7232364b.js",
+    "service-worker.js": "/wordclouds/service-worker.js",
+    "static/css/2.2c457428.chunk.css.map": "/wordclouds/static/css/2.2c457428.chunk.css.map",
+    "static/css/main.1a17fa20.chunk.css.map": "/wordclouds/static/css/main.1a17fa20.chunk.css.map",
+    "static/media/primereact.min.css": "/wordclouds/static/media/line.567f5738.gif",
+    "static/media/logo.svg": "/wordclouds/static/media/logo.5d5d9eef.svg",
+    "static/media/theme.css": "/wordclouds/static/media/open-sans-v15-latin-regular.cffb686d.woff2",
+    "static/media/primeicons.css": "/wordclouds/static/media/primeicons.e5e0e944.svg"
+  }
+}
