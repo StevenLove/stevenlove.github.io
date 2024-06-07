@@ -3,6 +3,8 @@ import {Synth} from './Synth';
 import {Time} from './Time';
 import {KeysLevel1,Key} from './Keys';
 import {Canceler} from './Lib';
+import { Recorder } from "./Recorder";
+
 
 
 async function main(){
@@ -11,12 +13,16 @@ async function main(){
         let keyboard = await KeysLevel1()
         let cancelMap = new Map<Key,Canceler>();
         let multiplier = 1;
+        let recorder = Recorder.getInstance();
+        
 
         function mapKey(k:Key, freq:number){
                 keyboard.whileHeld(k,()=>{
                         console.log("playing",freq*multiplier);
                         cancelMap.set(k,synth.playTone(freq*multiplier))
                 },()=>{
+                        // record that we pressed this key with the recorder
+                        recorder.addKey(k);
                         cancelMap.get(k)?.cancel();
                 })
         }

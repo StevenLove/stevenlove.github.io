@@ -12,5 +12,11 @@
     "watch": "./node_modules/.bin/webpack --mode=development --watch",
     "serve": "./node_modules/.bin/http-server",
     "server": "./node_modules/.bin/webpack-dev-server --mode=development --open"
+  },
+  "dependencies": {
+    "chartjs": "^0.3.24",
+    "chartjs-plugin-streaming": "^2.0.0",
+    "date-fns": "^3.6.0",
+    "fft.js": "^4.0.4"
   }
 }

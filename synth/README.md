@@ -18,3 +18,4 @@ and then open the page (src/index.html) in your browser and manually refresh or
 ## Other resources
 https://virtualspeech.com/tools/pitch-detector
 http://davedave.us/wavetable-synth/
+https://alexanderell.is/posts/tuner/

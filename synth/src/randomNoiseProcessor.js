@@ -14,6 +14,7 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
 
 
     process(inputs, outputs, parameters) {
+        // console.log("process");
         // The input and output are both arrays of arrays.
         // The first dimension is the number of input or output channels.
         // The second dimension is the number of frames.
@@ -27,8 +28,6 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
 
         // copy the input to the output
         for (let channel = 0; channel < input.length; ++channel) {
-            // console.log("inputs",channel,input[channel].length)
-
             for (let i = 0; i < input[channel].length; ++i) {
                 output[channel][i] = input[channel][i] // + Math.random()*0.5-0.25;
             }
@@ -49,9 +48,9 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
             }
             // if(sum > 5){
                 // console.log("sum",sum/best)
-            if(sum){
+            // if(sum){
                 this.port.postMessage({sum:sum/best})
-            }
+            // }
             // }
 
             // output[channel].set(input[channel]);

@@ -2,6 +2,7 @@ import { Time } from "./Time";
 import { pageLoaded,Canceler } from "./Lib";
 import { getReadyAudioContext } from "./AudioContext"
 import { MyChart } from "./Chart"
+import { Microphone } from "./Microphone"
 
 const Synth = (async ()=>{
  
@@ -151,29 +152,58 @@ const Synth = (async ()=>{
     
     })
 
-    const ToneAnalyzer = (()=>{
+    const ToneAnalyzer = ((startFrequency)=>{
         let node = new AudioWorkletNode(
             ctx,
             "random-noise-processor",
-            {
-                parameterData:{
-                    targetFrequency: 440,
-                }
-            }
+            // {
+            //     parameterData:{
+            //         targetFrequency: 440,
+            //     }
+            // }
         )
-        node.parameters.forEach(param=>{
-            param.setValueAtTime(440,ctx.currentTime);
-        })
+
+        let targetFrequency = startFrequency;
+        function updateFrequency(){
+            node.parameters.forEach(param=>{
+                param.setValueAtTime(targetFrequency,ctx.currentTime);
+            })
+            div.innerHTML = targetFrequency+" Hz"
+        }
+
+
+        const div = document.createElement("div");
+        div.style.width = "100px";
+        div.style.height = "100px";
+        // give a padding of 10px
+        div.style.padding = "10px";
+        div.style.border = "1px solid black";
+        // set the font size to 20px
+        div.style.fontSize = "20px";
+        // set to inline-block so the divs can be placed next to each other
+        div.style.display = "inline-block";
+        // set the text to be centered
+        div.style.textAlign = "center";
+        // set the vertical alignment to be middle
+        div.style.verticalAlign = "middle";
+        // set the line height to be the same as the height of the div
+        div.style.lineHeight = "80px";
+
+
+        // set background-color transition to 10ms
+        div.style.transition = "background-color 10ms linear";
+
+        document.body.appendChild(div);
+        updateFrequency();
+        node.port.onmessage = (e)=>{
+            let x = e.data.sum || 0;
+            div.style.backgroundColor='rgb(100,'+x*255+',100)'
+        }
 
         return {
             node,
-            setTargetFrequency: (freq:number)=>{
-                node.parameters.forEach(param=>{
-                    param.setValueAtTime(freq,ctx.currentTime);
-                })
-            },
             onMessage: (cb:(e:MessageEvent)=>void)=>{
-                node.port.onmessage = cb;
+                // node.port.onmessage = cb;
             }
         }
     })
@@ -187,7 +217,7 @@ const Synth = (async ()=>{
     const dynamicNotesOutro = Gain();
     const computerSpeakers = ctx.destination;
     const visualizer = await Visualizer();
-    const chart = await MyChart()
+    // const chart = await MyChart()
 
     await ctx.audioWorklet.addModule("randomNoiseProcessor.js?q="+Math.random());
     const randomNoiseNode = new AudioWorkletNode(
@@ -195,37 +225,34 @@ const Synth = (async ()=>{
         "random-noise-processor"
     );
     let testers = [];
-    testers.push(ToneAnalyzer())
-    testers.push(ToneAnalyzer())
-    // testers.push(ToneAnalyzer())
-    // testers.push(ToneAnalyzer())
-    // testers.push(ToneAnalyzer())
-    // testers.push(ToneAnalyzer())
+    testers.push(ToneAnalyzer(440))
+    testers.push(ToneAnalyzer(493.88))
+    testers.push(ToneAnalyzer(523.25))
+    testers.push(ToneAnalyzer(587.33))
+    testers.push(ToneAnalyzer(659.25))
+    testers.push(ToneAnalyzer(698.46))
+    testers.push(ToneAnalyzer(783.99))
+    testers.push(ToneAnalyzer(880))
+    testers.push(ToneAnalyzer(987.77))
+    testers.push(ToneAnalyzer(1046.5))
+    testers.push(ToneAnalyzer(1174.66))
+    testers.push(ToneAnalyzer(1318.51))
 
-    testers[1].setTargetFrequency(587.33)
+    let microphoneNode = (await Microphone()).node;
 
-    testers.forEach(tester=>{
-        tester.onMessage(e=>{
-            chart.add(e.data.sum)
-        })
-    })
-    // loop over each tester and connect each one to the next one
-    for(let i = 0; i < testers.length-1; ++i){
-        testers[i].node.connect(testers[i+1].node);
+    let nodes = [
+        dynamicNotesIntro.node,
+        dynamicNotesOutro.node,
+        // microphoneNode,
+        masterGain.node,
+        visualizer.node,
+        testers.map(t=>t.node),
+        computerSpeakers
+    ]
+    let flatNodes = nodes.flat();
+    for(let i = 0; i < flatNodes.length-1; ++i){
+        flatNodes[i].connect(flatNodes[i+1]);
     }
-
-
-    // connect up all the basic nodes
-    dynamicNotesIntro.connect(dynamicNotesOutro.node);
-    dynamicNotesOutro.connect(masterGain.node);
-    masterGain.connect(visualizer.node);
-    masterGain.connect(testers[0].node);
-    testers[testers.length-1].node.connect(computerSpeakers);
-    // randomNoiseNode.connect(testnode2);
-    // testnode2.connect(computerSpeakers);
-    // randomNoiseNode.connect(computerSpeakers);
-    // visualizer.connect(computerSpeakers);
-    // await visualizer.display();
 
 
     function playTone(freq:number, duration?:Time):Canceler{
