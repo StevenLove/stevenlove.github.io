@@ -1,5 +1,8 @@
 default:
     @just --list
 
-test:
+serve-local:
     npx http-server .
+
+process:
+    node process.mjs

@@ -28,11 +28,12 @@
 
 
 }
-.cell:active {
+.item:active {
     background-color: green;
     transform: scale(2);
 }
 .category {
+    user-select: none;
     font-weight: bold;
     text-align: center;
     background-color: #e9e9e9;

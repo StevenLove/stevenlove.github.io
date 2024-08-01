@@ -9,45 +9,28 @@ import clipboardy from 'clipboardy';
 import { writeFile } from 'fs/promises';
 
 async function processClipboardText() {
-    // Read from the user's clipboard
-    const clipboardText = await clipboardy.read();
+  // Read from the user's clipboard
+  const clipboardText = await clipboardy.read();
 
-    // Process the text with regex and transformations
-    let sections = clipboardText
-        // clear everything before the first match of 1\n
-        .split(/(?=^1\n)/m)
-        .slice(1);
+  // find the number 1 followed by some text
+  // followed by a number 2 and some text
+  // followed by a 3 and some text, etc.
+  // all the way to 99 and then 00
+  let regex =
+    /(.*)\n?1(.*)\n?2(.*)\n?3(.*)\n?4(.*)\n?5(.*)\n?6(.*)\n?7(.*)\n?8(.*)\n?9(.*)\n?10(.*)\n?11(.*)\n?12(.*)\n?13(.*)\n?14(.*)\n?15(.*)\n?16(.*)\n?17(.*)\n?18(.*)\n?19(.*)\n?20(.*)\n?21(.*)\n?22(.*)\n?23(.*)\n?24(.*)\n?25(.*)\n?26(.*)\n?27(.*)\n?28(.*)\n?29(.*)\n?30(.*)\n?31(.*)\n?32(.*)\n?33(.*)\n?34(.*)\n?35(.*)\n?36(.*)\n?37(.*)\n?38(.*)\n?39(.*)\n?40(.*)\n?41(.*)\n?42(.*)\n?43(.*)\n?44(.*)\n?45(.*)\n?46(.*)\n?47(.*)\n?48(.*)\n?49(.*)\n?50(.*)\n?.*\n+51(.*)\n?52(.*)\n?53(.*)\n?54(.*)\n?55(.*)\n?56(.*)\n?57(.*)\n?58(.*)\n?59(.*)\n?60(.*)\n?61(.*)\n?62(.*)\n?63(.*)\n?64(.*)\n?65(.*)\n?66(.*)\n?67(.*)\n?68(.*)\n?69(.*)\n?70(.*)\n?71(.*)\n?72(.*)\n?73(.*)\n?74(.*)\n?75(.*)\n?76(.*)\n?77(.*)\n?78(.*)\n?79(.*)\n?80(.*)\n?81(.*)\n?82(.*)\n?83(.*)\n?84(.*)\n?85(.*)\n?86(.*)\n?87(.*)\n?88(.*)\n?89(.*)\n?90(.*)\n?91(.*)\n?92(.*)\n?93(.*)\n?94(.*)\n?95(.*)\n?96(.*)\n?97(.*)\n?98(.*)\n?99(.*)\n?00(.*)/gm;
+  // apply regex
+  // let matches = clipboardText(regex);
+  let matches = clipboardText.matchAll(regex);
+  let match = matches.next().value;
+  let str = match
+    .slice(1)
+    .map((s) => s.trim())
+    .join("\n")
+    .trim();
+  let filename = "processed/" + str.slice(0, 10) + ".txt";
+  await writeFile(filename, str);
 
-    // console.log("sections",sections);
-    let promises = sections.map((section, index) => {
-        let result = section
-        .split('\n')
-        .slice(0,200)
-        .join('\n')
-        // .split(/(?=^00\n)/m)[0]
-        // clear everything after the first match of 00\n.*\n
-        // .replace(/(?=^00\n).*\n/m, '')
-        .replace(/(\d+)\n/g, '$1:') // Replace (\d+)\n with $1:
-        .split('\n')                // Split text into lines
-        .filter(line => /^\d\d?/.test(line)) // Keep only lines starting with a number between 00 and 99
-        .sort((a, b) => {
-            let numA = parseInt(a.substring(0, 2), 10);
-            let numB = parseInt(b.substring(0, 2), 10);
-            return (numA === 0 ? 100 : numA) - (numB === 0 ? 100 : numB);
-        })                         // Sort lines in ascending order from 1,2,3,...,98,99,00
-        .map(line=>line.replace(/\d+:(.*)/g, '$1')) // Remove the numbers from each line
-        .join('\n');               // Join lines back into a single string
-    
-        // console.log(result);
-        let name = result.slice(0,10);
-        return writeFile('test/'+name+'.txt', result);
-
-    });
-
-    await Promise.all(promises);
-    // Write the result to a file called output.txt
-
-    console.log('Processed text written to output.txt');
+  console.log(`Processed text written to ${filename}`);
 }
 
 processClipboardText();
