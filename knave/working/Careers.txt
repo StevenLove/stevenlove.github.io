@@ -1,0 +1,100 @@
+acolyte: candlestick, censer, incense
+acrobat: flash powder, balls, lamp oil
+actor: wig, makeup, costume
+alchemist: acid, mortar/pestle, 6 vials
+antiquarian: old coin, flag, lore book
+arcanist: spell book, arcane robes, chalk
+architect: plumb line, level, ruler
+assassin: crossbow, garrote, soft boots
+astrologer: star charts, almanac, telescope
+baker: rolling pin, flour bag, lard block
+bandit: mask, manacles, caltrops
+barber: scissors, hair oil, straight razor
+beast tamer: whip, gloves, leash
+beekeeper: honey, mask, smoke bomb
+blacksmith: hammer, bellows, tongs
+boatman: 10’ pole, instrument, paddle
+bookbinder: sewing kit, glue, quill/ink
+brewer: mash paddle, beer keg, hops
+burglar: lockpicks, grappling hook, rope
+butcher: cleaver, meat hook, bacon
+candlemaker: 10 candles, lamp oil, wax
+carpenter: hammer, saw, box of nails
+charlatan: costume, fake elixir, degree
+cobbler: leather roll, fancy shoes, tacks
+coachman: whip, lockbox, oilskin coat
+cook: frying pan, salt, olive oil
+courier: oilskin bag, local map, lantern
+courtier: perfume, wig, fan
+cultist: dagger, ritual robes, amulet
+cutpurse: knife, caltrops, sack
+dyer: 10’ pole, dyes, soap
+explorer: sextant, spyglass, crampons
+falconer: bird cage, gloves, whistle
+fence: short sword, file, sealing wax
+fisherman: spear, net, fishing tackle
+folklorist: prophecy, bones, scales
+gambler: rapier, card deck, dice
+gamekeeper: sling, horn, rope ladder
+gardener: sickle, shovel, shears
+grave robber: saw, crowbar, pulleys
+gravedigger: shovel, pickaxe, bucket
+groom: oats, horse brush, blanket
+guard: halberd, livery, horn
+headsman: axe, hood, garrote
+herbalist: herbs, sickle, herb manual
+hermit: staff, fungi, basket
+hunter: tent, bearskin, bear trap
+innkeeper: ladle, 10 candles, cauldron
+inquisitor: manual, vestments, pliers
+investigator: journal, manacles, vial
+jailer: padlock, 10’ chain, wine jug
+jester: scepter, donkey head, motley
+jeweler: pliers, loupe, tweezers
+knight: lady’s favor, banner, signet ring
+kidnapper: chloroform, manacles, hood
+lawyer: fancy robe, law book, certificate 
+locksmith: crowbar, picks, padlock
+mason: chisel, hammer, chalk
+merchant: scales, strongbox, bag of spice
+miner: pickaxe, lantern, pet canary
+musician: 3 instruments
+naturalist: fossil, insect case, geode
+officer: shoe polish, medal, spyglass
+oracle: tea leaves, tarot deck, crystal
+orator: 100 marbles, bullhorn, wax tablet
+painter: linseed oil, pigments, brushes
+peddler: bucket, 300’ twine, mirror
+philosopher: staff, lantern, chalk
+physician: saw, scalpel, wine jug
+pilgrim: staff, relic, letter of passage
+pirate: sextant, cannonball, grappling hook 
+pit fighter: net, whip, wine jug
+playwright: quill/ink, skull, 10 candles
+poacher: animal scent, bow, 20 arrows
+poet: stationery, bell, perfume
+priest: holy water, 10 stakes, prayer book
+prospector: 10 iron spikes, pickaxe, pan
+puppeteer: confetti, puppet, sewing kit
+rat catcher: cage, 10 rat traps, sack
+saboteur: air bladder, crowbar, bomb
+sailor: beeswax, pullies, spyglass
+scout: signal flags, black grease, dice
+scribe: lamp oil, quill/ink, sealing wax
+sculptor: chisel, clay, calipers
+servant: sponge, silverware, poker
+shepherd: crook, instrument, sling
+shipwright: drill, hammer, axe
+singer: mirror, makeup, locket
+smuggler: pulleys, rope, makeup
+soldier: tent, card deck, shovel
+spy: caltrops, poison, forged papers
+squire: torch, armor polish, trumpet
+tailor: sewing kit, scissors, soap
+tattooist: soot pot, needles, 10 candles
+thieftaker: bear trap, manacles, torch
+thug: poison, knife, lamp oil
+torturer: drill, hourglass, 10’ chain
+trapper: bear trap, 300’ twine, bear pelt
+watchman: lantern, trumpet, spear
+woodcutter: axe, firewood, 50’ rope
