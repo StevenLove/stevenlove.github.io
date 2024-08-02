@@ -12,6 +12,7 @@ async function fetchFile(name) {
   results[name] = result;
 }
 
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -32,22 +33,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (const [category, items] of Object.entries(data)) {
       const row = document.createElement("div");
       row.className = "row";
+      fetch(`./background_images/${category}.webp`).then((response) => {
+        if (response.ok) {
+          const bg = document.createElement("div");
+          bg.className = "background";
+          bg.style.backgroundImage =
+            `url(./background_images/${category}.webp)`.replace(/ /g, "%20");
+          row.appendChild(bg);
+        }
+      });
 
       const categoryCell = document.createElement("div");
       categoryCell.className = "cell category";
       categoryCell.textContent = category;
-      categoryCell.onpointerdown = function (event) {
-        event.preventDefault();
-      };
-      categoryCell.ontouchstart = function (event) {
-        event.preventDefault();
-      };
-      categoryCell.ontouchmove = function (event) {
-        event.preventDefault();
-      };
-      categoryCell.ontouchend = function (event) {
-        event.preventDefault();
-      };
       row.appendChild(categoryCell);
 
       items.forEach((item) => {
@@ -57,24 +55,49 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         fetchFile(item);
         itemCell.onpointerdown = function (event) {
-          event.preventDefault();
           let r = getRandomInt(100);
           itemCell.innerHTML = item + "\r\n" + r + ": " + results[item][r];
-        };
-        itemCell.ontouchstart = function (event) {
-          event.preventDefault();
-        };
-        itemCell.ontouchmove = function (event) {
-          event.preventDefault();
-        };
-        itemCell.ontouchend = function (event) {
-          event.preventDefault();
         };
 
         row.appendChild(itemCell);
       });
 
       container.appendChild(row);
+    }
+    // Add touch event listeners to ensure smooth scrolling
+    document.querySelectorAll(".cell").forEach((cell) => {
+      cell.addEventListener("touchstart", handleTouchStart, { passive: true });
+      cell.addEventListener("touchmove", handleTouchMove, { passive: true });
+      cell.addEventListener("touchend", handleTouchEnd, { passive: true });
+    });
+
+    // Variables to store touch positions
+    let startX, startY;
+
+    // Handle touch start
+    function handleTouchStart(event) {
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    }
+
+    // Handle touch move
+    function handleTouchMove(event) {
+      const moveX = event.touches[0].clientX;
+      const moveY = event.touches[0].clientY;
+
+      // Calculate the distance moved
+      const diffX = Math.abs(moveX - startX);
+      const diffY = Math.abs(moveY - startY);
+
+      // Allow scrolling if movement is detected
+      if (diffX > 5 || diffY > 5) {
+        event.preventDefault();
+      }
+    }
+
+    // Handle touch end
+    function handleTouchEnd(event) {
+      // No special action needed on touch end
     }
   }
 
