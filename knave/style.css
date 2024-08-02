@@ -1,7 +1,26 @@
+html{
+    background-image:url(./background_images/Parchment2.jpg);
+    background-size: 100%;
+    background-repeat: repeat;
+    /* background-attachment: fixed; */
+    overscroll-behavior: none;
+}
 body{
     font-family: "Almendra", serif;
-    background: wheat;
+    overscroll-behavior: none;
+
 }
+/* 
+.bodybg{
+    overflow:hidden;
+    width: 4000px;
+    height: 2000px;
+
+    position: absolute;
+    z-index: -2;
+    top:-400px;
+    left:-400px;
+} */
 
 h1{
     -webkit-user-select: none; /* Safari */
@@ -19,6 +38,7 @@ h1::selection{
     display: flex;
     flex-direction: column;
     user-select: none;
+    margin-right:10px;
 }
 .overallRow{
     width: 100%;
@@ -27,7 +47,7 @@ h1::selection{
      position:relative;
 }
 .categoryContainer{
-    width: 140px;
+    width: 8em;
     font-size:1.2em;
     padding: 5px;
 }
@@ -83,19 +103,31 @@ h1::selection{
     margin: -5px -5px -5px -5px;
     padding: 0;
 }
-
-/* class for a row with an image for a background. tiled */
-.background {
-    opacity: 20%;
-    background-size: 30%;
-    background-repeat: repeat;
+.backgroundGrandfather{
+    border-radius: 6px;
     height: 100%;
     position: absolute;
     left: -5px;
     right: -5px;
     top: 0;
     z-index: -1;
+}
+.backgroundFather{
+    width:100%;
+    height:100%;
+    /* background:tan; */
+    mask-image: linear-gradient(to right, transparent, black 5px, black calc(100% - 5px), transparent)
+}
+/* class for a row with an image for a background. tiled */
+.background {
+    opacity: 30%;
+    background-size: 30%;
+    background-repeat: repeat;
+    height: 100%;
+    width: 100%;
     animation: moveBackground1 2000s linear infinite; /* Adjust the duration as needed */
+    mask-image: linear-gradient(to bottom, transparent, black 5px, black calc(100% - 5px), transparent)
+    
     /* box-shadow: inset white 0px 0px 10px 7px; */
 
 }
@@ -103,7 +135,10 @@ h1::selection{
 .overallRow:nth-child(odd) .background {
     opacity: 50%;
     animation: moveBackground2 2000s linear infinite; /* Adjust the duration as needed */
-    filter: drop-shadow(2px 4px 6px black) drop-shadow(-2px -4px 6px white)
+}
+.overallRow:nth-child(odd) .backgroundGrandfather{
+    /* filter: drop-shadow(2px 4px 6px black) drop-shadow(-2px -4px 6px white) */
+    box-shadow: 2px 4px 6px black, -2px -4px 6px white;
 }
 
 
@@ -122,5 +157,14 @@ h1::selection{
     }
     100% {
       background-position: -100% -1000%; /* Adjust the value based on the size of your image and the effect you want */
+    }
+  }
+
+  @keyframes moveBackground3 {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 1000% 100%; /* Adjust the value based on the size of your image and the effect you want */
     }
   }
