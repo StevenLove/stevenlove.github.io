@@ -44,8 +44,8 @@ Hermitage
 Hideout
 Highway
 Hunter’s camp
-Hunting lodge 48 Inn (p.
-)
+Hunting lodge 
+Inn
 Keep
 Library
 Lighthouse

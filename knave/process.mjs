@@ -22,6 +22,21 @@ async function processClipboardText() {
   // let matches = clipboardText(regex);
   let matches = clipboardText.matchAll(regex);
   let match = matches.next().value;
+  if (!match) {
+    console.log("No match found.");
+    for (let i = 1; i <= 99; i++) {
+      let regex = new RegExp(`(.*)\\n?${i}(.*)`, "gm");
+      let matches = clipboardText.matchAll(regex);
+      let match = matches.next().value;
+      if (match) {
+        continue;
+      } else {
+        console.log(`Matches found up to #${i}.`);
+        break;
+      }
+    }
+    return;
+  }
   let str = match
     .slice(1)
     .map((s) => s.trim())
