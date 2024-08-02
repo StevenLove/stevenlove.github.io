@@ -1,25 +1,42 @@
+body{
+    font-family: "Almendra", serif;
+    background: wheat;
+}
+
 h1{
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    display:flex;
+    justify-content: center;
 }
 h1::selection{
     background: transparent;
 }
-body{
-  font-family: "Almendra", serif;
-}
+
 .container {
     display: flex;
     flex-direction: column;
     user-select: none;
 }
-.row {
-    position: relative;
+.overallRow{
+    width: 100%;
+    display: flex;
+     gap: 10px;
+     position:relative;
+}
+.categoryContainer{
+    width: 140px;
+    font-size:1.2em;
     padding: 5px;
+}
+.itemsRow {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
+    padding: 10px;
+    width: 100%;
     gap: 10px;
 }
 /* every other row should be shaded */
@@ -39,8 +56,7 @@ body{
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    flex: 30% 1 30%;
-    min-width: 100px;
+    min-width: 0.3vw;
     white-space: pre-wrap;
     /* animate when clicked */
     transition: background-color 1s, transform 1s;
@@ -51,15 +67,15 @@ body{
     background: transparent;
 }
 .item:active {
-    background-color: green;
+    /* background-color: green; */
     transform: scale(2);
+    z-index: 100;
 }
 .category {
     user-select: none;
     font-weight: bold;
     text-align: center;
     background-color: #e9e9e9;
-    flex: 30% 1 30%;
 }
 .hr {
     border: none;
@@ -73,19 +89,21 @@ body{
     opacity: 20%;
     background-size: 30%;
     background-repeat: repeat;
-    width: 100%;
     height: 100%;
     position: absolute;
-    left: 0;
+    left: -5px;
+    right: -5px;
     top: 0;
     z-index: -1;
     animation: moveBackground1 2000s linear infinite; /* Adjust the duration as needed */
+    /* box-shadow: inset white 0px 0px 10px 7px; */
+
 }
 
-.row:nth-child(odd) .background {
+.overallRow:nth-child(odd) .background {
     opacity: 50%;
     animation: moveBackground2 2000s linear infinite; /* Adjust the duration as needed */
-
+    filter: drop-shadow(2px 4px 6px black) drop-shadow(-2px -4px 6px white)
 }
 
 

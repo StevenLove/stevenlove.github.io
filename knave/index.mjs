@@ -31,38 +31,48 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Function to generate the flex grid
   function generateGrid(data) {
     for (const [category, items] of Object.entries(data)) {
-      const row = document.createElement("div");
-      row.className = "row";
-      fetch(`./background_images/${category}.webp`).then((response) => {
-        if (response.ok) {
-          const bg = document.createElement("div");
-          bg.className = "background";
-          bg.style.backgroundImage =
-            `url(./background_images/${category}.webp)`.replace(/ /g, "%20");
-          row.appendChild(bg);
-        }
-      });
+    
+        const overallRow = document.createElement("div");
+        overallRow.className = "overallRow";
+        container.appendChild(overallRow);
 
-      const categoryCell = document.createElement("div");
-      categoryCell.className = "cell category";
-      categoryCell.textContent = category;
-      row.appendChild(categoryCell);
+        const categoryContainer = document.createElement("div");
+        categoryContainer.className = "categoryContainer";
 
-      items.forEach((item) => {
-        const itemCell = document.createElement("div");
-        itemCell.className = "cell item";
-        itemCell.textContent = item;
+        fetch(`./background_images/${category}.webp`).then((response) => {
+          if (response.ok) {
+            const bg = document.createElement("div");
+            bg.className = "background";
+            bg.style.backgroundImage =
+              `url(./background_images/${category}.webp)`.replace(/ /g, "%20");
+            itemsRow.appendChild(bg);
+          }
+        });
 
-        fetchFile(item);
-        itemCell.onpointerdown = function (event) {
-          let r = getRandomInt(100);
-          itemCell.innerHTML = item + "\r\n" + r + ": " + results[item][r];
-        };
+        const categoryCell = document.createElement("div");
+        categoryCell.className = "cell category";
+        categoryCell.textContent = category;
+        categoryContainer.appendChild(categoryCell);
+        overallRow.appendChild(categoryContainer);
 
-        row.appendChild(itemCell);
-      });
+        const itemsRow = document.createElement("div");
+        itemsRow.className = "itemsRow";
 
-      container.appendChild(row);
+        items.forEach((item) => {
+          const itemCell = document.createElement("div");
+          itemCell.className = "cell item";
+          itemCell.textContent = item;
+
+          fetchFile(item);
+          itemCell.onpointerdown = function (event) {
+            let r = getRandomInt(100);
+            itemCell.innerHTML = item + "\r\n" + results[item][r];
+          };
+
+          itemsRow.appendChild(itemCell);
+        });
+
+        overallRow.appendChild(itemsRow);
     }
     // Add touch event listeners to ensure smooth scrolling
     document.querySelectorAll(".cell").forEach((cell) => {
