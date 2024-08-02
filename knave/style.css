@@ -47,7 +47,7 @@ h1::selection{
      position:relative;
 }
 .categoryContainer{
-    width: 8em;
+    width: 10em;
     font-size:1.2em;
     padding: 5px;
 }
@@ -121,7 +121,7 @@ h1::selection{
 /* class for a row with an image for a background. tiled */
 .background {
     opacity: 30%;
-    background-size: 30%;
+    background-size: 200%;
     background-repeat: repeat;
     height: 100%;
     width: 100%;
