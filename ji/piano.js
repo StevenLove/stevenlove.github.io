@@ -6,7 +6,7 @@ const Piano = (() => {
   var _rootFrequency = 220; //hz
   var _detuning = 0;
   const s = 100;
-  var _intervals = [0, 203.91, 407.82, 498.04, 701.96, 905.87, 1109.78];
+  var _intervals = ["0", "200", "400", "500", "700", "900", "1100"];
 
   // notes: 0,200,400,500,700,900,1100,1200
   var mode = 0;

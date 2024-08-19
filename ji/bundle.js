@@ -2015,7 +2015,7 @@ const Piano = (() => {
   var _rootFrequency = 220; //hz
   var _detuning = 0;
   const s = 100;
-  var _intervals = [0, 203.91, 407.82, 498.04, 701.96, 905.87, 1109.78];
+  var _intervals = ["0", "200", "400", "500", "700", "900", "1100"];
 
   // notes: 0,200,400,500,700,900,1100,1200
   var mode = 0;
@@ -2303,6 +2303,20 @@ const piano = require("./piano.js");
 const Converter = require("./converter.js");
 const AudioPlayer = require("./audioplayer.js");
 
+function arraysEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  let equal = true;
+  $.each(arr1, function (index, value) {
+    if (value !== arr2[index]) {
+      equal = false;
+      return false; // break the loop
+    }
+  });
+  return equal;
+}
+
 const TimbreControls = (() => {
   const setupVolumeComponent = () => {
     $("#volume").val(15);
@@ -2360,7 +2374,15 @@ const TimbreControls = (() => {
     //   $("#currentIntervals").on("input", handleUpdateIntervals);
 
     // preset intervals
+    $("#minor").on("click", () => {
+      $("#currentIntervals").val("0 200 300 500 700 900 1000");
+      handleUpdateIntervals();
+    });
     $("#ji").on("click", () => {
+      $("#currentIntervals").val("0 204 386 498 702 884 1088");
+      handleUpdateIntervals();
+    });
+    $("#pythagorean").on("click", () => {
       $("#currentIntervals").val(
         "0 203.91 407.82 498.04 701.96 905.87 1109.78"
       );
@@ -2391,7 +2413,33 @@ const TimbreControls = (() => {
       handleUpdateIntervals();
     });
     const updateDisplay = () => {
-      $("#currentMode").text(piano.getMode());
+      console.log(piano.getIntervals());
+      if (
+        arraysEqual(piano.getIntervals(), [
+          "0",
+          "200",
+          "400",
+          "500",
+          "700",
+          "900",
+          "1100",
+        ])
+      ) {
+        let describe = {
+          0: "Major",
+          1: "Dorian",
+          2: "Phrygian",
+          3: "Lydian",
+          4: "Mixolydian",
+          5: "Minor",
+          6: "Locrian",
+        };
+        $("#currentMode").text(
+          `${piano.getMode() + 1} (${describe[piano.getMode()]})`
+        );
+      } else {
+        $("#currentMode").text(piano.getMode() + 1);
+      }
       $("#currentRoot").text(Converter.frequencyToName(piano.getRoot()));
       console.log("update display called");
       $("#currentScale").text(piano.getScale().toString());

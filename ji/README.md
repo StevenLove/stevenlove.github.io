@@ -10,4 +10,5 @@ index.html has the instructions on how to play this customizable synthesizer
 `npx watchify main.js -o bundle.js`
 
 # To Run
+`open -a 'Google Chrome' index.html`
 Open `index.html` in a browser

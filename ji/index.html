@@ -35,14 +35,33 @@
 
     <body style="margin:10px">
         <h1> Customizable Synthesizer </h1>
+        <h3> Purpose</h3>
+        <p>
+            This synthesizer allows you to play in alternate keys and tunings just as easily as playing in C major! <br>
+            <br>
+            Try some experiments like: <br>
+            - Play with a flattened 3rd to see if it truly sounds more consonant<br>
+            - Play in pythagorean tuning <br>
+            - Play in the Locrian mode to see if you can hear the root <br>
+            - Learn to play a simple melody in a major key and then easily transpose it to minor by hitting N twice <br>
+            - Simulate a chime by lowering the amplitudes of harmonic series #2 through #7 and raising #8. <br>
+            - Find the key of a song on the radio by playing along and switching roots/modes until you find a match. <br>
+
+        </p>
         <h3> Controls </h3>
         <p> 
-            Notes are played by pressing keys in your home row: namely, <kbd>CapsLock</kbd>, <kbd>a</kbd>, <kbd>s</kbd>, <kbd>d</kbd>, <kbd>f</kbd>, <kbd>g</kbd>, <kbd>h</kbd>, <kbd>j</kbd>, <kbd>k</kbd>, <kbd>l</kbd>, <kbd>;</kbd>, <kbd>'</kbd>, and <kbd>Enter</kbd>
-        <br>The root of your scale can be modified by raising it with <kbd>b</kbd> or by lowering it with <kbd>v</kbd>
-        <br>The mode of your scale can be similarly modified with <kbd>m</kbd> and <kbd>n</kbd>
+            Play Notes: <kbd>CapsLock</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd>, <kbd>F</kbd>, <kbd>G</kbd>, <kbd>H</kbd>, <kbd>J</kbd>, <kbd>K</kbd>, <kbd>L</kbd>, <kbd>;</kbd>, <kbd>'</kbd>, and <kbd>Enter</kbd>
+        <br>Next Root: <kbd>B</kbd>
+        <br>Prev Root: <kbd>V</kbd>
+        <br>Next Mode: <kbd>M</kbd>
+        <br>Prev Mode: <kbd>N</kbd>
+        <br>Intervals are measured in cents and should be separated by whitespace. 
+        <br> Note:
+        <br>100 cents is the difference between B and C, or A and A#. 200 cents is the difference between A and B. 1200 cents is a whole octave.
+        <br>When you see text like <code>d4(-2)</code> it refers to the note d4 played 2 cents flat.
         </p>
         <br>
-        <label>Root:&nbsp;</label><span id="currentRoot"></span><span>&nbsp;(<input id="currentDetuning">)</span>
+        <label>Root:&nbsp;</label><span id="currentRoot"></span><span>&nbsp;(<input style="width:3em" id="currentDetuning">)&lt;--- cents offset</span>
         <div style="display:flex; flex-direction:row">
             <div>
                 <label for="intervals">Intervals:&nbsp;</label>
@@ -50,10 +69,14 @@
             <div style="display: flex; flex-direction: column">
                 <div>
                     <input id="currentIntervals" type="text" style="width:300px">
-                    <button id="currentIntervalsButton">Set Intervals</button>
+                    <!-- <button id="currentIntervalsButton">Set Intervals</button> -->
                 </div>
                 <div style="display: flex; gap: 1px; margin-top:2px;">
-                    <button id="12tet">12TET</button><button id="ji">Just Intonation</button><button id="pentatonic">Pentatonic</button>
+                    <button id="12tet">Major</button>
+                    <button id="minor">Minor</button>
+                    <button id="ji">Just Intonation Major</button>
+                    <button id="pythagorean">Pythagorean Major</button>
+                    <button id="pentatonic">Pentatonic</button>
                 </div>
             </div>
         </div>
